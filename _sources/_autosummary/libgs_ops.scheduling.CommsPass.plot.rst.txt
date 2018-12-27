@@ -1,0 +1,6 @@
+libgs\_ops\.scheduling\.CommsPass\.plot
+=======================================
+
+.. currentmodule:: libgs_ops.scheduling
+
+.. automethod:: CommsPass.plot

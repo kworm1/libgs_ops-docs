@@ -1,0 +1,6 @@
+libgs\_ops\.scheduling\.Error
+=============================
+
+.. currentmodule:: libgs_ops.scheduling
+
+.. autoexception:: Error

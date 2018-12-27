@@ -1,0 +1,50 @@
+
+
+libgs\_ops\.scheduling\.CommsPass
+=================================
+
+.. currentmodule:: libgs_ops.scheduling
+
+.. autoclass:: CommsPass
+
+   
+
+   
+   .. rubric:: Methods
+
+   
+   .. autosummary::
+      :toctree: .
+   
+      
+      
+      ~CommsPass.add_communication
+      
+      
+      ~CommsPass.copy
+      
+      
+      ~CommsPass.from_dict
+      
+      
+      ~CommsPass.from_json
+      
+      
+      ~CommsPass.overlaps
+      
+      
+      ~CommsPass.plot
+      
+      
+      ~CommsPass.to_dict
+      
+      
+      ~CommsPass.to_json
+      
+   
+   
+
+   
+   
+   
+

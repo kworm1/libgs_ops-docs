@@ -1,0 +1,6 @@
+libgs\_ops\.scheduling\.CommsPass\.from\_dict
+=============================================
+
+.. currentmodule:: libgs_ops.scheduling
+
+.. automethod:: CommsPass.from_dict

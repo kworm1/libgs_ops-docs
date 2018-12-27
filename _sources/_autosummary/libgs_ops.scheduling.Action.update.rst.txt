@@ -1,0 +1,6 @@
+libgs\_ops\.scheduling\.Action\.update
+======================================
+
+.. currentmodule:: libgs_ops.scheduling
+
+.. automethod:: Action.update

@@ -1,0 +1,6 @@
+libgs\_ops\.scheduling\.Action\.fromkeys
+========================================
+
+.. currentmodule:: libgs_ops.scheduling
+
+.. automethod:: Action.fromkeys

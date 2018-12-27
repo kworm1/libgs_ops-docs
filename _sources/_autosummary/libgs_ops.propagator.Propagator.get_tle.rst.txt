@@ -1,0 +1,6 @@
+libgs\_ops\.propagator\.Propagator\.get\_tle
+============================================
+
+.. currentmodule:: libgs_ops.propagator
+
+.. automethod:: Propagator.get_tle

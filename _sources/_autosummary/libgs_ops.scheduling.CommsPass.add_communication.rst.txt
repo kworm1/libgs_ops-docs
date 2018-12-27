@@ -1,0 +1,6 @@
+libgs\_ops\.scheduling\.CommsPass\.add\_communication
+=====================================================
+
+.. currentmodule:: libgs_ops.scheduling
+
+.. automethod:: CommsPass.add_communication

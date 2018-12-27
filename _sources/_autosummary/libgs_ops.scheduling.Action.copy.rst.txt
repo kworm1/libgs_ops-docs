@@ -1,0 +1,6 @@
+libgs\_ops\.scheduling\.Action\.copy
+====================================
+
+.. currentmodule:: libgs_ops.scheduling
+
+.. automethod:: Action.copy

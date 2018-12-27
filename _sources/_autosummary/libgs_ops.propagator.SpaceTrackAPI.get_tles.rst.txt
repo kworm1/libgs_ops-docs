@@ -1,0 +1,6 @@
+libgs\_ops\.propagator\.SpaceTrackAPI\.get\_tles
+================================================
+
+.. currentmodule:: libgs_ops.propagator
+
+.. automethod:: SpaceTrackAPI.get_tles

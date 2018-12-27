@@ -1,0 +1,6 @@
+libgs\_ops\.scheduling\.Action\.get
+===================================
+
+.. currentmodule:: libgs_ops.scheduling
+
+.. automethod:: Action.get

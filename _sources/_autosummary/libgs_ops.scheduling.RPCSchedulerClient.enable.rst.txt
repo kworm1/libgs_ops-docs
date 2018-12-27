@@ -1,0 +1,6 @@
+libgs\_ops\.scheduling\.RPCSchedulerClient\.enable
+==================================================
+
+.. currentmodule:: libgs_ops.scheduling
+
+.. automethod:: RPCSchedulerClient.enable

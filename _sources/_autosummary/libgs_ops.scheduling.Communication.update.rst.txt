@@ -1,0 +1,6 @@
+libgs\_ops\.scheduling\.Communication\.update
+=============================================
+
+.. currentmodule:: libgs_ops.scheduling
+
+.. automethod:: Communication.update

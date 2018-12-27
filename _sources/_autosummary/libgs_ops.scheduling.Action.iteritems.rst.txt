@@ -1,0 +1,6 @@
+libgs\_ops\.scheduling\.Action\.iteritems
+=========================================
+
+.. currentmodule:: libgs_ops.scheduling
+
+.. automethod:: Action.iteritems

@@ -1,0 +1,6 @@
+libgs\_ops\.scheduling\.Action\.setdefault
+==========================================
+
+.. currentmodule:: libgs_ops.scheduling
+
+.. automethod:: Action.setdefault

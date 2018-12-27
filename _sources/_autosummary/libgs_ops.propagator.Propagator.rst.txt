@@ -1,0 +1,68 @@
+
+
+libgs\_ops\.propagator\.Propagator
+==================================
+
+.. currentmodule:: libgs_ops.propagator
+
+.. autoclass:: Propagator
+
+   
+
+   
+   .. rubric:: Methods
+
+   
+   .. autosummary::
+      :toctree: .
+   
+      
+      
+      ~Propagator.compute_pass
+      
+      
+      ~Propagator.get_all
+      
+      
+      ~Propagator.get_angles
+      
+      
+      ~Propagator.get_angles_old
+      
+      
+      ~Propagator.get_doppler
+      
+      
+      ~Propagator.get_eclipsed
+      
+      
+      ~Propagator.get_ground_coord
+      
+      
+      ~Propagator.get_orbit
+      
+      
+      ~Propagator.get_passes
+      
+      
+      ~Propagator.get_range
+      
+      
+      ~Propagator.get_range_rate
+      
+      
+      ~Propagator.get_tle
+      
+      
+      ~Propagator.get_visible_satellites
+      
+      
+      ~Propagator.print_info
+      
+   
+   
+
+   
+   
+   
+

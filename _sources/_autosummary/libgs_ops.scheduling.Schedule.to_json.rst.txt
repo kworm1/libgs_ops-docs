@@ -1,0 +1,6 @@
+libgs\_ops\.scheduling\.Schedule\.to\_json
+==========================================
+
+.. currentmodule:: libgs_ops.scheduling
+
+.. automethod:: Schedule.to_json

@@ -1,0 +1,38 @@
+
+
+libgs\_ops\.propagator\.SpaceTrackAPI
+=====================================
+
+.. currentmodule:: libgs_ops.propagator
+
+.. autoclass:: SpaceTrackAPI
+
+   
+
+   
+   .. rubric:: Methods
+
+   
+   .. autosummary::
+      :toctree: .
+   
+      
+      
+      ~SpaceTrackAPI.get_tle_sets
+      
+      
+      ~SpaceTrackAPI.get_tles
+      
+      
+      ~SpaceTrackAPI.query_raw
+      
+      
+      ~SpaceTrackAPI.query_tle
+      
+   
+   
+
+   
+   
+   
+

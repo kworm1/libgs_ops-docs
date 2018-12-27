@@ -1,0 +1,6 @@
+libgs\_ops\.propagator\.Propagator\.print\_info
+===============================================
+
+.. currentmodule:: libgs_ops.propagator
+
+.. automethod:: Propagator.print_info

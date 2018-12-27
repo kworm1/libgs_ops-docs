@@ -1,0 +1,440 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>libgs_ops.propagator.SpaceTrackAPI.query_tle &mdash; libgs_ops  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="libgs_ops.propagator.TLEDb" href="libgs_ops.propagator.TLEDb.html" />
+    <link rel="prev" title="libgs_ops.propagator.SpaceTrackAPI.query_raw" href="libgs_ops.propagator.SpaceTrackAPI.query_raw.html" /> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> libgs_ops
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="libgs_ops.propagator.html">libgs_ops.propagator</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="libgs_ops.propagator.mpl_plot_pass.html">libgs_ops.propagator.mpl_plot_pass</a></li>
+<li class="toctree-l2"><a class="reference internal" href="libgs_ops.propagator.Propagator.html">libgs_ops.propagator.Propagator</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="libgs_ops.propagator.SpaceTrackAPI.html">libgs_ops.propagator.SpaceTrackAPI</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="libgs_ops.propagator.SpaceTrackAPI.get_tle_sets.html">libgs_ops.propagator.SpaceTrackAPI.get_tle_sets</a></li>
+<li class="toctree-l3"><a class="reference internal" href="libgs_ops.propagator.SpaceTrackAPI.get_tles.html">libgs_ops.propagator.SpaceTrackAPI.get_tles</a></li>
+<li class="toctree-l3"><a class="reference internal" href="libgs_ops.propagator.SpaceTrackAPI.query_raw.html">libgs_ops.propagator.SpaceTrackAPI.query_raw</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">libgs_ops.propagator.SpaceTrackAPI.query_tle</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="libgs_ops.propagator.TLEDb.html">libgs_ops.propagator.TLEDb</a></li>
+<li class="toctree-l2"><a class="reference internal" href="libgs_ops.propagator.Error.html">libgs_ops.propagator.Error</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="libgs_ops.scheduling.html">libgs_ops.scheduling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="libgs_ops.rpc.html">libgs_ops.rpc</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">libgs_ops</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="libgs_ops.propagator.html">libgs_ops.propagator</a> &raquo;</li>
+        
+          <li><a href="libgs_ops.propagator.SpaceTrackAPI.html">libgs_ops.propagator.SpaceTrackAPI</a> &raquo;</li>
+        
+      <li>libgs_ops.propagator.SpaceTrackAPI.query_tle</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/_autosummary/libgs_ops.propagator.SpaceTrackAPI.query_tle.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="libgs-ops-propagator-spacetrackapi-query-tle">
+<h1>libgs_ops.propagator.SpaceTrackAPI.query_tle<a class="headerlink" href="#libgs-ops-propagator-spacetrackapi-query-tle" title="Permalink to this headline">¶</a></h1>
+<dl class="method">
+<dt id="libgs_ops.propagator.SpaceTrackAPI.query_tle">
+<code class="descclassname">SpaceTrackAPI.</code><code class="descname">query_tle</code><span class="sig-paren">(</span><em>params</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/libgs_ops/propagator.html#SpaceTrackAPI.query_tle"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#libgs_ops.propagator.SpaceTrackAPI.query_tle" title="Permalink to this definition">¶</a></dt>
+<dd><p>Perform a (fairly) raw query to the spacetrack API for the most recent
+three-line-elements.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>params</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) – A dictionary of parameter/argument pairs that
+specify the exact query to make.</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This function will always return three-line-elements. I.e.
+the param pairs are added to the API URI “/basicspacedata/query/class/tle_latest/format/3le/ORDINAL/1”</p>
+</div>
+<p><strong>Parameter syntax</strong></p>
+<p>See <a class="reference external" href="https://www.space-track.org/documentation#/api">spacetrack</a>
+for the most up-to-date descripions of the possible parameter/value pairs.</p>
+<p>Each entry in the param dict follows key:value as per the model
+definition. For the latest model definition see <a class="reference external" href="https://www.space-track.org/basicspacedata/modeldef/class/tle_latest/format/html">here</a>.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="46%" />
+<col width="54%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Field</th>
+<th class="head">Type</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>ORDINAL</td>
+<td>tinyint(3) unsigned</td>
+</tr>
+<tr class="row-odd"><td>COMMENT</td>
+<td>varchar(32)</td>
+</tr>
+<tr class="row-even"><td>ORIGINATOR</td>
+<td>varchar(5)</td>
+</tr>
+<tr class="row-odd"><td>NORAD_CAT_ID</td>
+<td>mediumint(8) unsigned</td>
+</tr>
+<tr class="row-even"><td>OBJECT_NAME</td>
+<td>varchar(60)</td>
+</tr>
+<tr class="row-odd"><td>OBJECT_TYPE</td>
+<td>varchar(11)</td>
+</tr>
+<tr class="row-even"><td>CLASSIFICATION_TYPE</td>
+<td>char(1)</td>
+</tr>
+<tr class="row-odd"><td>INTLDES</td>
+<td>varchar(8)</td>
+</tr>
+<tr class="row-even"><td>EPOCH</td>
+<td>datetime</td>
+</tr>
+<tr class="row-odd"><td>EPOCH_MICROSECONDS</td>
+<td>mediumint(8) unsigned</td>
+</tr>
+<tr class="row-even"><td>MEAN_MOTION</td>
+<td>double</td>
+</tr>
+<tr class="row-odd"><td>ECCENTRICITY</td>
+<td>double</td>
+</tr>
+<tr class="row-even"><td>INCLINATION</td>
+<td>double</td>
+</tr>
+<tr class="row-odd"><td>RA_OF_ASC_NODE</td>
+<td>double</td>
+</tr>
+<tr class="row-even"><td>ARG_OF_PERICENTER</td>
+<td>double</td>
+</tr>
+<tr class="row-odd"><td>MEAN_ANOMALY</td>
+<td>double</td>
+</tr>
+<tr class="row-even"><td>EPHEMERIS_TYPE</td>
+<td>tinyint(3) unsigned</td>
+</tr>
+<tr class="row-odd"><td>ELEMENT_SET_NO</td>
+<td>smallint(5) unsigned</td>
+</tr>
+<tr class="row-even"><td>REV_AT_EPOCH</td>
+<td>float</td>
+</tr>
+<tr class="row-odd"><td>BSTAR</td>
+<td>double</td>
+</tr>
+<tr class="row-even"><td>MEAN_MOTION_DOT</td>
+<td>double</td>
+</tr>
+<tr class="row-odd"><td>MEAN_MOTION_DDOT</td>
+<td>double</td>
+</tr>
+<tr class="row-even"><td>FILE</td>
+<td>int(10) unsigned</td>
+</tr>
+<tr class="row-odd"><td>TLE_LINE0</td>
+<td>varchar(62)</td>
+</tr>
+<tr class="row-even"><td>TLE_LINE1</td>
+<td>char(71)</td>
+</tr>
+<tr class="row-odd"><td>TLE_LINE2</td>
+<td>char(71)</td>
+</tr>
+<tr class="row-even"><td>OBJECT_ID</td>
+<td>varchar(11)</td>
+</tr>
+<tr class="row-odd"><td>OBJECT_NUMBER</td>
+<td>mediumint(8) unsigned</td>
+</tr>
+<tr class="row-even"><td>SEMIMAJOR_AXIS</td>
+<td>double(20,3)</td>
+</tr>
+<tr class="row-odd"><td>PERIOD</td>
+<td>double(20,3)</td>
+</tr>
+<tr class="row-even"><td>APOGEE</td>
+<td>double(20,3)</td>
+</tr>
+<tr class="row-odd"><td>PERIGEE</td>
+<td>double(20,3)</td>
+</tr>
+</tbody>
+</table>
+<p>The following operators can be used with the values</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="12%" />
+<col width="88%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Operator</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>&gt;</td>
+<td>Greater Than (alternate is %3E)</td>
+</tr>
+<tr class="row-odd"><td>&lt;</td>
+<td>Less Than (alternate is %3C)</td>
+</tr>
+<tr class="row-even"><td>&lt;&gt;</td>
+<td>Not Equal (alternate is %3C%3E)</td>
+</tr>
+<tr class="row-odd"><td>,</td>
+<td>Comma Delimited ‘OR’ (ex. 1,2,3)</td>
+</tr>
+<tr class="row-even"><td>–</td>
+<td>Inclusive Range
+(ex. <code class="docutils literal"><span class="pre">1--100</span></code> returns 1 and 100 and everything in between).
+Date ranges are expressed as
+<code class="docutils literal"><span class="pre">YYYY-MM-DD%20HH:MM:SS--YYYY-MM-DD%20HH:MM:SS</span></code> or
+<code class="docutils literal"><span class="pre">YYYY-MM-DD--YYYY-MM-DD</span></code></td>
+</tr>
+<tr class="row-odd"><td>null-val</td>
+<td>Value for ‘NULL’, can only be used with Not Equal (&lt;&gt;) or by itself.</td>
+</tr>
+<tr class="row-even"><td>~~</td>
+<td>“Like” or Wildcard search. You may put the <code class="docutils literal"><span class="pre">~~</span></code> before or
+after the text; wildcard is evaluated regardless of
+location of <code class="docutils literal"><span class="pre">~~</span></code> in the URL. For example, <code class="docutils literal"><span class="pre">~~OB</span></code> will return
+‘OBJECT 1’, ‘GLOBALSTAR’, ‘PROBA 1’, etc.</td>
+</tr>
+<tr class="row-odd"><td>^</td>
+<td>Wildcard after value with a minimum of two characters.
+(alternate is %5E) The wildcard is evaluated after the
+text regardless of location of ^ in the URL. For example,
+<code class="docutils literal"><span class="pre">^OB</span></code> will return ‘OBJECT 1’, ‘OBJECT 2’, etc. but not ‘GLOBALSTAR’</td>
+</tr>
+<tr class="row-even"><td>now</td>
+<td>Variable that contains the current system date and time.
+Add or subtract days (or fractions thereof) after ‘now’
+to modify the date/time, e.g. <code class="docutils literal"><span class="pre">now-7</span></code>, <code class="docutils literal"><span class="pre">now+14</span></code>, <code class="docutils literal"><span class="pre">now-6.5</span></code>,
+<code class="docutils literal"><span class="pre">now+2.3</span></code>. Use &lt;,&gt;,and – to get a range of dates;
+e.g. <code class="docutils literal"><span class="pre">&gt;now-7</span></code>, <code class="docutils literal"><span class="pre">now-14--now</span></code></td>
+</tr>
+</tbody>
+</table>
+<p>You can also specify to order results by a specific field by using
+they</p>
+<p>Examples:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">query_tle</span><span class="p">({</span><span class="s1">&#39;PERIOD&#39;</span><span class="p">:</span> <span class="s1">&#39;&lt;128&#39;</span><span class="p">})</span>
+<span class="go">Satellites currently in Low Earth Orbit (LEO = &lt;2000KM altitude).</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">query_tle</span><span class="p">({</span><span class="s1">&#39;PERIOD&#39;</span><span class="p">:</span><span class="s1">&#39;1430--1450&#39;</span><span class="p">,</span> <span class="s1">&#39;orderby&#39;</span><span class="p">:</span><span class="s1">&#39;NORAD_CAT_ID&#39;</span><span class="p">})</span>
+<span class="go">Satellites in geosynchronous orbit 1430 &lt;= period &lt;= 1450 minutes.</span>
+<span class="go">Sort results by Norad ID.</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="libgs_ops.propagator.TLEDb.html" class="btn btn-neutral float-right" title="libgs_ops.propagator.TLEDb" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="libgs_ops.propagator.SpaceTrackAPI.query_raw.html" class="btn btn-neutral" title="libgs_ops.propagator.SpaceTrackAPI.query_raw" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, UNSW
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript">
+          var DOCUMENTATION_OPTIONS = {
+              URL_ROOT:'../',
+              VERSION:'',
+              LANGUAGE:'None',
+              COLLAPSE_INDEX:false,
+              FILE_SUFFIX:'.html',
+              HAS_SOURCE:  true,
+              SOURCELINK_SUFFIX: '.txt'
+          };
+      </script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

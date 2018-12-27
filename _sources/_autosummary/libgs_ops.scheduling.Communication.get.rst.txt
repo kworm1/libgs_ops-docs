@@ -1,0 +1,6 @@
+libgs\_ops\.scheduling\.Communication\.get
+==========================================
+
+.. currentmodule:: libgs_ops.scheduling
+
+.. automethod:: Communication.get

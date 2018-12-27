@@ -1,0 +1,50 @@
+
+
+libgs\_ops\.scheduling\.Schedule
+================================
+
+.. currentmodule:: libgs_ops.scheduling
+
+.. autoclass:: Schedule
+
+   
+
+   
+   .. rubric:: Methods
+
+   
+   .. autosummary::
+      :toctree: .
+   
+      
+      
+      ~Schedule.add_pass
+      
+      
+      ~Schedule.copy
+      
+      
+      ~Schedule.from_dict
+      
+      
+      ~Schedule.from_json
+      
+      
+      ~Schedule.pop_pass
+      
+      
+      ~Schedule.remove_pass
+      
+      
+      ~Schedule.to_dict
+      
+      
+      ~Schedule.to_json
+      
+   
+   
+
+   
+   
+   
+

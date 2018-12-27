@@ -1,0 +1,6 @@
+libgs\_ops\.propagator\.Propagator\.compute\_pass
+=================================================
+
+.. currentmodule:: libgs_ops.propagator
+
+.. automethod:: Propagator.compute_pass

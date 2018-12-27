@@ -1,0 +1,6 @@
+libgs\_ops\.propagator\.TLEDb\.save\_tles
+=========================================
+
+.. currentmodule:: libgs_ops.propagator
+
+.. automethod:: TLEDb.save_tles

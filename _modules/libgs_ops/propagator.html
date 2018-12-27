@@ -1,0 +1,1458 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>libgs_ops.propagator &mdash; libgs_ops  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> libgs_ops
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../_autosummary/libgs_ops.propagator.html">libgs_ops.propagator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../_autosummary/libgs_ops.scheduling.html">libgs_ops.scheduling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../_autosummary/libgs_ops.rpc.html">libgs_ops.rpc</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">libgs_ops</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+        
+      <li>libgs_ops.propagator</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for libgs_ops.propagator</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">..</span>
+<span class="sd">    Copyright © 2017-2018 The University of New South Wales</span>
+
+<span class="sd">    Permission is hereby granted, free of charge, to any person obtaining a copy of</span>
+<span class="sd">    this software and associated documentation files (the &quot;Software&quot;), to deal in</span>
+<span class="sd">    the Software without restriction, including without limitation the rights to use,</span>
+<span class="sd">    copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the</span>
+<span class="sd">    Software, and to permit persons to whom the Software is furnished to do so,</span>
+<span class="sd">    subject to the following conditions:</span>
+
+<span class="sd">    The above copyright notice and this permission notice shall be included in all</span>
+<span class="sd">    copies or substantial portions of the Software.</span>
+
+<span class="sd">    THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR</span>
+<span class="sd">    IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,</span>
+<span class="sd">    FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE</span>
+<span class="sd">    AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,</span>
+<span class="sd">    WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN</span>
+<span class="sd">    CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</span>
+
+<span class="sd">    Except as contained in this notice, the name or trademarks of a copyright holder</span>
+
+<span class="sd">    shall not be used in advertising or otherwise to promote the sale, use or other</span>
+<span class="sd">    dealings in this Software without prior written authorization of the copyright</span>
+<span class="sd">    holder.</span>
+
+<span class="sd">    UNSW is a trademark of The University of New South Wales.</span>
+
+
+<span class="sd">libgs_ops.propagator</span>
+<span class="sd">=====================</span>
+
+<span class="sd">:date:   Jan  2 10:10:48 2018</span>
+<span class="sd">:author: Kjetil Wormnes</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">print_function</span>
+
+<span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">import</span> <span class="nn">ephem</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="k">import</span> <span class="n">datetime</span>
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">from</span> <span class="nn">math</span> <span class="k">import</span> <span class="n">pi</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">pandas</span> <span class="k">import</span> <span class="n">DataFrame</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">lxml</span> <span class="k">import</span> <span class="n">html</span>
+<span class="kn">import</span> <span class="nn">re</span>
+
+
+<span class="k">def</span> <span class="nf">_print</span><span class="p">(</span> <span class="o">*</span><span class="n">arg</span><span class="p">,</span> <span class="o">**</span><span class="n">kwarg</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Function to print.</span>
+
+<span class="sd">        This wrapper funciton is provided to allow for more easy redirection</span>
+<span class="sd">        of output to other destinations (including Bokeh GUI, or files) if</span>
+<span class="sd">        necessary in the futrue.</span>
+
+<span class="sd">        It should be used for information targeted at an interactive user, not</span>
+<span class="sd">        for logging messages</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="o">*</span><span class="n">arg</span><span class="p">,</span> <span class="o">**</span><span class="n">kwarg</span><span class="p">)</span>
+
+
+
+<div class="viewcode-block" id="Error"><a class="viewcode-back" href="../../_autosummary/libgs_ops.propagator.Error.html#libgs_ops.propagator.Error">[docs]</a><span class="k">class</span> <span class="nc">Error</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+    <span class="k">pass</span></div>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+    <span class="n">_HAS_MATPLOTLIB</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="k">except</span><span class="p">:</span>
+    <span class="n">_HAS_MATPLOTLIB</span> <span class="o">=</span> <span class="kc">False</span>
+
+<span class="kn">from</span> <span class="nn">collections</span> <span class="k">import</span> <span class="n">Iterable</span>
+
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="n">log</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s1">&#39;libgs_ops-log&#39;</span><span class="p">)</span>
+<span class="n">log</span><span class="o">.</span><span class="n">addHandler</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">NullHandler</span><span class="p">())</span>
+
+
+
+<span class="c1"># Decorator to more easily tag matplotlib functions</span>
+<span class="k">def</span> <span class="nf">_mpl</span><span class="p">(</span><span class="n">func</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">wrapper</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">_HAS_MATPLOTLIB</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">Error</span><span class="p">(</span><span class="s2">&quot;matplotib.pyplot not available, before using this funciton you need to install it : pip install matplotlib&quot;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">func</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">wrapper</span>
+
+
+
+<span class="k">def</span> <span class="nf">_tstamp_array</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">,</span> <span class="n">dt</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Helper function to create an array of ephem.Date</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">t0</span> <span class="o">=</span> <span class="n">ephem</span><span class="o">.</span><span class="n">Date</span><span class="p">(</span><span class="n">start</span><span class="p">)</span>
+    <span class="n">t1</span> <span class="o">=</span> <span class="n">ephem</span><span class="o">.</span><span class="n">Date</span><span class="p">(</span><span class="n">end</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">dt</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">t_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">t0</span><span class="p">,</span><span class="n">t1</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">dt_days</span> <span class="o">=</span> <span class="n">dt</span><span class="o">/</span><span class="mf">86400.0</span>
+        <span class="n">t_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">t0</span><span class="p">,</span><span class="n">t1</span><span class="p">,</span><span class="n">dt_days</span><span class="p">)</span>
+
+    <span class="n">t_array2</span> <span class="o">=</span> <span class="p">[</span><span class="n">ephem</span><span class="o">.</span><span class="n">Date</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">t_array</span><span class="p">]</span>
+
+    <span class="k">return</span> <span class="n">t_array2</span>
+
+
+
+<div class="viewcode-block" id="mpl_plot_pass"><a class="viewcode-back" href="../../_autosummary/libgs_ops.propagator.mpl_plot_pass.html#libgs_ops.propagator.mpl_plot_pass">[docs]</a><span class="nd">@_mpl</span>
+<span class="k">def</span> <span class="nf">mpl_plot_pass</span><span class="p">(</span><span class="n">angs</span><span class="p">,</span> <span class="n">vishor</span><span class="o">=</span><span class="mi">10</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A helper function to plot a pass in polar coordinates.</span>
+
+<span class="sd">    This function requires matplotlib to be installed.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        angs:       The antenna angles (pandas dataframe with az+el columns)</span>
+<span class="sd">        vishor:     The horizon (deg)</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        None</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">angs</span> <span class="o">=</span> <span class="n">angs</span><span class="p">[</span><span class="n">angs</span><span class="o">.</span><span class="n">el</span><span class="o">&gt;</span><span class="n">vishor</span><span class="p">]</span>
+
+    <span class="k">if</span> <span class="n">angs</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">Error</span><span class="p">(</span><span class="s2">&quot;Pass never comes above visiblity horizon&quot;</span><span class="p">)</span>
+
+    <span class="n">plot_fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">gcf</span><span class="p">()</span>
+    <span class="n">ax</span> <span class="o">=</span> <span class="n">plot_fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">111</span><span class="p">,</span> <span class="n">projection</span><span class="o">=</span><span class="s1">&#39;polar&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">90</span><span class="p">])</span>
+
+
+    <span class="n">az</span> <span class="o">=</span> <span class="n">angs</span><span class="o">.</span><span class="n">az</span><span class="o">/</span><span class="mf">180.0</span><span class="o">*</span><span class="n">pi</span>
+    <span class="n">el</span> <span class="o">=</span> <span class="mi">90</span> <span class="o">-</span> <span class="n">angs</span><span class="o">.</span><span class="n">el</span>
+
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">az</span><span class="p">,</span><span class="n">el</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+
+    <span class="c1"># plot visibility horizon</span>
+    <span class="n">min_el</span> <span class="o">=</span> <span class="n">vishor</span>
+    <span class="n">h_az</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="o">*</span><span class="n">pi</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+    <span class="n">h_el</span> <span class="o">=</span> <span class="p">[</span><span class="mi">90</span><span class="o">-</span><span class="n">min_el</span><span class="p">]</span><span class="o">*</span><span class="nb">len</span><span class="p">(</span><span class="n">h_az</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">h_az</span><span class="p">,</span> <span class="n">h_el</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>
+
+
+    <span class="c1"># print timestamps for start/end pass</span>
+
+    <span class="n">maxe</span> <span class="o">=</span> <span class="n">angs</span><span class="p">[</span><span class="n">angs</span><span class="o">.</span><span class="n">el</span> <span class="o">==</span> <span class="n">angs</span><span class="o">.</span><span class="n">el</span><span class="o">.</span><span class="n">max</span><span class="p">()]</span>
+    <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">maxe</span><span class="p">)</span> <span class="o">==</span> <span class="n">DataFrame</span><span class="p">:</span>
+        <span class="n">maxe</span> <span class="o">=</span> <span class="n">maxe</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="n">kaz</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">angs</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">az</span><span class="p">,</span> <span class="n">maxe</span><span class="o">.</span><span class="n">az</span><span class="p">,</span> <span class="n">angs</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">az</span><span class="p">])</span>
+    <span class="n">kel</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">angs</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">el</span><span class="p">,</span> <span class="n">maxe</span><span class="o">.</span><span class="n">el</span><span class="p">,</span> <span class="n">angs</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">el</span><span class="p">])</span>
+    <span class="n">kt</span>  <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">angs</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">tstamp_str</span><span class="p">,</span> <span class="n">maxe</span><span class="o">.</span><span class="n">tstamp_str</span><span class="p">,</span> <span class="n">angs</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">tstamp_str</span><span class="p">])</span>
+
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kaz</span><span class="o">/</span><span class="mf">180.0</span><span class="o">*</span><span class="n">pi</span><span class="p">,</span> <span class="mi">90</span><span class="o">-</span><span class="n">kel</span><span class="p">,</span> <span class="s1">&#39;b.&#39;</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">kaz</span><span class="p">)):</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">kaz</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">/</span><span class="mf">180.0</span><span class="o">*</span><span class="n">pi</span><span class="p">,</span> <span class="mi">90</span><span class="o">-</span><span class="n">kel</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">kt</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="s1">&#39;bold&#39;</span><span class="p">)</span>
+
+
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_yticklabels</span><span class="p">([])</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_theta_zero_location</span><span class="p">(</span><span class="s2">&quot;N&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_theta_direction</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span></div>
+
+
+
+
+<div class="viewcode-block" id="SpaceTrackAPI"><a class="viewcode-back" href="../../_autosummary/libgs_ops.propagator.SpaceTrackAPI.html#libgs_ops.propagator.SpaceTrackAPI">[docs]</a><span class="k">class</span> <span class="nc">SpaceTrackAPI</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Class to interface with space-track.org</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">ST_URL</span><span class="o">=</span><span class="s1">&#39;https://www.space-track.org&#39;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">uname</span><span class="p">,</span> <span class="n">pwd</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :param uname:</span>
+<span class="sd">        :param pwd:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">r</span><span class="o">=</span><span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ST_URL</span><span class="o">+</span><span class="s2">&quot;/ajaxauth/login&quot;</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;identity&#39;</span><span class="p">:</span><span class="n">uname</span><span class="p">,</span> <span class="s1">&#39;password&#39;</span><span class="p">:</span><span class="n">pwd</span><span class="p">})</span>
+
+        <span class="c1">#</span>
+        <span class="c1"># Raise error if login request fails</span>
+        <span class="c1">#</span>
+        <span class="n">r</span><span class="o">.</span><span class="n">raise_for_status</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cookies</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">cookies</span>
+
+<div class="viewcode-block" id="SpaceTrackAPI.query_raw"><a class="viewcode-back" href="../../_autosummary/libgs_ops.propagator.SpaceTrackAPI.query_raw.html#libgs_ops.propagator.SpaceTrackAPI.query_raw">[docs]</a>    <span class="k">def</span> <span class="nf">query_raw</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">uri</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Perform a raw query to spacetrack API. Can return anything the API</span>
+<span class="sd">            can.</span>
+
+<span class="sd">            See `spacetrack &lt;https://www.space-track.org/documentation#/api&gt;`</span>
+<span class="sd">            for the URI syntax.</span>
+
+<span class="sd">            Args:</span>
+<span class="sd">                uri (string): URI, starting with &#39;/&#39;. It will be appended to the</span>
+<span class="sd">                spacetrack URL.</span>
+
+<span class="sd">            Example:</span>
+
+<span class="sd">            &gt;&gt;&gt; query_raw(&#39;/basicspacedata/query/class/boxscore/format/csv&#39;)</span>
+
+<span class="sd">            Will return Space Objects Box Score, part 1 of the Space Situation Report (SSR), in CSV format</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ST_URL</span><span class="o">+</span><span class="n">uri</span><span class="p">,</span> <span class="n">cookies</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">cookies</span><span class="p">)</span>
+        <span class="n">r</span><span class="o">.</span><span class="n">raise_for_status</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">r</span><span class="o">.</span><span class="n">content</span></div>
+
+<div class="viewcode-block" id="SpaceTrackAPI.query_tle"><a class="viewcode-back" href="../../_autosummary/libgs_ops.propagator.SpaceTrackAPI.query_tle.html#libgs_ops.propagator.SpaceTrackAPI.query_tle">[docs]</a>    <span class="k">def</span> <span class="nf">query_tle</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Perform a (fairly) raw query to the spacetrack API for the most recent</span>
+<span class="sd">            three-line-elements.</span>
+
+<span class="sd">            Args:</span>
+<span class="sd">                params (dict): A dictionary of parameter/argument pairs that</span>
+<span class="sd">                    specify the exact query to make.</span>
+
+<span class="sd">            .. Note::</span>
+<span class="sd">                This function will always return three-line-elements. I.e.</span>
+<span class="sd">                the param pairs are added to the API URI &quot;/basicspacedata/query/class/tle_latest/format/3le/ORDINAL/1&quot;</span>
+
+
+
+<span class="sd">            **Parameter syntax**</span>
+
+
+<span class="sd">            See `spacetrack &lt;https://www.space-track.org/documentation#/api&gt;`_</span>
+<span class="sd">            for the most up-to-date descripions of the possible parameter/value pairs.</span>
+
+<span class="sd">            Each entry in the param dict follows key:value as per the model</span>
+<span class="sd">            definition. For the latest model definition see `here &lt;https://www.space-track.org/basicspacedata/modeldef/class/tle_latest/format/html&gt;`_.</span>
+
+<span class="sd">            ===================== =========================</span>
+<span class="sd">            Field                 Type</span>
+<span class="sd">            ===================== =========================</span>
+<span class="sd">            ORDINAL               tinyint(3) unsigned</span>
+<span class="sd">            COMMENT               varchar(32)</span>
+<span class="sd">            ORIGINATOR            varchar(5)</span>
+<span class="sd">            NORAD_CAT_ID          mediumint(8) unsigned</span>
+<span class="sd">            OBJECT_NAME           varchar(60)</span>
+<span class="sd">            OBJECT_TYPE           varchar(11)</span>
+<span class="sd">            CLASSIFICATION_TYPE   char(1)</span>
+<span class="sd">            INTLDES               varchar(8)</span>
+<span class="sd">            EPOCH                 datetime</span>
+<span class="sd">            EPOCH_MICROSECONDS    mediumint(8) unsigned</span>
+<span class="sd">            MEAN_MOTION           double</span>
+<span class="sd">            ECCENTRICITY          double</span>
+<span class="sd">            INCLINATION           double</span>
+<span class="sd">            RA_OF_ASC_NODE        double</span>
+<span class="sd">            ARG_OF_PERICENTER     double</span>
+<span class="sd">            MEAN_ANOMALY          double</span>
+<span class="sd">            EPHEMERIS_TYPE        tinyint(3) unsigned</span>
+<span class="sd">            ELEMENT_SET_NO        smallint(5) unsigned</span>
+<span class="sd">            REV_AT_EPOCH          float</span>
+<span class="sd">            BSTAR                 double</span>
+<span class="sd">            MEAN_MOTION_DOT       double</span>
+<span class="sd">            MEAN_MOTION_DDOT      double</span>
+<span class="sd">            FILE                  int(10) unsigned</span>
+<span class="sd">            TLE_LINE0             varchar(62)</span>
+<span class="sd">            TLE_LINE1             char(71)</span>
+<span class="sd">            TLE_LINE2             char(71)</span>
+<span class="sd">            OBJECT_ID             varchar(11)</span>
+<span class="sd">            OBJECT_NUMBER         mediumint(8) unsigned</span>
+<span class="sd">            SEMIMAJOR_AXIS        double(20,3)</span>
+<span class="sd">            PERIOD                double(20,3)</span>
+<span class="sd">            APOGEE                double(20,3)</span>
+<span class="sd">            PERIGEE               double(20,3)</span>
+<span class="sd">            ===================== =========================</span>
+
+
+
+<span class="sd">            The following operators can be used with the values</span>
+
+<span class="sd">            ========= =======================================================</span>
+<span class="sd">            Operator  Description</span>
+<span class="sd">            ========= =======================================================</span>
+<span class="sd">            &gt;         Greater Than (alternate is %3E)</span>
+<span class="sd">            &lt;         Less Than (alternate is %3C)</span>
+<span class="sd">            &lt;&gt;        Not Equal (alternate is %3C%3E)</span>
+<span class="sd">            ,         Comma Delimited &#39;OR&#39; (ex. 1,2,3)</span>
+<span class="sd">            --        Inclusive Range</span>
+<span class="sd">                      (ex. ``1--100`` returns 1 and 100 and everything in between).</span>
+<span class="sd">                      Date ranges are expressed as</span>
+<span class="sd">                      ``YYYY-MM-DD%20HH:MM:SS--YYYY-MM-DD%20HH:MM:SS`` or</span>
+<span class="sd">                      ``YYYY-MM-DD--YYYY-MM-DD``</span>
+<span class="sd">            null-val  Value for &#39;NULL&#39;, can only be used with Not Equal (&lt;&gt;) or by itself.</span>
+<span class="sd">            ~~        &quot;Like&quot; or Wildcard search. You may put the ``~~`` before or</span>
+<span class="sd">                      after the text; wildcard is evaluated regardless of</span>
+<span class="sd">                      location of ``~~`` in the URL. For example, ``~~OB`` will return</span>
+<span class="sd">                      &#39;OBJECT 1&#39;, &#39;GLOBALSTAR&#39;, &#39;PROBA 1&#39;, etc.</span>
+<span class="sd">            ^         Wildcard after value with a minimum of two characters.</span>
+<span class="sd">                      (alternate is %5E) The wildcard is evaluated after the</span>
+<span class="sd">                      text regardless of location of ^ in the URL. For example,</span>
+<span class="sd">                      ``^OB`` will return &#39;OBJECT 1&#39;, &#39;OBJECT 2&#39;, etc. but not &#39;GLOBALSTAR&#39;</span>
+<span class="sd">            now       Variable that contains the current system date and time.</span>
+<span class="sd">                      Add or subtract days (or fractions thereof) after &#39;now&#39;</span>
+<span class="sd">                      to modify the date/time, e.g. ``now-7``, ``now+14``, ``now-6.5``,</span>
+<span class="sd">                      ``now+2.3``. Use &lt;,&gt;,and -- to get a range of dates;</span>
+<span class="sd">                      e.g. ``&gt;now-7``, ``now-14--now``</span>
+<span class="sd">            ========= =======================================================</span>
+
+<span class="sd">            You can also specify to order results by a specific field by using</span>
+<span class="sd">            they</span>
+
+<span class="sd">            Examples:</span>
+
+<span class="sd">            &gt;&gt;&gt; query_tle({&#39;PERIOD&#39;: &#39;&lt;128&#39;})</span>
+<span class="sd">            Satellites currently in Low Earth Orbit (LEO = &lt;2000KM altitude).</span>
+
+<span class="sd">            &gt;&gt;&gt; query_tle({&#39;PERIOD&#39;:&#39;1430--1450&#39;, &#39;orderby&#39;:&#39;NORAD_CAT_ID&#39;})</span>
+<span class="sd">            Satellites in geosynchronous orbit 1430 &lt;= period &lt;= 1450 minutes.</span>
+<span class="sd">            Sort results by Norad ID.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">URI</span> <span class="o">=</span> <span class="s2">&quot;/basicspacedata/query/class/tle_latest/format/3le/ordinal/1&quot;</span>
+
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span><span class="n">v</span> <span class="ow">in</span> <span class="n">params</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">URI</span> <span class="o">+=</span> <span class="s2">&quot;/&quot;</span> <span class="o">+</span> <span class="n">k</span> <span class="o">+</span><span class="s2">&quot;/&quot;</span><span class="o">+</span><span class="n">v</span>
+
+        <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Downloading TLE list using URI: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="o">%</span><span class="p">(</span><span class="n">URI</span><span class="p">))</span>
+
+        <span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ST_URL</span><span class="o">+</span><span class="n">URI</span><span class="p">,</span> <span class="n">cookies</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">cookies</span><span class="p">)</span>
+        <span class="n">r</span><span class="o">.</span><span class="n">raise_for_status</span><span class="p">()</span>
+
+        <span class="k">return</span> <span class="n">r</span><span class="o">.</span><span class="n">content</span></div>
+
+
+<div class="viewcode-block" id="SpaceTrackAPI.get_tle_sets"><a class="viewcode-back" href="../../_autosummary/libgs_ops.propagator.SpaceTrackAPI.get_tle_sets.html#libgs_ops.propagator.SpaceTrackAPI.get_tle_sets">[docs]</a>    <span class="k">def</span> <span class="nf">get_tle_sets</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            A shortcut to some predefined sets of satellites</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;amateur_all&quot;</span><span class="p">:</span>
+            <span class="n">l</span> <span class="o">=</span>  <span class="bp">self</span><span class="o">.</span><span class="n">query_tle</span><span class="p">({</span>
+                <span class="s1">&#39;favorites&#39;</span><span class="p">:</span> <span class="s1">&#39;Amateur&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;EPOCH&#39;</span><span class="p">:</span> <span class="s1">&#39;&gt;now-30&#39;</span><span class="p">})</span>
+
+        <span class="k">elif</span> <span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;leo_all&quot;</span><span class="p">:</span>
+            <span class="n">l</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">query_tle</span><span class="p">({</span>
+                <span class="s1">&#39;PERIOD&#39;</span><span class="p">:</span> <span class="s1">&#39;&lt;128&#39;</span><span class="p">})</span>
+
+        <span class="k">elif</span> <span class="n">name</span> <span class="o">==</span> <span class="s1">&#39;geo_all&#39;</span><span class="p">:</span>
+            <span class="n">l</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">query_tle</span><span class="p">({</span>
+                <span class="s1">&#39;PERIOD&#39;</span><span class="p">:</span> <span class="s1">&#39;1430--1450&#39;</span><span class="p">})</span>
+
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">Error</span><span class="p">(</span><span class="s1">&#39;Set named </span><span class="si">%s</span><span class="s1"> is not defined&#39;</span><span class="o">%</span><span class="p">(</span><span class="n">name</span><span class="p">))</span>
+
+        <span class="k">return</span> <span class="n">l</span></div>
+        
+
+<div class="viewcode-block" id="SpaceTrackAPI.get_tles"><a class="viewcode-back" href="../../_autosummary/libgs_ops.propagator.SpaceTrackAPI.get_tles.html#libgs_ops.propagator.SpaceTrackAPI.get_tles">[docs]</a>    <span class="k">def</span> <span class="nf">get_tles</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nids</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Query space-track for a series of norad IDs, and return</span>
+<span class="sd">            the NIDs and TLEs in a dict</span>
+
+<span class="sd">            Args:</span>
+<span class="sd">                nids (list(int)): List of norad ids to query for</span>
+
+
+<span class="sd">            Returns::</span>
+<span class="sd">                Dictionary of TLEs</span>
+
+<span class="sd">            .. note:: In some cases space-track can not find a TLE. No error</span>
+<span class="sd">                will be raised by this function and it is up to the caller</span>
+<span class="sd">                to check whether the returned NIDs match the passed ones.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">idstr</span><span class="o">=</span><span class="s2">&quot;,&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">nids</span><span class="p">)</span>
+
+        <span class="n">tlestr</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">query_tle</span><span class="p">({</span><span class="s1">&#39;NORAD_CAT_ID&#39;</span><span class="p">:</span><span class="n">idstr</span><span class="p">})</span><span class="c1">#.decode()</span>
+        <span class="n">tlestr</span> <span class="o">=</span> <span class="n">tlestr</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;</span><span class="se">\r</span><span class="s1">&#39;</span><span class="p">,</span> <span class="sa">b</span><span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+
+
+        <span class="n">L0</span> <span class="o">=</span> <span class="n">tlestr</span><span class="p">[</span><span class="mi">0</span><span class="p">::</span><span class="mi">3</span><span class="p">]</span>
+        <span class="n">L1</span> <span class="o">=</span> <span class="n">tlestr</span><span class="p">[</span><span class="mi">1</span><span class="p">::</span><span class="mi">3</span><span class="p">]</span>
+        <span class="n">L2</span> <span class="o">=</span> <span class="n">tlestr</span><span class="p">[</span><span class="mi">2</span><span class="p">::</span><span class="mi">3</span><span class="p">]</span>
+        <span class="n">tle_list</span> <span class="o">=</span> <span class="nb">zip</span><span class="p">(</span><span class="n">L0</span><span class="p">,</span><span class="n">L1</span><span class="p">,</span><span class="n">L2</span><span class="p">)</span>
+        <span class="n">nids</span> <span class="o">=</span> <span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39; &#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">])</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">L2</span><span class="p">]</span>
+
+        <span class="n">tles</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">nids</span><span class="p">,</span> <span class="n">tle_list</span><span class="p">))</span>
+
+        <span class="k">return</span> <span class="n">tles</span></div></div>
+
+<div class="viewcode-block" id="TLEDb"><a class="viewcode-back" href="../../_autosummary/libgs_ops.propagator.TLEDb.html#libgs_ops.propagator.TLEDb">[docs]</a><span class="k">class</span> <span class="nc">TLEDb</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Database of TLEs.</span>
+
+<span class="sd">        The Database can be loaded from a file, or input directly.</span>
+
+<span class="sd">        This class can serve as a drop-in replacement for the SpaceTrackAPI class</span>
+<span class="sd">        in the propagator as it implements the get_tles method.</span>
+
+<span class="sd">        .. todo::</span>
+<span class="sd">            implement saving in binary format that is faster.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fname</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">tles</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">fname</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">tles</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="n">Error</span><span class="p">(</span><span class="s2">&quot;only enter fname OR tles&quot;</span><span class="p">)</span>
+
+
+        <span class="k">if</span> <span class="n">tles</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+
+            <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">tles</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">str</span><span class="p">:</span>
+                <span class="c1">#parse string</span>
+
+                <span class="bp">self</span><span class="o">.</span><span class="n">tles</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parse_tlestr</span><span class="p">(</span><span class="n">tles</span><span class="p">)</span>
+
+
+            <span class="k">elif</span> <span class="nb">type</span><span class="p">(</span><span class="n">tles</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">dict</span><span class="p">:</span>
+                <span class="c1"># load directly</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">tles</span> <span class="o">=</span> <span class="n">tles</span>
+
+
+
+        <span class="k">elif</span> <span class="n">fname</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="c1"># load from file</span>
+            <span class="n">fp</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">fname</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>
+            <span class="n">tlestr</span> <span class="o">=</span> <span class="n">fp</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">tles</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parse_tlestr</span><span class="p">(</span><span class="n">tlestr</span><span class="p">)</span>
+            <span class="n">fp</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">Error</span><span class="p">(</span><span class="s2">&quot;Either a file name or a tle string must be entered&quot;</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="TLEDb.save_tles"><a class="viewcode-back" href="../../_autosummary/libgs_ops.propagator.TLEDb.save_tles.html#libgs_ops.propagator.TLEDb.save_tles">[docs]</a>    <span class="k">def</span> <span class="nf">save_tles</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fname</span><span class="p">,</span> <span class="n">fformat</span><span class="o">=</span><span class="s1">&#39;txt&#39;</span><span class="p">):</span>
+
+        <span class="k">if</span> <span class="n">fformat</span> <span class="o">==</span> <span class="s1">&#39;txt&#39;</span><span class="p">:</span>
+            <span class="n">fp</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">fname</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span>
+            <span class="n">tlestr</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="se">\r\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tles</span><span class="o">.</span><span class="n">values</span><span class="p">(),</span> <span class="p">()))</span>
+            <span class="n">fp</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">tlestr</span><span class="p">)</span>
+            <span class="n">fp</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+        <span class="k">elif</span> <span class="nb">format</span> <span class="o">==</span> <span class="s1">&#39;pickle&#39;</span><span class="p">:</span>
+            <span class="k">pass</span></div>
+
+
+
+    <span class="k">def</span> <span class="nf">_parse_tlestr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tlestr</span><span class="p">):</span>
+
+        <span class="n">tlestr</span> <span class="o">=</span> <span class="n">tlestr</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\r</span><span class="s1">&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+
+        <span class="n">L0</span> <span class="o">=</span> <span class="p">[</span><span class="n">l</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="n">tlestr</span><span class="p">[</span><span class="mi">0</span><span class="p">::</span><span class="mi">3</span><span class="p">]]</span>
+        <span class="n">L1</span> <span class="o">=</span> <span class="p">[</span><span class="n">l</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="n">tlestr</span><span class="p">[</span><span class="mi">1</span><span class="p">::</span><span class="mi">3</span><span class="p">]]</span>
+        <span class="n">L2</span> <span class="o">=</span> <span class="p">[</span><span class="n">l</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="n">tlestr</span><span class="p">[</span><span class="mi">2</span><span class="p">::</span><span class="mi">3</span><span class="p">]]</span>
+
+
+        <span class="c1"># do a tiny bit of error checking and extract nids</span>
+
+        <span class="k">if</span>  <span class="nb">all</span><span class="p">([</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;0&#39;</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">L0</span><span class="p">])</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">Error</span><span class="p">(</span><span class="s1">&#39;Malformed TLE string&#39;</span><span class="p">)</span>
+
+        <span class="k">if</span>  <span class="nb">all</span><span class="p">([</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;1&#39;</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">L1</span><span class="p">])</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">Error</span><span class="p">(</span><span class="s1">&#39;Malformed TLE string&#39;</span><span class="p">)</span>
+
+        <span class="k">if</span>  <span class="nb">all</span><span class="p">([</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;2&#39;</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">L2</span><span class="p">])</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">Error</span><span class="p">(</span><span class="s1">&#39;Malformed TLE string&#39;</span><span class="p">)</span>
+
+
+        <span class="n">tle_list</span> <span class="o">=</span> <span class="nb">zip</span><span class="p">(</span><span class="n">L0</span><span class="p">,</span><span class="n">L1</span><span class="p">,</span><span class="n">L2</span><span class="p">)</span>
+        <span class="n">nids</span> <span class="o">=</span> <span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">2</span><span class="p">:</span><span class="mi">7</span><span class="p">])</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">L2</span><span class="p">]</span>
+
+        <span class="n">tles</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">nids</span><span class="p">,</span> <span class="n">tle_list</span><span class="p">))</span>
+
+        <span class="k">return</span> <span class="n">tles</span>
+
+<div class="viewcode-block" id="TLEDb.get_tles"><a class="viewcode-back" href="../../_autosummary/libgs_ops.propagator.TLEDb.get_tles.html#libgs_ops.propagator.TLEDb.get_tles">[docs]</a>    <span class="k">def</span> <span class="nf">get_tles</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nids</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Args:</span>
+<span class="sd">                nids (list(int)): List of Norad IDs</span>
+
+<span class="sd">            Return:</span>
+<span class="sd">                TLEs</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">tles</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">nids</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">n</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">tles</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+                <span class="n">tles</span><span class="p">[</span><span class="n">n</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tles</span><span class="p">[</span><span class="n">n</span><span class="p">]</span>
+
+        <span class="k">return</span> <span class="n">tles</span></div></div>
+
+<div class="viewcode-block" id="Propagator"><a class="viewcode-back" href="../../_autosummary/libgs_ops.propagator.Propagator.html#libgs_ops.propagator.Propagator">[docs]</a><span class="k">class</span> <span class="nc">Propagator</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">    Class to compute pointing angles for a satellite based on its Norad ID</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        api                             : API for TLE updates</span>
+<span class="sd">        tles (str)                      : TLEstring</span>
+<span class="sd">        gs_lat (:obj:`float`, optional) : latitude of ground station</span>
+<span class="sd">        gs_lon (float, optional)        : longitude of ground station</span>
+<span class="sd">        gs_elev (float, optional)       : elevation of ground station</span>
+<span class="sd">        tle_timeout (float, optional)   : Time in days before re-requesting new TLEs</span>
+<span class="sd">        nids (list(int), optional)      : List of NORAD IDs to track.</span>
+<span class="sd">            If a satellite is requested that is not in this list it will be</span>
+<span class="sd">            added and a full refresh of the TLEs from space-track initiated.</span>
+
+<span class="sd">    .. warning::</span>
+<span class="sd">        You can connect to a local Db using the TLEDb class, to spacetrack</span>
+<span class="sd">        using the SpaceTrackAPI class, or simply just specify the TLEs</span>
+<span class="sd">        directly as a string. The latter will use the manually input tles and never query space-track.</span>
+
+<span class="sd">    .. note::</span>
+<span class="sd">        For a reference on TLEs see `Wikipedia &lt;https://en.wikipedia.org/wiki/Two-line_element_set&gt;`</span>
+
+<span class="sd">    .. note::</span>
+<span class="sd">        This class relies heavily on `py-ephem &lt;http://rhodesmill.org/pyephem/&gt;`</span>
+
+<span class="sd">    .. todo::</span>
+<span class="sd">        Get rid of the manual entry of TLE string. Itś depricated</span>
+<span class="sd">        with the TLEDb class.</span>
+
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1">#: Where to find space-track</span>
+    <span class="n">ST_URL</span><span class="o">=</span><span class="s2">&quot;https://www.space-track.org/&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="n">api</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">tles</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">gs_lat</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">gs_lon</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">gs_elev</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="n">tle_timeout</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+            <span class="n">nids</span><span class="o">=</span><span class="p">[]</span>
+            <span class="p">):</span>
+
+        <span class="k">if</span> <span class="n">api</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">tles</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">Error</span><span class="p">(</span><span class="s1">&#39;You have to specify either uname/pwd or tls&#39;</span><span class="p">)</span>
+
+
+        <span class="k">if</span> <span class="n">gs_lat</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">gs_lon</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">Error</span><span class="p">(</span><span class="s2">&quot;gs lon and lat must be specified&quot;</span><span class="p">)</span>
+
+        <span class="c1">#: Ground station latitude</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">gs_lat</span> <span class="o">=</span> <span class="n">gs_lat</span>
+
+        <span class="c1">#: Ground station longitude</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">gs_lon</span> <span class="o">=</span> <span class="n">gs_lon</span>
+
+        <span class="c1">#: Ground station elevation</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">gs_elev</span> <span class="o">=</span> <span class="n">gs_elev</span>
+
+
+        <span class="k">if</span> <span class="n">tles</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_update_tles</span><span class="p">(</span><span class="n">tles</span><span class="p">)</span>
+
+            <span class="c1"># big number to avoid tles timing out in manual mode</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">tle_timeout</span> <span class="o">=</span> <span class="mi">9999999</span>
+
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1">#: List of NIDS to track</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">nids_to_track</span> <span class="o">=</span> <span class="n">nids</span>
+
+            <span class="c1">#: Current TLEs</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">tles</span> <span class="o">=</span> <span class="kc">None</span>
+
+            <span class="c1">#: Last requested TLE</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">tle_timestamp</span> <span class="o">=</span> <span class="kc">None</span>
+
+            <span class="c1">#: Timeout (in days) before requesting new TLE</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">tle_timeout</span> <span class="o">=</span> <span class="n">tle_timeout</span>
+
+            <span class="c1">#:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">api</span> <span class="o">=</span> <span class="n">api</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">_update_tles</span><span class="p">()</span>
+
+
+
+    <span class="k">def</span> <span class="nf">_is_visible</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nid</span><span class="p">,</span> <span class="n">horizon</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Check if a satellite is above the horizon</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">az</span><span class="p">,</span> <span class="n">el</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_angles</span><span class="p">(</span><span class="n">nid</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="p">(</span><span class="n">el</span> <span class="o">&gt;=</span> <span class="n">horizon</span><span class="p">)</span>
+
+
+
+
+
+    <span class="k">def</span> <span class="nf">_update_tles</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ext_tles</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span><span class="c1">#, nids=None):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Query space-track.org for the trackable tles and save to memory</span>
+
+<span class="sd">            Args:</span>
+<span class="sd">                ext_tles: This argument allows to update the TLEs manually</span>
+<span class="sd">                    for example for testing. ext_tles should be a string</span>
+<span class="sd">                    exactly identical in format to what space-track would return</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1">#if nids is None:</span>
+        <span class="c1">#    nids = self.nids_to_track</span>
+
+        <span class="k">if</span> <span class="n">ext_tles</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">tles</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">get_tles</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nids_to_track</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">nids_to_track</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tles</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+
+
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">raw_tles</span> <span class="o">=</span> <span class="n">ext_tles</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\r</span><span class="s1">&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+            <span class="n">raw_tles</span> <span class="o">=</span> <span class="p">[</span><span class="n">rtle</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="k">for</span> <span class="n">rtle</span> <span class="ow">in</span> <span class="n">raw_tles</span><span class="p">]</span>
+
+            <span class="c1"># do a tiny bit of error checking and extract nids</span>
+
+            <span class="k">if</span>  <span class="nb">all</span><span class="p">([</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;0&#39;</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">raw_tles</span><span class="p">[</span><span class="mi">0</span><span class="p">::</span><span class="mi">3</span><span class="p">]])</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="n">Error</span><span class="p">(</span><span class="s1">&#39;Malformed TLE string&#39;</span><span class="p">)</span>
+
+            <span class="k">if</span>  <span class="nb">all</span><span class="p">([</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;1&#39;</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">raw_tles</span><span class="p">[</span><span class="mi">1</span><span class="p">::</span><span class="mi">3</span><span class="p">]])</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="n">Error</span><span class="p">(</span><span class="s1">&#39;Malformed TLE string&#39;</span><span class="p">)</span>
+
+            <span class="k">if</span>  <span class="nb">all</span><span class="p">([</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;2&#39;</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">raw_tles</span><span class="p">[</span><span class="mi">2</span><span class="p">::</span><span class="mi">3</span><span class="p">]])</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="n">Error</span><span class="p">(</span><span class="s1">&#39;Malformed TLE string&#39;</span><span class="p">)</span>
+
+            <span class="n">nids</span> <span class="o">=</span> <span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">])</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span>  <span class="n">raw_tles</span><span class="p">[</span><span class="mi">2</span><span class="p">::</span><span class="mi">3</span><span class="p">]]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">nids_to_track</span> <span class="o">=</span> <span class="n">nids</span>
+
+
+
+            <span class="c1">#</span>
+            <span class="c1"># Create a tle dict</span>
+            <span class="c1">#</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">tles</span> <span class="o">=</span> <span class="p">{}</span>      <span class="c1">#dict to map nid-&gt;TLE</span>
+            <span class="c1">#self.name2nid = {}  #dict to map name-&gt;nid</span>
+            <span class="n">cnt</span> <span class="o">=</span>  <span class="mi">0</span>
+            <span class="k">for</span> <span class="n">nid</span> <span class="ow">in</span> <span class="n">nids</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">tles</span><span class="p">[</span><span class="n">nid</span><span class="p">]</span> <span class="o">=</span> <span class="n">raw_tles</span><span class="p">[</span><span class="n">cnt</span><span class="p">:</span><span class="n">cnt</span><span class="o">+</span><span class="mi">3</span><span class="p">]</span>
+                <span class="c1">#self.name2nid[self.raw_tles[cnt][2:]] = nid</span>
+                <span class="n">cnt</span> <span class="o">+=</span> <span class="mi">3</span>
+
+        <span class="c1">#</span>
+        <span class="c1"># Save time for timeout calculation</span>
+        <span class="c1">#</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tle_timestamp</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">_tles_have_expired</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">tle_timestamp</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">True</span>
+
+        <span class="n">dt</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">tle_timestamp</span>
+
+        <span class="c1"># Calculate time in days and compare with timeout</span>
+        <span class="k">if</span> <span class="n">dt</span><span class="o">/</span><span class="mf">86400.0</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">tle_timeout</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">True</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">False</span>
+
+
+
+<div class="viewcode-block" id="Propagator.get_visible_satellites"><a class="viewcode-back" href="../../_autosummary/libgs_ops.propagator.Propagator.get_visible_satellites.html#libgs_ops.propagator.Propagator.get_visible_satellites">[docs]</a>    <span class="k">def</span> <span class="nf">get_visible_satellites</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tz</span><span class="o">=</span><span class="s1">&#39;AEST&#39;</span><span class="p">,</span> <span class="n">future_only</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">allow_overlap</span> <span class="o">=</span> <span class="kc">True</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Get a list of current and upcoming radio amateur satellite passes.</span>
+
+<span class="sd">            This function gets its data from heavens above. Heavens above does</span>
+<span class="sd">            not provide an official API and this function therefore scrapes</span>
+<span class="sd">            the data from the website. It will break without notice if anything changes on</span>
+<span class="sd">            the heavens above website. That is considered acceptable since</span>
+<span class="sd">            this function is for information only and does not form any part</span>
+<span class="sd">            of the core ground station software.</span>
+
+<span class="sd">            Args:</span>
+<span class="sd">                tz (str, optional): The timezone designator, or None for UTC.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">resp</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;http://www.heavens-above.com/AmateurSats.aspx?lat=</span><span class="si">%f</span><span class="s1">&amp;lng=</span><span class="si">%f</span><span class="s1">&amp;loc=</span><span class="si">%s</span><span class="s1">&amp;alt=</span><span class="si">%.0f%s</span><span class="s1">&#39;</span><span class="o">%</span>\
+            <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">gs_lat</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">gs_lon</span><span class="p">,</span> <span class="s1">&#39;adfags&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">gs_elev</span><span class="p">,</span>
+             <span class="p">(</span><span class="s1">&#39;&#39;</span> <span class="k">if</span> <span class="n">tz</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="s1">&#39;&amp;tz=</span><span class="si">%s</span><span class="s1">&#39;</span><span class="o">%</span><span class="p">(</span><span class="n">tz</span><span class="p">))))</span>
+
+        <span class="n">h</span> <span class="o">=</span> <span class="n">html</span><span class="o">.</span><span class="n">document_fromstring</span><span class="p">(</span><span class="n">resp</span><span class="o">.</span><span class="n">content</span><span class="p">)</span>
+        <span class="n">r</span> <span class="o">=</span> <span class="n">h</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s1">&#39;//table[@class=&quot;standardTable&quot;]&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">htmlstr</span> <span class="o">=</span> <span class="n">html</span><span class="o">.</span><span class="n">tostring</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
+        <span class="n">sats</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_html</span><span class="p">(</span><span class="n">htmlstr</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">sats</span><span class="o">.</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Satellite&#39;</span><span class="p">,</span> <span class="s1">&#39;Date&#39;</span><span class="p">,</span> <span class="s1">&#39;Start&#39;</span><span class="p">,</span> <span class="s1">&#39;HP_time&#39;</span><span class="p">,</span> <span class="s1">&#39;HP_Elev&#39;</span><span class="p">,</span> <span class="s1">&#39;HP_Az&#39;</span><span class="p">,</span> <span class="s1">&#39;End&#39;</span><span class="p">,</span> <span class="s1">&#39;Freq&#39;</span><span class="p">]</span>
+
+        <span class="n">sats</span><span class="o">.</span><span class="n">HP_Elev</span> <span class="o">=</span> <span class="p">(</span><span class="n">sats</span><span class="o">.</span><span class="n">HP_Elev</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">extract</span><span class="p">(</span><span class="s1">&#39;(\d+)&#39;</span><span class="p">,</span> <span class="n">expand</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
+        <span class="n">sats</span><span class="o">.</span><span class="n">HP_Az</span> <span class="o">=</span> <span class="p">(</span><span class="n">sats</span><span class="o">.</span><span class="n">HP_Az</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">extract</span><span class="p">(</span><span class="s1">&#39;(\d+)&#39;</span><span class="p">,</span> <span class="n">expand</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
+
+        <span class="n">tz</span> <span class="o">=</span> <span class="n">h</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s1">&#39;//span[@id=&quot;ctl00_lblTZ&quot;]&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">text_content</span><span class="p">()</span>
+
+        <span class="n">sats</span><span class="p">[</span><span class="s1">&#39;NID&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+        <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">sats</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
+            <span class="n">idx2</span> <span class="o">=</span> <span class="n">htmlstr</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">row</span><span class="o">.</span><span class="n">Satellite</span><span class="p">)</span>
+            <span class="n">idx1</span> <span class="o">=</span> <span class="n">htmlstr</span><span class="p">[:</span><span class="n">idx2</span><span class="p">]</span><span class="o">.</span><span class="n">rfind</span><span class="p">(</span><span class="s1">&#39;&lt;a href&#39;</span><span class="p">)</span>
+            <span class="n">linkstr</span> <span class="o">=</span> <span class="n">htmlstr</span><span class="p">[</span><span class="n">idx1</span><span class="p">:</span><span class="n">idx2</span><span class="p">]</span>
+            <span class="n">satid</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">&#39;satid=(\d+)&#39;</span><span class="p">,</span><span class="n">linkstr</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
+            <span class="n">sats</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">index</span><span class="p">,</span> <span class="s1">&#39;NID&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">satid</span>
+
+        <span class="n">sats</span><span class="p">[</span><span class="s1">&#39;tz&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">tz</span>
+
+
+        <span class="k">if</span> <span class="n">future_only</span><span class="p">:</span>
+            <span class="c1"># minimum time to wait before first pass starts (in s)</span>
+            <span class="n">BUFFER</span><span class="o">=</span> <span class="mi">60</span>
+            <span class="n">sats</span> <span class="o">=</span> <span class="n">sats</span><span class="p">[</span><span class="n">sats</span><span class="o">.</span><span class="n">Start</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">Timestamp</span><span class="o">.</span><span class="n">now</span><span class="p">()</span> <span class="o">+</span> <span class="n">pd</span><span class="o">.</span><span class="n">Timedelta</span><span class="p">(</span><span class="n">seconds</span><span class="o">=</span><span class="n">BUFFER</span><span class="p">)]</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">allow_overlap</span><span class="p">:</span>
+            <span class="c1"># get rid of overlapping</span>
+            <span class="n">no_overl</span> <span class="o">=</span> <span class="p">[</span><span class="kc">True</span><span class="p">]</span> <span class="o">+</span> <span class="p">[</span><span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">sats</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">.</span><span class="n">Start</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">sats</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">k</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">End</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">sats</span><span class="p">))]</span>
+            <span class="n">sats</span> <span class="o">=</span> <span class="n">sats</span><span class="p">[</span><span class="n">no_overl</span><span class="p">]</span>
+
+        <span class="k">return</span> <span class="n">sats</span></div>
+
+<div class="viewcode-block" id="Propagator.get_tle"><a class="viewcode-back" href="../../_autosummary/libgs_ops.propagator.Propagator.get_tle.html#libgs_ops.propagator.Propagator.get_tle">[docs]</a>    <span class="k">def</span> <span class="nf">get_tle</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nid</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return TLEs from a NORAD ID by</span>
+<span class="sd">        quering Space-Track if data is older than the specified timeout</span>
+<span class="sd">        from memory otherwise</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            nid (int): Norad ID</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Three line element (TLE)</span>
+
+<span class="sd">            If the timeout delay has not been hit it will return the</span>
+<span class="sd">            most recently fetched TLE, otherwise it will retreive the</span>
+<span class="sd">            most recent TLE from spacetrack.</span>
+
+<span class="sd">        Example:</span>
+
+<span class="sd">        &gt;&gt;&gt; A.get_tle(25544)</span>
+<span class="sd">        [&#39;0 ISS (ZARYA)&#39;, &#39;1 25544U 98067A   17164.50922405 +.00002016 +00000-0 +37842-4 0  9993&#39;, &#39;2 25544 051.6431 056.6611 0004416 268.2130 149.1141 15.54021074061180&#39;]</span>
+
+
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">tles</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tles_have_expired</span><span class="p">():</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_update_tles</span><span class="p">()</span>
+
+
+        <span class="n">tles</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tles</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
+        <span class="n">tles</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">nids_to_track</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="n">tles</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">nids_to_track</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">Error</span><span class="p">(</span><span class="s1">&#39;Unexpected Error&#39;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">nid</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">tles</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;api&#39;</span><span class="p">):</span>
+                <span class="k">raise</span> <span class="n">Error</span><span class="p">(</span><span class="s1">&#39;Class has not been connected with an API. Cant request NID&#39;</span><span class="p">)</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">nids_to_track</span> <span class="o">+=</span> <span class="p">[</span><span class="n">nid</span><span class="p">]</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">_update_tles</span><span class="p">()</span>
+
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">tles</span><span class="p">[</span><span class="n">nid</span><span class="p">]</span></div>
+
+
+<div class="viewcode-block" id="Propagator.get_range"><a class="viewcode-back" href="../../_autosummary/libgs_ops.propagator.Propagator.get_range.html#libgs_ops.propagator.Propagator.get_range">[docs]</a>    <span class="k">def</span> <span class="nf">get_range</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nid</span><span class="p">,</span> <span class="n">gs_lat</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">gs_lon</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">gs_elev</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">when</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_all</span><span class="p">(</span><span class="n">nid</span><span class="p">,</span> <span class="n">gs_lat</span><span class="p">,</span> <span class="n">gs_lon</span><span class="p">,</span> <span class="n">gs_elev</span><span class="p">,</span> <span class="n">when</span><span class="p">)[</span><span class="s1">&#39;range&#39;</span><span class="p">]</span></div>
+
+<div class="viewcode-block" id="Propagator.get_range_rate"><a class="viewcode-back" href="../../_autosummary/libgs_ops.propagator.Propagator.get_range_rate.html#libgs_ops.propagator.Propagator.get_range_rate">[docs]</a>    <span class="k">def</span> <span class="nf">get_range_rate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nid</span><span class="p">,</span> <span class="n">gs_lat</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">gs_lon</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">gs_elev</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">when</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_all</span><span class="p">(</span><span class="n">nid</span><span class="p">,</span> <span class="n">gs_lat</span><span class="p">,</span> <span class="n">gs_lon</span><span class="p">,</span> <span class="n">gs_elev</span><span class="p">,</span> <span class="n">when</span><span class="p">)[</span><span class="s1">&#39;range_rate&#39;</span><span class="p">]</span></div>
+
+<div class="viewcode-block" id="Propagator.get_doppler"><a class="viewcode-back" href="../../_autosummary/libgs_ops.propagator.Propagator.get_doppler.html#libgs_ops.propagator.Propagator.get_doppler">[docs]</a>    <span class="k">def</span> <span class="nf">get_doppler</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nid</span><span class="p">,</span> <span class="n">freq</span><span class="p">,</span> <span class="n">gs_lat</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">gs_lon</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">gs_elev</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">when</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="n">dv</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_range_rate</span><span class="p">(</span><span class="n">nid</span><span class="p">,</span> <span class="n">gs_lat</span><span class="p">,</span> <span class="n">gs_lon</span><span class="p">,</span> <span class="n">gs_elev</span><span class="p">,</span> <span class="n">when</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">dv</span><span class="o">/</span><span class="mf">299792458.0</span><span class="p">)</span><span class="o">*</span><span class="n">freq</span></div>
+
+<div class="viewcode-block" id="Propagator.get_eclipsed"><a class="viewcode-back" href="../../_autosummary/libgs_ops.propagator.Propagator.get_eclipsed.html#libgs_ops.propagator.Propagator.get_eclipsed">[docs]</a>    <span class="k">def</span> <span class="nf">get_eclipsed</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nid</span><span class="p">,</span> <span class="n">gs_lat</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">gs_lon</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">gs_elev</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">when</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_all</span><span class="p">(</span><span class="n">nid</span><span class="p">,</span> <span class="n">gs_lat</span><span class="p">,</span> <span class="n">gs_lon</span><span class="p">,</span> <span class="n">gs_elev</span><span class="p">,</span> <span class="n">when</span><span class="p">)[</span><span class="s1">&#39;eclipsed&#39;</span><span class="p">]</span></div>
+
+<div class="viewcode-block" id="Propagator.get_angles"><a class="viewcode-back" href="../../_autosummary/libgs_ops.propagator.Propagator.get_angles.html#libgs_ops.propagator.Propagator.get_angles">[docs]</a>    <span class="k">def</span> <span class="nf">get_angles</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nid</span><span class="p">,</span> <span class="n">gs_lat</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">gs_lon</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">gs_elev</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">when</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="n">x</span> <span class="o">=</span>  <span class="bp">self</span><span class="o">.</span><span class="n">get_all</span><span class="p">(</span><span class="n">nid</span><span class="p">,</span> <span class="n">gs_lat</span><span class="p">,</span> <span class="n">gs_lon</span><span class="p">,</span> <span class="n">gs_elev</span><span class="p">,</span> <span class="n">when</span><span class="p">)[[</span><span class="s1">&#39;az&#39;</span><span class="p">,</span> <span class="s1">&#39;el&#39;</span><span class="p">]]</span>
+
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">x</span><span class="o">.</span><span class="n">az</span><span class="p">,</span> <span class="n">x</span><span class="o">.</span><span class="n">el</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">x</span></div>
+
+
+<div class="viewcode-block" id="Propagator.get_all"><a class="viewcode-back" href="../../_autosummary/libgs_ops.propagator.Propagator.get_all.html#libgs_ops.propagator.Propagator.get_all">[docs]</a>    <span class="k">def</span> <span class="nf">get_all</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nid</span><span class="p">,</span> <span class="n">gs_lat</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">gs_lon</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">gs_elev</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">when</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Just a wrapper around pyephem _compute function, which allows the extraction</span>
+<span class="sd">        of a  bunch of different parameters through other functions that use</span>
+<span class="sd">        this one (such as get_angles, get_range, etc...)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1">#</span>
+        <span class="c1"># Allow user to pass gs coordinates, or use stored ones otherwise</span>
+        <span class="c1">#</span>
+        <span class="k">if</span> <span class="n">gs_lat</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">lat</span> <span class="o">=</span> <span class="n">gs_lat</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">lat</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">gs_lat</span>
+
+        <span class="k">if</span> <span class="n">gs_lon</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">lon</span> <span class="o">=</span> <span class="n">gs_lon</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">lon</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">gs_lon</span>
+
+        <span class="k">if</span> <span class="n">gs_elev</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">elev</span> <span class="o">=</span> <span class="n">gs_elev</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">elev</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">gs_elev</span>
+
+        <span class="k">if</span> <span class="p">(</span><span class="n">lat</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">lon</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">elev</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="n">Error</span><span class="p">(</span><span class="s2">&quot;GS Lat, Lon or Elev have not been specified&quot;</span><span class="p">)</span>
+
+        <span class="n">obs</span> <span class="o">=</span> <span class="n">ephem</span><span class="o">.</span><span class="n">Observer</span><span class="p">()</span>
+        <span class="n">obs</span><span class="o">.</span><span class="n">lat</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">lat</span><span class="p">)</span>
+        <span class="n">obs</span><span class="o">.</span><span class="n">lon</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">lon</span><span class="p">)</span>
+        <span class="n">obs</span><span class="o">.</span><span class="n">elevation</span> <span class="o">=</span> <span class="n">elev</span>
+
+        <span class="n">v</span> <span class="o">=</span> <span class="n">ephem</span><span class="o">.</span><span class="n">readtle</span><span class="p">(</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">get_tle</span><span class="p">(</span><span class="n">nid</span><span class="p">))</span>
+
+
+        <span class="k">if</span> <span class="n">when</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">when</span> <span class="o">=</span> <span class="p">[</span><span class="n">datetime</span><span class="o">.</span><span class="n">utcnow</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y/%m/</span><span class="si">%d</span><span class="s1"> %H:%M:%S&#39;</span><span class="p">)]</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">when</span><span class="p">,</span> <span class="n">basestring</span><span class="p">):</span>
+            <span class="n">when</span> <span class="o">=</span> <span class="p">[</span><span class="n">when</span><span class="p">]</span>
+        <span class="k">elif</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">when</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">):</span>
+            <span class="n">when</span> <span class="o">=</span> <span class="p">[</span><span class="n">when</span><span class="p">]</span>
+
+        <span class="n">data</span> <span class="o">=</span> <span class="n">DataFrame</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="n">when</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span> <span class="p">[</span><span class="s1">&#39;norad_id&#39;</span><span class="p">,</span> <span class="s1">&#39;tstamp_str&#39;</span><span class="p">,</span> <span class="s1">&#39;orbit_no&#39;</span><span class="p">,</span> <span class="s1">&#39;az&#39;</span><span class="p">,</span> <span class="s1">&#39;el&#39;</span><span class="p">,</span> <span class="s1">&#39;range&#39;</span><span class="p">,</span> <span class="s1">&#39;range_rate&#39;</span><span class="p">,</span> <span class="s1">&#39;altitude&#39;</span><span class="p">,</span> <span class="s1">&#39;lat&#39;</span><span class="p">,</span> <span class="s1">&#39;long&#39;</span><span class="p">,</span> <span class="s1">&#39;eclipsed&#39;</span><span class="p">])</span>
+
+        <span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">when</span><span class="p">:</span>
+            <span class="n">obs</span><span class="o">.</span><span class="n">date</span> <span class="o">=</span> <span class="n">w</span>
+            <span class="n">v</span><span class="o">.</span><span class="n">compute</span><span class="p">(</span><span class="n">obs</span><span class="p">)</span>
+            <span class="n">data</span><span class="o">.</span><span class="n">az</span><span class="p">[</span><span class="n">w</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span><span class="o">.</span><span class="n">az</span><span class="o">/</span><span class="n">pi</span><span class="o">*</span><span class="mf">180.0</span>
+            <span class="n">data</span><span class="o">.</span><span class="n">el</span><span class="p">[</span><span class="n">w</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span><span class="o">.</span><span class="n">alt</span><span class="o">/</span><span class="n">pi</span><span class="o">*</span><span class="mf">180.0</span>
+            <span class="n">data</span><span class="o">.</span><span class="n">range</span><span class="p">[</span><span class="n">w</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span><span class="o">.</span><span class="n">range</span>
+            <span class="n">data</span><span class="o">.</span><span class="n">range_rate</span><span class="p">[</span><span class="n">w</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span><span class="o">.</span><span class="n">range_velocity</span>
+            <span class="n">data</span><span class="o">.</span><span class="n">eclipsed</span><span class="p">[</span><span class="n">w</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span><span class="o">.</span><span class="n">eclipsed</span>
+            <span class="n">data</span><span class="o">.</span><span class="n">altitude</span><span class="p">[</span><span class="n">w</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span><span class="o">.</span><span class="n">elevation</span>
+            <span class="n">data</span><span class="o">.</span><span class="n">lat</span><span class="p">[</span><span class="n">w</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span><span class="o">.</span><span class="n">sublat</span><span class="o">/</span><span class="n">pi</span><span class="o">*</span><span class="mf">180.0</span>
+            <span class="n">data</span><span class="o">.</span><span class="n">long</span><span class="p">[</span><span class="n">w</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span><span class="o">.</span><span class="n">sublong</span><span class="o">/</span><span class="n">pi</span><span class="o">*</span><span class="mf">180.0</span>
+            <span class="n">data</span><span class="o">.</span><span class="n">tstamp_str</span><span class="p">[</span><span class="n">w</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">w</span><span class="p">)</span>
+            <span class="n">data</span><span class="o">.</span><span class="n">norad_id</span><span class="p">[</span><span class="n">w</span><span class="p">]</span> <span class="o">=</span> <span class="n">nid</span>
+            <span class="n">data</span><span class="o">.</span><span class="n">orbit_no</span><span class="p">[</span><span class="n">w</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_calculate_orbit_no</span><span class="p">(</span><span class="n">nid</span><span class="p">,</span> <span class="n">w</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">pd</span><span class="o">.</span><span class="n">isnull</span><span class="p">(</span><span class="n">data</span><span class="p">)</span><span class="o">.</span><span class="n">any</span><span class="p">()</span><span class="o">.</span><span class="n">any</span><span class="p">():</span>
+            <span class="k">raise</span> <span class="n">Error</span><span class="p">(</span><span class="s1">&#39;Unexpected error: dataframe has not filled as expected&#39;</span><span class="p">)</span>
+
+
+        <span class="n">data</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;tstamp&#39;</span>
+
+        <span class="c1"># This is not a nice way to store attributes since it does not persist</span>
+        <span class="c1"># if we do something to the dataframe, so in this funciton it is also</span>
+        <span class="c1"># saved as a column (also not very nice). Anyway, the below is relied</span>
+        <span class="c1"># on for several functions so dont remove.</span>
+        <span class="n">data</span><span class="o">.</span><span class="n">nid</span> <span class="o">=</span> <span class="n">nid</span>
+        
+        <span class="c1"># For convenience we also store the TLE this way. It is not relied on</span>
+        <span class="c1"># but if it is not set then the TLE will not end up in the libgs log</span>
+        <span class="c1"># (unless manually added as metadata to CommsPass under the TLE key)</span>
+        <span class="n">data</span><span class="o">.</span><span class="n">TLE</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_tle</span><span class="p">(</span><span class="n">nid</span><span class="p">))</span>
+
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">return</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">data</span></div>
+
+
+
+<div class="viewcode-block" id="Propagator.get_angles_old"><a class="viewcode-back" href="../../_autosummary/libgs_ops.propagator.Propagator.get_angles_old.html#libgs_ops.propagator.Propagator.get_angles_old">[docs]</a>    <span class="k">def</span> <span class="nf">get_angles_old</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nid</span><span class="p">,</span> <span class="n">gs_lat</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">gs_lon</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">gs_elev</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">when</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">          If the user prefers to calculate the angles at a specific time he</span>
+<span class="sd">          should set when=YYYY/MM/DD HH:mm:ss. when can also be an array</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1">#</span>
+        <span class="c1"># Allow user to pass gs coordinates, or use stored ones otherwise</span>
+        <span class="c1">#</span>
+        <span class="k">if</span> <span class="n">gs_lat</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">lat</span> <span class="o">=</span> <span class="n">gs_lat</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">lat</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">gs_lat</span>
+
+        <span class="k">if</span> <span class="n">gs_lon</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">lon</span> <span class="o">=</span> <span class="n">gs_lon</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">lon</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">gs_lon</span>
+
+        <span class="k">if</span> <span class="n">gs_elev</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">elev</span> <span class="o">=</span> <span class="n">gs_elev</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">elev</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">gs_elev</span>
+
+        <span class="k">if</span> <span class="p">(</span><span class="n">lat</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">lon</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">elev</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="n">Error</span><span class="p">(</span><span class="s2">&quot;GS Lat, Lon or Elev have not been specified&quot;</span><span class="p">)</span>
+
+        <span class="n">obs</span> <span class="o">=</span> <span class="n">ephem</span><span class="o">.</span><span class="n">Observer</span><span class="p">()</span>
+        <span class="n">obs</span><span class="o">.</span><span class="n">lat</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">lat</span><span class="p">)</span>
+        <span class="n">obs</span><span class="o">.</span><span class="n">lon</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">lon</span><span class="p">)</span>
+        <span class="n">obs</span><span class="o">.</span><span class="n">elevation</span> <span class="o">=</span> <span class="n">elev</span>
+
+        <span class="n">v</span> <span class="o">=</span> <span class="n">ephem</span><span class="o">.</span><span class="n">readtle</span><span class="p">(</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">get_tle</span><span class="p">(</span><span class="n">nid</span><span class="p">))</span>
+
+
+        <span class="k">if</span> <span class="n">when</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">obs</span><span class="o">.</span><span class="n">date</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">utcnow</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y/%m/</span><span class="si">%d</span><span class="s1"> %H:%M:%S&#39;</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="nb">type</span><span class="p">(</span><span class="n">when</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="nb">list</span><span class="p">:</span>
+            <span class="n">obs</span><span class="o">.</span><span class="n">date</span> <span class="o">=</span> <span class="n">when</span>
+
+        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">when</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">list</span><span class="p">:</span>
+            <span class="n">pos</span> <span class="o">=</span> <span class="n">DataFrame</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="n">when</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span> <span class="p">[</span><span class="s1">&#39;tstamp_str&#39;</span><span class="p">,</span> <span class="s1">&#39;az&#39;</span><span class="p">,</span> <span class="s1">&#39;el&#39;</span><span class="p">])</span>
+
+            <span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">when</span><span class="p">:</span>
+                <span class="n">obs</span><span class="o">.</span><span class="n">date</span> <span class="o">=</span> <span class="n">w</span>
+                <span class="n">v</span><span class="o">.</span><span class="n">compute</span><span class="p">(</span><span class="n">obs</span><span class="p">)</span>
+                <span class="n">pos</span><span class="o">.</span><span class="n">az</span><span class="p">[</span><span class="n">w</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span><span class="o">.</span><span class="n">az</span><span class="o">/</span><span class="n">pi</span><span class="o">*</span><span class="mf">180.0</span>
+                <span class="n">pos</span><span class="o">.</span><span class="n">el</span><span class="p">[</span><span class="n">w</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span><span class="o">.</span><span class="n">alt</span><span class="o">/</span><span class="n">pi</span><span class="o">*</span><span class="mf">180.0</span>
+                <span class="n">pos</span><span class="o">.</span><span class="n">tstamp_str</span><span class="p">[</span><span class="n">w</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">w</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">pd</span><span class="o">.</span><span class="n">isnull</span><span class="p">(</span><span class="n">pos</span><span class="p">)</span><span class="o">.</span><span class="n">any</span><span class="p">()</span><span class="o">.</span><span class="n">any</span><span class="p">():</span>
+                <span class="k">raise</span> <span class="n">Error</span><span class="p">(</span><span class="s1">&#39;Unexpected error: dataframe has not filled as expected&#39;</span><span class="p">)</span>
+
+
+            <span class="n">pos</span><span class="o">.</span><span class="n">nid</span> <span class="o">=</span> <span class="n">nid</span>
+            <span class="k">return</span> <span class="n">pos</span>
+
+
+
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">v</span><span class="o">.</span><span class="n">compute</span><span class="p">(</span><span class="n">obs</span><span class="p">)</span>
+
+            <span class="c1">#</span>
+            <span class="c1"># Return Azimuth, Elevation (in deg)</span>
+            <span class="c1">#</span>
+            <span class="k">return</span> <span class="n">v</span><span class="o">.</span><span class="n">az</span><span class="o">/</span><span class="n">pi</span><span class="o">*</span><span class="mf">180.0</span><span class="p">,</span> <span class="n">v</span><span class="o">.</span><span class="n">alt</span><span class="o">/</span><span class="n">pi</span><span class="o">*</span><span class="mf">180.0</span></div>
+
+
+<div class="viewcode-block" id="Propagator.get_ground_coord"><a class="viewcode-back" href="../../_autosummary/libgs_ops.propagator.Propagator.get_ground_coord.html#libgs_ops.propagator.Propagator.get_ground_coord">[docs]</a>    <span class="k">def</span> <span class="nf">get_ground_coord</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nid</span><span class="p">,</span> <span class="n">when</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">          Return the ground track lat/long coord without needing the ground station</span>
+<span class="sd">          coordinates</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">obs</span> <span class="o">=</span> <span class="n">ephem</span><span class="o">.</span><span class="n">Observer</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="n">when</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">obs</span><span class="o">.</span><span class="n">date</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">utcnow</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y/%m/</span><span class="si">%d</span><span class="s1"> %H:%M:%S&#39;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">obs</span><span class="o">.</span><span class="n">date</span> <span class="o">=</span> <span class="n">when</span>
+
+        <span class="n">v</span> <span class="o">=</span> <span class="n">ephem</span><span class="o">.</span><span class="n">readtle</span><span class="p">(</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">get_tle</span><span class="p">(</span><span class="n">nid</span><span class="p">))</span>
+        <span class="n">v</span><span class="o">.</span><span class="n">compute</span><span class="p">(</span><span class="n">obs</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">v</span><span class="o">.</span><span class="n">sublat</span><span class="o">/</span><span class="n">pi</span><span class="o">*</span><span class="mf">180.0</span><span class="p">,</span> <span class="n">v</span><span class="o">.</span><span class="n">sublong</span><span class="o">/</span><span class="n">pi</span><span class="o">*</span><span class="mf">180.0</span></div>
+
+    <span class="c1"># TODO: Add eclipsed and get_ground_coord and get_orbit to extend a base</span>
+    <span class="c1"># function taht doesnt depend on gs lat/lon (in same way as get_all above)</span>
+
+<div class="viewcode-block" id="Propagator.get_orbit"><a class="viewcode-back" href="../../_autosummary/libgs_ops.propagator.Propagator.get_orbit.html#libgs_ops.propagator.Propagator.get_orbit">[docs]</a>    <span class="k">def</span> <span class="nf">get_orbit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nid</span><span class="p">,</span> <span class="n">when</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Return the orbital elements</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">obs</span> <span class="o">=</span> <span class="n">ephem</span><span class="o">.</span><span class="n">Observer</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="n">when</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">obs</span><span class="o">.</span><span class="n">date</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">utcnow</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y/%m/</span><span class="si">%d</span><span class="s1"> %H:%M:%S&#39;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">obs</span><span class="o">.</span><span class="n">date</span> <span class="o">=</span> <span class="n">when</span>
+
+        <span class="n">v</span> <span class="o">=</span> <span class="n">ephem</span><span class="o">.</span><span class="n">readtle</span><span class="p">(</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">get_tle</span><span class="p">(</span><span class="n">nid</span><span class="p">))</span>
+        <span class="n">v</span><span class="o">.</span><span class="n">compute</span><span class="p">(</span><span class="n">obs</span><span class="p">)</span>
+
+
+        <span class="n">data</span> <span class="o">=</span> <span class="p">{</span>\
+        <span class="s1">&#39;epoch&#39;</span> <span class="p">:</span> <span class="n">v</span><span class="o">.</span><span class="n">_epoch</span><span class="p">,</span>
+        <span class="s1">&#39;e&#39;</span>     <span class="p">:</span> <span class="n">v</span><span class="o">.</span><span class="n">_e</span><span class="p">,</span>
+        <span class="s1">&#39;inc&#39;</span>   <span class="p">:</span> <span class="n">v</span><span class="o">.</span><span class="n">_inc</span><span class="o">/</span><span class="n">pi</span><span class="o">*</span><span class="mf">180.0</span><span class="p">,</span>
+        <span class="s1">&#39;raan&#39;</span>  <span class="p">:</span> <span class="n">v</span><span class="o">.</span><span class="n">_raan</span><span class="o">/</span><span class="n">pi</span><span class="o">*</span><span class="mf">180.0</span><span class="p">,</span>
+        <span class="s1">&#39;ap&#39;</span>    <span class="p">:</span> <span class="n">v</span><span class="o">.</span><span class="n">_ap</span><span class="o">/</span><span class="n">pi</span><span class="o">*</span><span class="mf">180.0</span><span class="p">,</span>
+        <span class="s1">&#39;n&#39;</span>     <span class="p">:</span> <span class="n">v</span><span class="o">.</span><span class="n">_n</span><span class="p">,</span>
+        <span class="s1">&#39;M&#39;</span>     <span class="p">:</span> <span class="n">v</span><span class="o">.</span><span class="n">_M</span><span class="o">/</span><span class="n">pi</span><span class="o">*</span><span class="mf">180.0</span><span class="p">,</span>
+        <span class="s1">&#39;orbit&#39;</span> <span class="p">:</span> <span class="n">v</span><span class="o">.</span><span class="n">_orbit</span><span class="p">}</span>
+
+        <span class="k">return</span> <span class="n">data</span></div>
+
+    <span class="k">def</span> <span class="nf">_get_observer</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">gs_lat</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">gs_lon</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">gs_elev</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">when</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+
+        <span class="c1">#</span>
+        <span class="c1"># Allow user to pass gs coordinates, or use stored ones otherwise</span>
+        <span class="c1">#</span>
+        <span class="k">if</span> <span class="n">gs_lat</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">lat</span> <span class="o">=</span> <span class="n">gs_lat</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">lat</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">gs_lat</span>
+
+        <span class="k">if</span> <span class="n">gs_lon</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">lon</span> <span class="o">=</span> <span class="n">gs_lon</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">lon</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">gs_lon</span>
+
+        <span class="k">if</span> <span class="n">gs_elev</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">elev</span> <span class="o">=</span> <span class="n">gs_elev</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">elev</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">gs_elev</span>
+
+
+
+        <span class="k">if</span> <span class="p">(</span><span class="n">lat</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">lon</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">elev</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="n">Error</span><span class="p">(</span><span class="s2">&quot;GS Lat, Lon or Elev have not been specified&quot;</span><span class="p">)</span>
+
+        <span class="n">obs</span> <span class="o">=</span> <span class="n">ephem</span><span class="o">.</span><span class="n">Observer</span><span class="p">()</span>
+        <span class="n">obs</span><span class="o">.</span><span class="n">lat</span> <span class="o">=</span> <span class="n">lat</span><span class="o">/</span><span class="mf">180.0</span><span class="o">*</span><span class="n">pi</span>
+        <span class="n">obs</span><span class="o">.</span><span class="n">lon</span> <span class="o">=</span> <span class="n">lon</span><span class="o">/</span><span class="mf">180.0</span><span class="o">*</span><span class="n">pi</span>
+        <span class="n">obs</span><span class="o">.</span><span class="n">elevation</span> <span class="o">=</span> <span class="n">elev</span>
+
+        <span class="k">if</span> <span class="n">when</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">obs</span><span class="o">.</span><span class="n">date</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">utcnow</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y/%m/</span><span class="si">%d</span><span class="s1"> %H:%M:%S&#39;</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">when</span><span class="p">,</span> <span class="n">unicode</span><span class="p">):</span>
+            <span class="n">obs</span><span class="o">.</span><span class="n">date</span> <span class="o">=</span> <span class="n">when</span><span class="o">.</span><span class="n">encode</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">obs</span><span class="o">.</span><span class="n">date</span> <span class="o">=</span> <span class="n">when</span>
+
+        <span class="k">return</span> <span class="n">obs</span>
+
+<div class="viewcode-block" id="Propagator.get_passes"><a class="viewcode-back" href="../../_autosummary/libgs_ops.propagator.Propagator.get_passes.html#libgs_ops.propagator.Propagator.get_passes">[docs]</a>    <span class="k">def</span> <span class="nf">get_passes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nid</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">N</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">when</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">horizon</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Compute the next passes</span>
+
+<span class="sd">            Args:</span>
+<span class="sd">                nid (int, optional): compute the next pass for a given nid.</span>
+<span class="sd">                    If nid is omitted, compute the next pass for all tracked</span>
+<span class="sd">                    satellites.</span>
+
+<span class="sd">                hor (float, optional): horizon angle</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">passes</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">if</span> <span class="n">nid</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">iterable</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">nids_to_track</span>
+        <span class="k">elif</span> <span class="nb">type</span><span class="p">(</span><span class="n">nid</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">list</span><span class="p">:</span>
+            <span class="n">iterable</span> <span class="o">=</span> <span class="n">nid</span>
+        <span class="k">elif</span> <span class="nb">type</span><span class="p">(</span><span class="n">nid</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">int</span><span class="p">:</span>
+            <span class="n">iterable</span> <span class="o">=</span> <span class="p">[</span><span class="n">nid</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">Error</span><span class="p">(</span><span class="s1">&#39;nid is malformed&#39;</span><span class="p">)</span>
+
+        <span class="c1"># Check if satellite is currently visible without having to call</span>
+        <span class="c1">#  get_angles. Just do two next_pass calculations: one for now, one</span>
+        <span class="c1">#  for 10 minutes ago. Check that they match. If not use the one from</span>
+        <span class="c1">#</span>
+        <span class="c1"># if yes: either delay time enough to get next pass later</span>
+        <span class="c1">#         or advance time to include this pass... tbd</span>
+
+        <span class="k">for</span> <span class="n">nid</span> <span class="ow">in</span> <span class="n">iterable</span><span class="p">:</span>
+
+            <span class="c1">#print(nid)</span>
+
+            <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="n">nextwhen</span> <span class="o">=</span> <span class="n">when</span>
+            <span class="k">while</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">N</span><span class="p">:</span>
+                <span class="n">obs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_observer</span><span class="p">(</span><span class="n">when</span><span class="o">=</span><span class="n">nextwhen</span><span class="p">)</span>
+                <span class="n">soon_date</span> <span class="o">=</span> <span class="n">ephem</span><span class="o">.</span><span class="n">Date</span><span class="p">(</span><span class="n">obs</span><span class="o">.</span><span class="n">date</span> <span class="o">+</span> <span class="p">(</span><span class="mf">1.0</span><span class="o">/</span><span class="mi">86400</span><span class="p">))</span>
+
+                <span class="n">tle</span> <span class="o">=</span> <span class="n">ephem</span><span class="o">.</span><span class="n">readtle</span><span class="p">(</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">get_tle</span><span class="p">(</span><span class="n">nid</span><span class="p">))</span>
+
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">p</span> <span class="o">=</span> <span class="n">obs</span><span class="o">.</span><span class="n">next_pass</span><span class="p">(</span><span class="n">tle</span><span class="p">)</span>
+                <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                    <span class="n">log</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;Trying to get pass for NID </span><span class="si">%d</span><span class="s2">, but cant: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="o">%</span><span class="p">(</span><span class="n">nid</span><span class="p">,</span> <span class="n">e</span><span class="p">))</span>
+                    <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+                    <span class="k">continue</span>
+
+                <span class="k">if</span> <span class="ow">not</span> <span class="nb">any</span><span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="mi">2</span><span class="p">:]):</span>
+                    <span class="n">log</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;Trying to get pass for NID </span><span class="si">%d</span><span class="s2">, but cant. It may no longer be in orbit&quot;</span><span class="o">%</span><span class="p">(</span><span class="n">nid</span><span class="p">))</span>
+                    <span class="n">i</span><span class="o">+=</span><span class="mi">1</span>
+                    <span class="k">continue</span>
+
+
+                <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">&lt;</span> <span class="n">p</span><span class="p">[</span><span class="mi">4</span><span class="p">]):</span>
+                    <span class="c1"># satellite is probably currently visible</span>
+
+                        <span class="c1"># compute pos in 1 sec and set as rising</span>
+                        <span class="n">az</span><span class="p">,</span><span class="n">el</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_angles</span><span class="p">(</span><span class="n">nid</span><span class="p">,</span> <span class="n">when</span><span class="o">=</span><span class="n">soon_date</span><span class="p">)</span>
+
+                        <span class="k">if</span> <span class="n">soon_date</span> <span class="o">&lt;=</span> <span class="n">p</span><span class="p">[</span><span class="mi">2</span><span class="p">]:</span>
+                            <span class="n">p</span> <span class="o">=</span> <span class="p">(</span><span class="n">soon_date</span><span class="p">,</span> <span class="n">el</span><span class="o">/</span><span class="mf">180.0</span><span class="o">*</span><span class="n">pi</span><span class="p">,</span> <span class="n">p</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">p</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">p</span><span class="p">[</span><span class="mi">4</span><span class="p">],</span> <span class="n">p</span><span class="p">[</span><span class="mi">5</span><span class="p">])</span>
+
+                            <span class="c1"># if maximum has also been passed, set it to be the same</span>
+                        <span class="k">elif</span> <span class="n">soon_date</span> <span class="o">&gt;</span> <span class="n">p</span><span class="p">[</span><span class="mi">2</span><span class="p">]:</span>
+                            <span class="n">p</span> <span class="o">=</span> <span class="p">(</span><span class="n">soon_date</span><span class="p">,</span> <span class="n">el</span><span class="o">/</span><span class="mf">180.0</span><span class="o">*</span><span class="n">pi</span><span class="p">,</span> <span class="n">soon_date</span><span class="p">,</span> <span class="n">az</span><span class="o">/</span><span class="mf">180.0</span><span class="o">*</span><span class="n">pi</span><span class="p">,</span> <span class="n">p</span><span class="p">[</span><span class="mi">4</span><span class="p">],</span> <span class="n">p</span><span class="p">[</span><span class="mi">5</span><span class="p">])</span>
+
+                        <span class="k">else</span><span class="p">:</span>
+                            <span class="k">raise</span> <span class="n">Error</span><span class="p">(</span><span class="s1">&#39;Unexpected&#39;</span><span class="p">)</span>
+
+                <span class="n">nextwhen</span> <span class="o">=</span> <span class="n">ephem</span><span class="o">.</span><span class="n">Date</span><span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">+</span> <span class="mf">60.0</span><span class="o">/</span><span class="mi">86400</span><span class="p">)</span>
+
+
+                <span class="c1"># convert to a str format that</span>
+                <span class="c1"># a) parses with pd.to_datetime</span>
+                <span class="c1"># b) parses with ephem.Date</span>
+                <span class="c1"># c) sorts correctly</span>
+                <span class="n">dstr</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span> <span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">datetime</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y/%m/</span><span class="si">%d</span><span class="s1"> %H:%M:%S&#39;</span><span class="p">)</span>
+
+                <span class="k">if</span> <span class="n">p</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">/</span><span class="n">pi</span><span class="o">*</span><span class="mf">180.0</span> <span class="o">&lt;</span> <span class="n">horizon</span><span class="p">:</span>
+                    <span class="k">continue</span>
+                <span class="k">else</span><span class="p">:</span>
+
+                    <span class="n">passes</span> <span class="o">+=</span> <span class="p">[(</span><span class="n">nid</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_calculate_orbit_no</span><span class="p">(</span><span class="n">nid</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">])),</span>
+                    <span class="n">dstr</span><span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span>  <span class="n">p</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">/</span><span class="n">pi</span><span class="o">*</span><span class="mf">180.0</span><span class="p">,</span>
+                    <span class="n">dstr</span><span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="mi">2</span><span class="p">]),</span>  <span class="n">p</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">/</span><span class="n">pi</span><span class="o">*</span><span class="mf">180.0</span><span class="p">,</span>
+                    <span class="n">dstr</span><span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="mi">4</span><span class="p">]),</span>  <span class="n">p</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span><span class="o">/</span><span class="n">pi</span><span class="o">*</span><span class="mf">180.0</span><span class="p">)]</span>
+                    <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+
+
+        <span class="n">passes</span> <span class="o">=</span> <span class="n">DataFrame</span><span class="p">(</span><span class="n">passes</span><span class="p">,</span> <span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;nid&#39;</span><span class="p">,</span> <span class="s1">&#39;orbit_no&#39;</span><span class="p">,</span>  <span class="s1">&#39;rise_t&#39;</span><span class="p">,</span> <span class="s1">&#39;rise_az&#39;</span><span class="p">,</span> <span class="s1">&#39;max_elev_t&#39;</span><span class="p">,</span> <span class="s1">&#39;max_elev&#39;</span><span class="p">,</span> <span class="s1">&#39;set_t&#39;</span><span class="p">,</span> <span class="s1">&#39;set_az&#39;</span><span class="p">])</span>
+
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">passes</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">passes</span> <span class="o">=</span> <span class="n">passes</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s1">&#39;rise_t&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="n">passes</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;pass_no&quot;</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">passes</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">passes</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;pass_no&quot;</span>
+            <span class="n">passes</span> <span class="o">=</span> <span class="n">passes</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">passes</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">Error</span><span class="p">(</span><span class="s1">&#39;An unexpected error occurred when computing passes&#39;</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">passes</span></div>
+
+
+
+<div class="viewcode-block" id="Propagator.compute_pass"><a class="viewcode-back" href="../../_autosummary/libgs_ops.propagator.Propagator.compute_pass.html#libgs_ops.propagator.Propagator.compute_pass">[docs]</a>    <span class="k">def</span> <span class="nf">compute_pass</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nid</span><span class="p">,</span> <span class="n">key_els</span> <span class="o">=</span> <span class="p">[],</span> <span class="n">when</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">dt</span><span class="o">=</span><span class="mf">1.0</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Perform a detailed calculation of the pass and</span>
+<span class="sd">            return the trajectory in a dataframe</span>
+
+<span class="sd">            Also compute the keypoints for which the trajectory passes through</span>
+<span class="sd">            a set of elevations (specified)</span>
+
+<span class="sd">            Args:</span>
+<span class="sd">                key_els (list(float), optional): list of elevations to compute</span>
+<span class="sd">                keypoints for. elevations less than 1 deg apart are ignored.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+
+        <span class="c1"># get upcoming pass</span>
+        <span class="n">p</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_passes</span><span class="p">(</span><span class="n">nid</span><span class="p">,</span> <span class="n">when</span><span class="o">=</span><span class="n">when</span><span class="p">)</span>
+        <span class="n">ta</span> <span class="o">=</span> <span class="n">_tstamp_array</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">rise_t</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">set_t</span><span class="p">,</span> <span class="n">dt</span><span class="o">=</span><span class="n">dt</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">ta</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">Error</span><span class="p">(</span><span class="s1">&#39;pass is too short to compute&#39;</span><span class="p">)</span>
+
+
+        <span class="n">angs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_all</span><span class="p">(</span><span class="n">nid</span><span class="p">,</span> <span class="n">when</span><span class="o">=</span><span class="n">ta</span><span class="p">)</span>
+
+        <span class="n">p_max</span> <span class="o">=</span> <span class="n">angs</span><span class="p">[</span><span class="n">angs</span><span class="o">.</span><span class="n">el</span> <span class="o">==</span> <span class="n">angs</span><span class="o">.</span><span class="n">el</span><span class="o">.</span><span class="n">max</span><span class="p">()]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">p_rise</span> <span class="o">=</span> <span class="n">angs</span><span class="p">[</span><span class="n">angs</span><span class="o">.</span><span class="n">el</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">p_set</span>  <span class="o">=</span> <span class="n">angs</span><span class="p">[</span><span class="n">angs</span><span class="o">.</span><span class="n">el</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+        <span class="k">if</span>  <span class="nb">len</span><span class="p">(</span><span class="n">key_els</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">key_els</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
+            <span class="n">key_els</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">([</span><span class="nb">int</span><span class="p">(</span><span class="n">k</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">key_els</span><span class="p">])</span>
+
+            <span class="n">keypoints</span> <span class="o">=</span> <span class="p">[</span><span class="kc">None</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">key_els</span><span class="p">)</span> <span class="o">*</span> <span class="mi">2</span>
+
+            <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="k">for</span> <span class="n">el</span> <span class="ow">in</span> <span class="n">key_els</span><span class="p">:</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">angs</span><span class="o">.</span><span class="n">el</span> <span class="o">&gt;</span> <span class="n">el</span><span class="p">)</span><span class="o">.</span><span class="n">any</span><span class="p">()</span> <span class="o">==</span> <span class="kc">False</span><span class="p">:</span>
+                    <span class="k">raise</span> <span class="n">Error</span><span class="p">(</span><span class="s1">&#39;Pass never reaches requested keypoint elevation&#39;</span><span class="p">)</span>
+
+                <span class="n">keypoints</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">angs</span><span class="p">[</span><span class="n">angs</span><span class="o">.</span><span class="n">el</span> <span class="o">&gt;</span> <span class="n">el</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                <span class="n">keypoints</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="o">-</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">angs</span><span class="p">[</span><span class="n">angs</span><span class="o">.</span><span class="n">el</span> <span class="o">&gt;</span> <span class="n">el</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+                <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+
+
+            <span class="n">keypoints</span> <span class="o">=</span> <span class="p">[</span><span class="n">p_rise</span><span class="p">]</span> <span class="o">+</span> <span class="n">keypoints</span><span class="p">[:</span><span class="nb">len</span><span class="p">(</span><span class="n">key_els</span><span class="p">)]</span> <span class="o">+</span> <span class="p">[</span><span class="n">p_max</span><span class="p">]</span> <span class="o">+</span> <span class="n">keypoints</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">key_els</span><span class="p">):]</span> <span class="o">+</span> <span class="p">[</span><span class="n">p_set</span><span class="p">]</span>
+
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">keypoints</span><span class="o">=</span> <span class="p">[</span><span class="n">p_rise</span><span class="p">,</span> <span class="n">p_max</span><span class="p">,</span> <span class="n">p_set</span><span class="p">]</span>
+
+
+        <span class="n">kpoints</span> <span class="o">=</span> <span class="n">DataFrame</span><span class="p">(</span><span class="n">keypoints</span><span class="p">)</span>
+        <span class="n">kpoints</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;rise&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="p">[</span><span class="s1">&#39;rise</span><span class="si">%02d</span><span class="s1">&#39;</span><span class="o">%</span><span class="p">(</span><span class="n">d</span><span class="p">)</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">key_els</span><span class="p">]</span> <span class="o">+</span> <span class="p">[</span><span class="s1">&#39;peak&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="p">[</span><span class="s1">&#39;set</span><span class="si">%02d</span><span class="s1">&#39;</span><span class="o">%</span><span class="p">(</span><span class="n">d</span><span class="p">)</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">key_els</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]]</span> <span class="o">+</span> <span class="p">[</span><span class="s1">&#39;set&#39;</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">angs</span><span class="p">,</span> <span class="n">kpoints</span></div>
+
+    <span class="k">def</span> <span class="nf">_calculate_orbit_no</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">NID</span><span class="p">,</span> <span class="n">when</span><span class="p">):</span>
+        <span class="n">orbit</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_orbit</span><span class="p">(</span><span class="n">NID</span><span class="p">,</span> <span class="n">when</span><span class="o">=</span><span class="n">when</span><span class="p">)</span>
+        <span class="n">ep</span> <span class="o">=</span> <span class="n">orbit</span><span class="p">[</span><span class="s1">&#39;epoch&#39;</span><span class="p">]</span> <span class="c1"># time at TLE epoch</span>
+        <span class="n">n</span>  <span class="o">=</span> <span class="n">orbit</span><span class="p">[</span><span class="s1">&#39;n&#39;</span><span class="p">]</span> <span class="c1"># mean motion (rev/day)</span>
+        <span class="n">orb_e</span> <span class="o">=</span> <span class="n">orbit</span><span class="p">[</span><span class="s1">&#39;orbit&#39;</span><span class="p">]</span> <span class="c1"># orbit no at epoch</span>
+        <span class="n">M</span>   <span class="o">=</span> <span class="n">orbit</span><span class="p">[</span><span class="s1">&#39;M&#39;</span><span class="p">]</span> <span class="c1"># mean anomaly at epoch (&quot;angle&quot; of epoch)</span>
+        <span class="n">ap</span> <span class="o">=</span> <span class="n">orbit</span><span class="p">[</span><span class="s1">&#39;ap&#39;</span><span class="p">]</span> <span class="c1"># argument of perigee (angle of perigee)</span>
+        <span class="n">t</span> <span class="o">=</span> <span class="n">ephem</span><span class="o">.</span><span class="n">Date</span><span class="p">(</span><span class="n">when</span><span class="p">)</span>
+        <span class="n">ep_an</span> <span class="o">=</span> <span class="n">ep</span> <span class="o">-</span> <span class="p">(</span><span class="mf">1.0</span><span class="o">/</span><span class="n">n</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">M</span> <span class="o">+</span> <span class="n">ap</span><span class="p">)</span><span class="o">/</span><span class="mf">360.0</span> <span class="c1">#time of last ascending node</span>
+
+        <span class="k">return</span> <span class="n">orb_e</span> <span class="o">+</span> <span class="n">n</span><span class="o">*</span><span class="p">(</span><span class="n">t</span> <span class="o">-</span> <span class="n">ep_an</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="Propagator.print_info"><a class="viewcode-back" href="../../_autosummary/libgs_ops.propagator.Propagator.print_info.html#libgs_ops.propagator.Propagator.print_info">[docs]</a>    <span class="k">def</span> <span class="nf">print_info</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nid</span><span class="p">,</span> <span class="n">when</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Print all info about a specific space item</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">        nid: Norad ID of object</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="n">when</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">tstamp</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">utcnow</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y/%m/</span><span class="si">%d</span><span class="s1"> %H:%M:%S&#39;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">tstamp</span> <span class="o">=</span> <span class="n">when</span>
+
+
+        <span class="n">tle</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_tle</span><span class="p">(</span><span class="n">nid</span><span class="p">)</span>
+        <span class="c1">#lat,lon = self.get_ground_coord(nid, when=tstamp)</span>
+        <span class="c1">#az,el = self.get_angles(nid, when=tstamp)</span>
+        <span class="n">sdata</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_all</span><span class="p">(</span><span class="n">nid</span><span class="p">,</span> <span class="n">when</span><span class="o">=</span><span class="n">tstamp</span><span class="p">)</span>
+
+        <span class="n">_print</span><span class="p">(</span><span class="s2">&quot;TLE (updated </span><span class="si">%s</span><span class="s2">):&quot;</span><span class="o">%</span><span class="p">(</span><span class="n">datetime</span><span class="o">.</span><span class="n">fromtimestamp</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tle_timestamp</span><span class="p">)</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%d</span><span class="s1">/%m/%Y %H:%M:%S&#39;</span><span class="p">)))</span>
+        <span class="n">_print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">    &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">tle</span><span class="p">))</span>
+
+        <span class="n">odata</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_orbit</span><span class="p">(</span><span class="n">nid</span><span class="p">)</span>
+        <span class="n">_print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Orbit:&quot;</span><span class="p">)</span>
+        <span class="n">_print</span><span class="p">(</span><span class="s2">&quot;        epoch (utc) : </span><span class="si">%s</span><span class="s2">&quot;</span><span class="o">%</span><span class="p">(</span><span class="n">odata</span><span class="p">[</span><span class="s1">&#39;epoch&#39;</span><span class="p">]))</span>
+        <span class="n">_print</span><span class="p">(</span><span class="s2">&quot;        eccentricity: </span><span class="si">%f</span><span class="s2">&quot;</span><span class="o">%</span><span class="p">(</span><span class="n">odata</span><span class="p">[</span><span class="s1">&#39;e&#39;</span><span class="p">]))</span>
+        <span class="n">_print</span><span class="p">(</span><span class="s2">&quot;        inclindation: </span><span class="si">%f</span><span class="s2">&quot;</span><span class="o">%</span><span class="p">(</span><span class="n">odata</span><span class="p">[</span><span class="s1">&#39;inc&#39;</span><span class="p">]))</span>
+        <span class="n">_print</span><span class="p">(</span><span class="s2">&quot;                RAAN: </span><span class="si">%f</span><span class="s2">&quot;</span><span class="o">%</span><span class="p">(</span><span class="n">odata</span><span class="p">[</span><span class="s1">&#39;raan&#39;</span><span class="p">]))</span>
+        <span class="n">_print</span><span class="p">(</span><span class="s2">&quot;                  AP: </span><span class="si">%f</span><span class="s2">&quot;</span><span class="o">%</span><span class="p">(</span><span class="n">odata</span><span class="p">[</span><span class="s1">&#39;ap&#39;</span><span class="p">]))</span>
+        <span class="n">_print</span><span class="p">(</span><span class="s2">&quot;       revol per day: </span><span class="si">%f</span><span class="s2">&quot;</span><span class="o">%</span><span class="p">(</span><span class="n">odata</span><span class="p">[</span><span class="s1">&#39;n&#39;</span><span class="p">]))</span>
+        <span class="n">_print</span><span class="p">(</span><span class="s2">&quot;  mean anom at epoch: </span><span class="si">%f</span><span class="s2">&quot;</span><span class="o">%</span><span class="p">(</span><span class="n">odata</span><span class="p">[</span><span class="s1">&#39;M&#39;</span><span class="p">]))</span>
+        <span class="n">_print</span><span class="p">(</span><span class="s2">&quot;   orbit no at epoch: </span><span class="si">%d</span><span class="s2">&quot;</span><span class="o">%</span><span class="p">(</span><span class="n">odata</span><span class="p">[</span><span class="s1">&#39;orbit&#39;</span><span class="p">]))</span>
+
+        <span class="n">_print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Observer:&quot;</span><span class="p">)</span>
+        <span class="n">_print</span><span class="p">(</span><span class="s2">&quot;                 lat: </span><span class="si">%f</span><span class="se">\n</span><span class="s2">                 lon: </span><span class="si">%f</span><span class="se">\n</span><span class="s2">                elev: </span><span class="si">%.0f</span><span class="se">\n</span><span class="s2">          date (utc): </span><span class="si">%s</span><span class="s2">&quot;</span><span class="o">%</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">gs_lat</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">gs_lon</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">gs_elev</span><span class="p">,</span> <span class="n">tstamp</span><span class="p">))</span>
+
+        <span class="n">_print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Satellite:&quot;</span><span class="p">)</span>
+        <span class="n">_print</span><span class="p">(</span><span class="s2">&quot;    ground track pos: (lat = </span><span class="si">%.3f</span><span class="s2">, lon = </span><span class="si">%.3f</span><span class="s2">)&quot;</span><span class="o">%</span><span class="p">(</span><span class="n">sdata</span><span class="p">[</span><span class="s1">&#39;lat&#39;</span><span class="p">],</span><span class="n">sdata</span><span class="p">[</span><span class="s1">&#39;long&#39;</span><span class="p">]))</span>
+        <span class="n">_print</span><span class="p">(</span><span class="s2">&quot;            pointing: (az  = </span><span class="si">%.3f</span><span class="s2">, el  = </span><span class="si">%.3f</span><span class="s2">)&quot;</span><span class="o">%</span><span class="p">(</span><span class="n">sdata</span><span class="p">[</span><span class="s1">&#39;az&#39;</span><span class="p">],</span><span class="n">sdata</span><span class="p">[</span><span class="s1">&#39;el&#39;</span><span class="p">]))</span>
+        <span class="n">_print</span><span class="p">(</span><span class="s2">&quot;               range: </span><span class="si">%f</span><span class="s2">&quot;</span><span class="o">%</span><span class="p">(</span><span class="n">sdata</span><span class="p">[</span><span class="s1">&#39;range&#39;</span><span class="p">]))</span>
+        <span class="n">_print</span><span class="p">(</span><span class="s2">&quot;          range rate: </span><span class="si">%f</span><span class="s2">&quot;</span><span class="o">%</span><span class="p">(</span><span class="n">sdata</span><span class="p">[</span><span class="s1">&#39;range_rate&#39;</span><span class="p">]))</span>
+        <span class="n">_print</span><span class="p">(</span><span class="s2">&quot;            altitude: </span><span class="si">%f</span><span class="s2">&quot;</span><span class="o">%</span><span class="p">(</span><span class="n">sdata</span><span class="p">[</span><span class="s1">&#39;altitude&#39;</span><span class="p">]))</span>
+        <span class="n">_print</span><span class="p">(</span><span class="s2">&quot;        orbit number: </span><span class="si">%f</span><span class="s2">&quot;</span><span class="o">%</span><span class="p">(</span><span class="n">sdata</span><span class="p">[</span><span class="s1">&#39;orbit_no&#39;</span><span class="p">]))</span></div></div>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="k">pass</span>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, UNSW
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript">
+          var DOCUMENTATION_OPTIONS = {
+              URL_ROOT:'../../',
+              VERSION:'',
+              LANGUAGE:'None',
+              COLLAPSE_INDEX:false,
+              FILE_SUFFIX:'.html',
+              HAS_SOURCE:  true,
+              SOURCELINK_SUFFIX: '.txt'
+          };
+      </script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

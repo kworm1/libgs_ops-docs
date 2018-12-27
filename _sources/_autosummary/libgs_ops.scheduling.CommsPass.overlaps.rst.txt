@@ -1,0 +1,6 @@
+libgs\_ops\.scheduling\.CommsPass\.overlaps
+===========================================
+
+.. currentmodule:: libgs_ops.scheduling
+
+.. automethod:: CommsPass.overlaps

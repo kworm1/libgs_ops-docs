@@ -1,0 +1,32 @@
+
+
+libgs\_ops\.propagator\.TLEDb
+=============================
+
+.. currentmodule:: libgs_ops.propagator
+
+.. autoclass:: TLEDb
+
+   
+
+   
+   .. rubric:: Methods
+
+   
+   .. autosummary::
+      :toctree: .
+   
+      
+      
+      ~TLEDb.get_tles
+      
+      
+      ~TLEDb.save_tles
+      
+   
+   
+
+   
+   
+   
+

@@ -1,0 +1,6 @@
+libgs\_ops\.scheduling\.Communication\.has\_key
+===============================================
+
+.. currentmodule:: libgs_ops.scheduling
+
+.. automethod:: Communication.has_key

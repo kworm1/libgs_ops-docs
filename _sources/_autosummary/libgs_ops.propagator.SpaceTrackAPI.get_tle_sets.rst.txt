@@ -1,0 +1,6 @@
+libgs\_ops\.propagator\.SpaceTrackAPI\.get\_tle\_sets
+=====================================================
+
+.. currentmodule:: libgs_ops.propagator
+
+.. automethod:: SpaceTrackAPI.get_tle_sets

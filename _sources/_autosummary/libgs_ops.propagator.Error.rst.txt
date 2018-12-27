@@ -1,0 +1,6 @@
+libgs\_ops\.propagator\.Error
+=============================
+
+.. currentmodule:: libgs_ops.propagator
+
+.. autoexception:: Error
