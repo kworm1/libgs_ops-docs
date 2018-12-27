@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>libgs_ops.rpc &mdash; libgs_ops  documentation</title>
+  <title>&lt;no title&gt; &mdash; libgs_ops  documentation</title>
   
 
   
@@ -78,13 +78,19 @@
               
             
             
-              <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="libgs_ops.propagator.html">libgs_ops.propagator</a></li>
-<li class="toctree-l1"><a class="reference internal" href="libgs_ops.scheduling.html">libgs_ops.scheduling</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">libgs_ops.rpc</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="libgs_ops.rpc.RPCClient.html">libgs_ops.rpc.RPCClient</a></li>
-</ul>
-</li>
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="libgs_ops.propagator.mpl_plot_pass.html">libgs_ops.propagator.mpl_plot_pass</a></li>
+<li class="toctree-l1"><a class="reference internal" href="libgs_ops.propagator.Propagator.html">libgs_ops.propagator.Propagator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="libgs_ops.propagator.SpaceTrackAPI.html">libgs_ops.propagator.SpaceTrackAPI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="libgs_ops.propagator.TLEDb.html">libgs_ops.propagator.TLEDb</a></li>
+<li class="toctree-l1"><a class="reference internal" href="libgs_ops.propagator.Error.html">libgs_ops.propagator.Error</a></li>
+<li class="toctree-l1"><a class="reference internal" href="libgs_ops.scheduling.Action.html">libgs_ops.scheduling.Action</a></li>
+<li class="toctree-l1"><a class="reference internal" href="libgs_ops.scheduling.CommsPass.html">libgs_ops.scheduling.CommsPass</a></li>
+<li class="toctree-l1"><a class="reference internal" href="libgs_ops.scheduling.Communication.html">libgs_ops.scheduling.Communication</a></li>
+<li class="toctree-l1"><a class="reference internal" href="libgs_ops.scheduling.RPCSchedulerClient.html">libgs_ops.scheduling.RPCSchedulerClient</a></li>
+<li class="toctree-l1"><a class="reference internal" href="libgs_ops.scheduling.Schedule.html">libgs_ops.scheduling.Schedule</a></li>
+<li class="toctree-l1"><a class="reference internal" href="libgs_ops.scheduling.Error.html">libgs_ops.scheduling.Error</a></li>
+<li class="toctree-l1"><a class="reference internal" href="libgs_ops.rpc.RPCClient.html">libgs_ops.rpc.RPCClient</a></li>
 </ul>
 
             
@@ -130,7 +136,7 @@
     
       <li><a href="../index.html">Docs</a> &raquo;</li>
         
-      <li>libgs_ops.rpc</li>
+      <li>&lt;no title&gt;</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -149,18 +155,28 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <span class="target" id="module-libgs_ops.rpc"></span><div class="section" id="libgs-ops-rpc">
-<h1>libgs_ops.rpc<a class="headerlink" href="#libgs-ops-rpc" title="Permalink to this headline">¶</a></h1>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">date:</th><td class="field-body">Tue Jan  2 10:10:48 2018</td>
-</tr>
-<tr class="field-even field"><th class="field-name">author:</th><td class="field-body">Kjetil Wormnes</td>
-</tr>
-</tbody>
-</table>
+  <span class="target" id="module-libgs_ops.rpc"></span><p>Copyright © 2017-2018 The University of New South Wales</p>
+<p>Permission is hereby granted, free of charge, to any person obtaining a copy of
+this software and associated documentation files (the “Software”), to deal in
+the Software without restriction, including without limitation the rights to use,
+copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the
+Software, and to permit persons to whom the Software is furnished to do so,
+subject to the following conditions:</p>
+<p>The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.</p>
+<p>THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p>
+<p>Except as contained in this notice, the name or trademarks of a copyright holder</p>
+<p>shall not be used in advertising or otherwise to promote the sale, use or other
+dealings in this Software without prior written authorization of the copyright
+holder.</p>
+<p>UNSW is a trademark of The University of New South Wales.</p>
+<p>Created on Tue Jan  2 10:10:48 2018</p>
+<p>&#64;author: kjetil</p>
 <p class="rubric">Classes</p>
 <table border="1" class="longtable docutils">
 <colgroup>
@@ -168,12 +184,11 @@
 <col width="90%" />
 </colgroup>
 <tbody valign="top">
-<tr class="row-odd"><td><a class="reference internal" href="libgs_ops.rpc.RPCClient.html#libgs_ops.rpc.RPCClient" title="libgs_ops.rpc.RPCClient"><code class="xref py py-obj docutils literal"><span class="pre">RPCClient</span></code></a>(uri[,&nbsp;timeout,&nbsp;transport,&nbsp;…])</td>
-<td>An improvement on ye olde ServerProxy that   * Times out if the connection has gone belly up   * Allows kwargs to be passed along with arguments, by adding the kwargs as a single dictionary argument     at the end of the list of parameters.</td>
+<tr class="row-odd"><td><a class="reference internal" href="libgs_ops.rpc.RPCClient.html#libgs_ops.rpc.RPCClient" title="libgs_ops.rpc.RPCClient"><code class="xref py py-obj docutils literal notranslate"><span class="pre">RPCClient</span></code></a>(uri[,&nbsp;timeout,&nbsp;transport,&nbsp;…])</td>
+<td>An improvement on ye olde ServerProxy that</td>
 </tr>
 </tbody>
 </table>
-</div>
 
 
            </div>
@@ -216,20 +231,11 @@
 
     
     
-      <script type="text/javascript">
-          var DOCUMENTATION_OPTIONS = {
-              URL_ROOT:'../',
-              VERSION:'',
-              LANGUAGE:'None',
-              COLLAPSE_INDEX:false,
-              FILE_SUFFIX:'.html',
-              HAS_SOURCE:  true,
-              SOURCELINK_SUFFIX: '.txt'
-          };
-      </script>
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
         <script type="text/javascript" src="../_static/jquery.js"></script>
         <script type="text/javascript" src="../_static/underscore.js"></script>
         <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
     
 
   
