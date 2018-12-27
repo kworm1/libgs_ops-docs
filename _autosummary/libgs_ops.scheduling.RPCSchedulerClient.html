@@ -28,7 +28,6 @@
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="libgs_ops.scheduling.RPCSchedulerClient.disable" href="libgs_ops.scheduling.RPCSchedulerClient.disable.html" />
     <link rel="prev" title="libgs_ops.scheduling.Communication.viewvalues" href="libgs_ops.scheduling.Communication.viewvalues.html" /> 
 
   
@@ -79,23 +78,22 @@
             
             
               <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="libgs_ops.propagator.html">libgs_ops.propagator</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="libgs_ops.scheduling.html">libgs_ops.scheduling</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="libgs_ops.scheduling.Action.html">libgs_ops.scheduling.Action</a></li>
-<li class="toctree-l2"><a class="reference internal" href="libgs_ops.scheduling.CommsPass.html">libgs_ops.scheduling.CommsPass</a></li>
-<li class="toctree-l2"><a class="reference internal" href="libgs_ops.scheduling.Communication.html">libgs_ops.scheduling.Communication</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">libgs_ops.scheduling.RPCSchedulerClient</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="libgs_ops.scheduling.RPCSchedulerClient.disable.html">libgs_ops.scheduling.RPCSchedulerClient.disable</a></li>
-<li class="toctree-l3"><a class="reference internal" href="libgs_ops.scheduling.RPCSchedulerClient.enable.html">libgs_ops.scheduling.RPCSchedulerClient.enable</a></li>
-<li class="toctree-l3"><a class="reference internal" href="libgs_ops.scheduling.RPCSchedulerClient.execute.html">libgs_ops.scheduling.RPCSchedulerClient.execute</a></li>
-<li class="toctree-l3"><a class="reference internal" href="libgs_ops.scheduling.RPCSchedulerClient.stop.html">libgs_ops.scheduling.RPCSchedulerClient.stop</a></li>
+<li class="toctree-l1"><a class="reference internal" href="libgs_ops.propagator.mpl_plot_pass.html">libgs_ops.propagator.mpl_plot_pass</a></li>
+<li class="toctree-l1"><a class="reference internal" href="libgs_ops.propagator.Propagator.html">libgs_ops.propagator.Propagator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="libgs_ops.propagator.SpaceTrackAPI.html">libgs_ops.propagator.SpaceTrackAPI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="libgs_ops.propagator.TLEDb.html">libgs_ops.propagator.TLEDb</a></li>
+<li class="toctree-l1"><a class="reference internal" href="libgs_ops.propagator.Error.html">libgs_ops.propagator.Error</a></li>
+<li class="toctree-l1"><a class="reference internal" href="libgs_ops.scheduling.Action.html">libgs_ops.scheduling.Action</a></li>
+<li class="toctree-l1"><a class="reference internal" href="libgs_ops.scheduling.CommsPass.html">libgs_ops.scheduling.CommsPass</a></li>
+<li class="toctree-l1"><a class="reference internal" href="libgs_ops.scheduling.Communication.html">libgs_ops.scheduling.Communication</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">libgs_ops.scheduling.RPCSchedulerClient</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="libgs_ops.scheduling.RPCSchedulerClient.execute.html">libgs_ops.scheduling.RPCSchedulerClient.execute</a></li>
+<li class="toctree-l2"><a class="reference internal" href="libgs_ops.scheduling.RPCSchedulerClient.stop.html">libgs_ops.scheduling.RPCSchedulerClient.stop</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="libgs_ops.scheduling.Schedule.html">libgs_ops.scheduling.Schedule</a></li>
-<li class="toctree-l2"><a class="reference internal" href="libgs_ops.scheduling.Error.html">libgs_ops.scheduling.Error</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="libgs_ops.rpc.html">libgs_ops.rpc</a></li>
+<li class="toctree-l1"><a class="reference internal" href="libgs_ops.scheduling.Schedule.html">libgs_ops.scheduling.Schedule</a></li>
+<li class="toctree-l1"><a class="reference internal" href="libgs_ops.scheduling.Error.html">libgs_ops.scheduling.Error</a></li>
+<li class="toctree-l1"><a class="reference internal" href="libgs_ops.rpc.RPCClient.html">libgs_ops.rpc.RPCClient</a></li>
 </ul>
 
             
@@ -141,7 +139,7 @@
     
       <li><a href="../index.html">Docs</a> &raquo;</li>
         
-          <li><a href="libgs_ops.scheduling.html">libgs_ops.scheduling</a> &raquo;</li>
+          <li><a href="libgs_ops.scheduling.html">&lt;no title&gt;</a> &raquo;</li>
         
       <li>libgs_ops.scheduling.RPCSchedulerClient</li>
     
@@ -166,25 +164,10 @@
 <h1>libgs_ops.scheduling.RPCSchedulerClient<a class="headerlink" href="#libgs-ops-scheduling-rpcschedulerclient" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
 <dt id="libgs_ops.scheduling.RPCSchedulerClient">
-<em class="property">class </em><code class="descclassname">libgs_ops.scheduling.</code><code class="descname">RPCSchedulerClient</code><span class="sig-paren">(</span><em>schedule</em>, <em>track_full_pass=True</em>, <em>compute_ant_points=True</em>, <em>rpcaddr='http://localhost:8000'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/libgs_ops/scheduling.html#RPCSchedulerClient"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#libgs_ops.scheduling.RPCSchedulerClient" title="Permalink to this definition">¶</a></dt>
-<dd><p>The RPCSchedulerClient class connects to a remote scheduler and allows basic interaction with it to
-upload/start/stop schedules.</p>
-<p>For futher information see <code class="xref py py-class docutils literal"><span class="pre">libgs.scheduler.Scheduler</span></code></p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>schedule</strong> – The schedule to execute</li>
-<li><strong>track_full_pass</strong> – If True (default), a pass will be tracked to its end even when the communications are finished.</li>
-<li><strong>compute_ant_points</strong> – If True (default), libgs will intelligently decide when to move the antenna based on its beamwidth.
-Otherwise the schedule will be followed slavishly.</li>
-<li><strong>rpcaddr</strong> – The XMLRPC address of the remote. For example: <a class="reference external" href="http://some.address.com:8000">http://some.address.com:8000</a></li>
-</ul>
-</td>
-</tr>
-</tbody>
-</table>
+<em class="property">class </em><code class="descclassname">libgs_ops.scheduling.</code><code class="descname">RPCSchedulerClient</code><span class="sig-paren">(</span><em>schedule</em>, <em>track_full_pass=False</em>, <em>compute_ant_points=True</em>, <em>rpcaddr='http://localhost:8000'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/libgs_ops/scheduling.html#RPCSchedulerClient"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#libgs_ops.scheduling.RPCSchedulerClient" title="Permalink to this definition">¶</a></dt>
+<dd><p>The RPCSchedulerClient class can replace the scheduler class in remote
+operations. It connects to the RPCSchedulerClient on the ground station
+for easy communication and execution of schedules.</p>
 <p class="rubric">Methods</p>
 <table border="1" class="longtable docutils">
 <colgroup>
@@ -192,17 +175,17 @@ Otherwise the schedule will be followed slavishly.</li>
 <col width="90%" />
 </colgroup>
 <tbody valign="top">
-<tr class="row-odd"><td><a class="reference internal" href="libgs_ops.scheduling.RPCSchedulerClient.disable.html#libgs_ops.scheduling.RPCSchedulerClient.disable" title="libgs_ops.scheduling.RPCSchedulerClient.disable"><code class="xref py py-obj docutils literal"><span class="pre">disable</span></code></a>()</td>
-<td>Disable a scheduler on the remote.</td>
+<tr class="row-odd"><td><a class="reference internal" href="libgs_ops.scheduling.RPCSchedulerClient.disable.html#libgs_ops.scheduling.RPCSchedulerClient.disable" title="libgs_ops.scheduling.RPCSchedulerClient.disable"><code class="xref py py-obj docutils literal notranslate"><span class="pre">RPCSchedulerClient.disable</span></code></a></td>
+<td></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="libgs_ops.scheduling.RPCSchedulerClient.enable.html#libgs_ops.scheduling.RPCSchedulerClient.enable" title="libgs_ops.scheduling.RPCSchedulerClient.enable"><code class="xref py py-obj docutils literal"><span class="pre">enable</span></code></a>()</td>
-<td>Re-enable a disabled scheduler on the remote</td>
+<tr class="row-even"><td><a class="reference internal" href="libgs_ops.scheduling.RPCSchedulerClient.enable.html#libgs_ops.scheduling.RPCSchedulerClient.enable" title="libgs_ops.scheduling.RPCSchedulerClient.enable"><code class="xref py py-obj docutils literal notranslate"><span class="pre">RPCSchedulerClient.enable</span></code></a></td>
+<td></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="libgs_ops.scheduling.RPCSchedulerClient.execute.html#libgs_ops.scheduling.RPCSchedulerClient.execute" title="libgs_ops.scheduling.RPCSchedulerClient.execute"><code class="xref py py-obj docutils literal"><span class="pre">execute</span></code></a>([N])</td>
-<td>Execute the schedule on the remote</td>
+<tr class="row-odd"><td><a class="reference internal" href="libgs_ops.scheduling.RPCSchedulerClient.execute.html#libgs_ops.scheduling.RPCSchedulerClient.execute" title="libgs_ops.scheduling.RPCSchedulerClient.execute"><code class="xref py py-obj docutils literal notranslate"><span class="pre">execute</span></code></a>([N])</td>
+<td></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="libgs_ops.scheduling.RPCSchedulerClient.stop.html#libgs_ops.scheduling.RPCSchedulerClient.stop" title="libgs_ops.scheduling.RPCSchedulerClient.stop"><code class="xref py py-obj docutils literal"><span class="pre">stop</span></code></a>()</td>
-<td>Stop the scheduler on the remote</td>
+<tr class="row-even"><td><a class="reference internal" href="libgs_ops.scheduling.RPCSchedulerClient.stop.html#libgs_ops.scheduling.RPCSchedulerClient.stop" title="libgs_ops.scheduling.RPCSchedulerClient.stop"><code class="xref py py-obj docutils literal notranslate"><span class="pre">stop</span></code></a>()</td>
+<td></td>
 </tr>
 </tbody>
 </table>
@@ -217,8 +200,6 @@ Otherwise the schedule will be followed slavishly.</li>
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="libgs_ops.scheduling.RPCSchedulerClient.disable.html" class="btn btn-neutral float-right" title="libgs_ops.scheduling.RPCSchedulerClient.disable" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="libgs_ops.scheduling.Communication.viewvalues.html" class="btn btn-neutral" title="libgs_ops.scheduling.Communication.viewvalues" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
@@ -251,20 +232,11 @@ Otherwise the schedule will be followed slavishly.</li>
 
     
     
-      <script type="text/javascript">
-          var DOCUMENTATION_OPTIONS = {
-              URL_ROOT:'../',
-              VERSION:'',
-              LANGUAGE:'None',
-              COLLAPSE_INDEX:false,
-              FILE_SUFFIX:'.html',
-              HAS_SOURCE:  true,
-              SOURCELINK_SUFFIX: '.txt'
-          };
-      </script>
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
         <script type="text/javascript" src="../_static/jquery.js"></script>
         <script type="text/javascript" src="../_static/underscore.js"></script>
         <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
     
 
   
