@@ -77,18 +77,9 @@
             
             
               <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../_autosummary/libgs_ops.propagator.mpl_plot_pass.html">libgs_ops.propagator.mpl_plot_pass</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../_autosummary/libgs_ops.propagator.Propagator.html">libgs_ops.propagator.Propagator</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../_autosummary/libgs_ops.propagator.SpaceTrackAPI.html">libgs_ops.propagator.SpaceTrackAPI</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../_autosummary/libgs_ops.propagator.TLEDb.html">libgs_ops.propagator.TLEDb</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../_autosummary/libgs_ops.propagator.Error.html">libgs_ops.propagator.Error</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../_autosummary/libgs_ops.scheduling.Action.html">libgs_ops.scheduling.Action</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../_autosummary/libgs_ops.scheduling.CommsPass.html">libgs_ops.scheduling.CommsPass</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../_autosummary/libgs_ops.scheduling.Communication.html">libgs_ops.scheduling.Communication</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../_autosummary/libgs_ops.scheduling.RPCSchedulerClient.html">libgs_ops.scheduling.RPCSchedulerClient</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../_autosummary/libgs_ops.scheduling.Schedule.html">libgs_ops.scheduling.Schedule</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../_autosummary/libgs_ops.scheduling.Error.html">libgs_ops.scheduling.Error</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../_autosummary/libgs_ops.rpc.RPCClient.html">libgs_ops.rpc.RPCClient</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../_autosummary/libgs_ops.propagator.html">libgs_ops.propagator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../_autosummary/libgs_ops.scheduling.html">libgs_ops.scheduling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../_autosummary/libgs_ops.rpc.html">libgs_ops.rpc</a></li>
 </ul>
 
             
@@ -154,37 +145,39 @@
   <h1>Source code for libgs_ops.rpc</h1><div class="highlight"><pre>
 <span></span><span class="c1"># -*- coding: utf-8 -*-</span>
 <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">Copyright © 2017-2018 The University of New South Wales</span>
+<span class="sd">..</span>
+<span class="sd">    Copyright © 2017-2018 The University of New South Wales</span>
 
-<span class="sd">Permission is hereby granted, free of charge, to any person obtaining a copy of</span>
-<span class="sd">this software and associated documentation files (the &quot;Software&quot;), to deal in</span>
-<span class="sd">the Software without restriction, including without limitation the rights to use,</span>
-<span class="sd">copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the</span>
-<span class="sd">Software, and to permit persons to whom the Software is furnished to do so,</span>
-<span class="sd">subject to the following conditions:</span>
+<span class="sd">    Permission is hereby granted, free of charge, to any person obtaining a copy of</span>
+<span class="sd">    this software and associated documentation files (the &quot;Software&quot;), to deal in</span>
+<span class="sd">    the Software without restriction, including without limitation the rights to use,</span>
+<span class="sd">    copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the</span>
+<span class="sd">    Software, and to permit persons to whom the Software is furnished to do so,</span>
+<span class="sd">    subject to the following conditions:</span>
 
-<span class="sd">The above copyright notice and this permission notice shall be included in all</span>
-<span class="sd">copies or substantial portions of the Software.</span>
+<span class="sd">    The above copyright notice and this permission notice shall be included in all</span>
+<span class="sd">    copies or substantial portions of the Software.</span>
 
-<span class="sd">THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR</span>
-<span class="sd">IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,</span>
-<span class="sd">FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE</span>
-<span class="sd">AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,</span>
-<span class="sd">WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN</span>
-<span class="sd">CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</span>
+<span class="sd">    THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR</span>
+<span class="sd">    IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,</span>
+<span class="sd">    FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE</span>
+<span class="sd">    AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,</span>
+<span class="sd">    WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN</span>
+<span class="sd">    CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</span>
 
-<span class="sd">Except as contained in this notice, the name or trademarks of a copyright holder</span>
+<span class="sd">    Except as contained in this notice, the name or trademarks of a copyright holder</span>
 
-<span class="sd">shall not be used in advertising or otherwise to promote the sale, use or other</span>
-<span class="sd">dealings in this Software without prior written authorization of the copyright</span>
-<span class="sd">holder.</span>
+<span class="sd">    shall not be used in advertising or otherwise to promote the sale, use or other</span>
+<span class="sd">    dealings in this Software without prior written authorization of the copyright</span>
+<span class="sd">    holder.</span>
 
-<span class="sd">UNSW is a trademark of The University of New South Wales.</span>
+<span class="sd">    UNSW is a trademark of The University of New South Wales.</span>
 
+<span class="sd">libgs_ops.rpc</span>
+<span class="sd">=============</span>
 
-<span class="sd">Created on Tue Jan  2 10:10:48 2018</span>
-
-<span class="sd">@author: kjetil</span>
+<span class="sd">:date:   Tue Jan  2 10:10:48 2018</span>
+<span class="sd">:author: Kjetil Wormnes</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="kn">from</span> <span class="nn">xmlrpclib</span> <span class="k">import</span> <span class="n">ServerProxy</span><span class="p">,</span> <span class="n">Transport</span>

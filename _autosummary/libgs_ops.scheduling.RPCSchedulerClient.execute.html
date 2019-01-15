@@ -28,7 +28,8 @@
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="libgs_ops.scheduling.RPCSchedulerClient.stop" href="libgs_ops.scheduling.RPCSchedulerClient.stop.html" /> 
+    <link rel="next" title="libgs_ops.scheduling.RPCSchedulerClient.stop" href="libgs_ops.scheduling.RPCSchedulerClient.stop.html" />
+    <link rel="prev" title="libgs_ops.scheduling.RPCSchedulerClient.enable" href="libgs_ops.scheduling.RPCSchedulerClient.enable.html" /> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
@@ -78,22 +79,23 @@
             
             
               <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="libgs_ops.propagator.mpl_plot_pass.html">libgs_ops.propagator.mpl_plot_pass</a></li>
-<li class="toctree-l1"><a class="reference internal" href="libgs_ops.propagator.Propagator.html">libgs_ops.propagator.Propagator</a></li>
-<li class="toctree-l1"><a class="reference internal" href="libgs_ops.propagator.SpaceTrackAPI.html">libgs_ops.propagator.SpaceTrackAPI</a></li>
-<li class="toctree-l1"><a class="reference internal" href="libgs_ops.propagator.TLEDb.html">libgs_ops.propagator.TLEDb</a></li>
-<li class="toctree-l1"><a class="reference internal" href="libgs_ops.propagator.Error.html">libgs_ops.propagator.Error</a></li>
-<li class="toctree-l1"><a class="reference internal" href="libgs_ops.scheduling.Action.html">libgs_ops.scheduling.Action</a></li>
-<li class="toctree-l1"><a class="reference internal" href="libgs_ops.scheduling.CommsPass.html">libgs_ops.scheduling.CommsPass</a></li>
-<li class="toctree-l1"><a class="reference internal" href="libgs_ops.scheduling.Communication.html">libgs_ops.scheduling.Communication</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="libgs_ops.scheduling.RPCSchedulerClient.html">libgs_ops.scheduling.RPCSchedulerClient</a><ul class="current">
-<li class="toctree-l2 current"><a class="current reference internal" href="#">libgs_ops.scheduling.RPCSchedulerClient.execute</a></li>
-<li class="toctree-l2"><a class="reference internal" href="libgs_ops.scheduling.RPCSchedulerClient.stop.html">libgs_ops.scheduling.RPCSchedulerClient.stop</a></li>
+<li class="toctree-l1"><a class="reference internal" href="libgs_ops.propagator.html">libgs_ops.propagator</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="libgs_ops.scheduling.html">libgs_ops.scheduling</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="libgs_ops.scheduling.Action.html">libgs_ops.scheduling.Action</a></li>
+<li class="toctree-l2"><a class="reference internal" href="libgs_ops.scheduling.CommsPass.html">libgs_ops.scheduling.CommsPass</a></li>
+<li class="toctree-l2"><a class="reference internal" href="libgs_ops.scheduling.Communication.html">libgs_ops.scheduling.Communication</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="libgs_ops.scheduling.RPCSchedulerClient.html">libgs_ops.scheduling.RPCSchedulerClient</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="libgs_ops.scheduling.RPCSchedulerClient.disable.html">libgs_ops.scheduling.RPCSchedulerClient.disable</a></li>
+<li class="toctree-l3"><a class="reference internal" href="libgs_ops.scheduling.RPCSchedulerClient.enable.html">libgs_ops.scheduling.RPCSchedulerClient.enable</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">libgs_ops.scheduling.RPCSchedulerClient.execute</a></li>
+<li class="toctree-l3"><a class="reference internal" href="libgs_ops.scheduling.RPCSchedulerClient.stop.html">libgs_ops.scheduling.RPCSchedulerClient.stop</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="libgs_ops.scheduling.Schedule.html">libgs_ops.scheduling.Schedule</a></li>
-<li class="toctree-l1"><a class="reference internal" href="libgs_ops.scheduling.Error.html">libgs_ops.scheduling.Error</a></li>
-<li class="toctree-l1"><a class="reference internal" href="libgs_ops.rpc.RPCClient.html">libgs_ops.rpc.RPCClient</a></li>
+<li class="toctree-l2"><a class="reference internal" href="libgs_ops.scheduling.Schedule.html">libgs_ops.scheduling.Schedule</a></li>
+<li class="toctree-l2"><a class="reference internal" href="libgs_ops.scheduling.Error.html">libgs_ops.scheduling.Error</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="libgs_ops.rpc.html">libgs_ops.rpc</a></li>
 </ul>
 
             
@@ -139,7 +141,7 @@
     
       <li><a href="../index.html">Docs</a> &raquo;</li>
         
-          <li><a href="libgs_ops.scheduling.html">&lt;no title&gt;</a> &raquo;</li>
+          <li><a href="libgs_ops.scheduling.html">libgs_ops.scheduling</a> &raquo;</li>
         
           <li><a href="libgs_ops.scheduling.RPCSchedulerClient.html">libgs_ops.scheduling.RPCSchedulerClient</a> &raquo;</li>
         
@@ -167,7 +169,16 @@
 <dl class="method">
 <dt id="libgs_ops.scheduling.RPCSchedulerClient.execute">
 <code class="descclassname">RPCSchedulerClient.</code><code class="descname">execute</code><span class="sig-paren">(</span><em>N=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/libgs_ops/scheduling.html#RPCSchedulerClient.execute"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#libgs_ops.scheduling.RPCSchedulerClient.execute" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Execute the schedule on the remote</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>N</strong> (<em>optional</em>) – Only execute at most N entries</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 </div>
 
@@ -181,6 +192,8 @@
       
         <a href="libgs_ops.scheduling.RPCSchedulerClient.stop.html" class="btn btn-neutral float-right" title="libgs_ops.scheduling.RPCSchedulerClient.stop" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
+      
+        <a href="libgs_ops.scheduling.RPCSchedulerClient.enable.html" class="btn btn-neutral" title="libgs_ops.scheduling.RPCSchedulerClient.enable" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
