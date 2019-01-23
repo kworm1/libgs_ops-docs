@@ -194,7 +194,7 @@ that pdat exists.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">The <a class="reference internal" href="libgs_ops.scheduling.CommsPass.html#libgs_ops.scheduling.CommsPass" title="libgs_ops.scheduling.CommsPass"><code class="xref py py-class docutils literal notranslate"><span class="pre">CommsPass</span></code></a> allows you to set arbitrary metadata. Such metadata will be stored in the pass database together with the schedule.
-It may also be used by a custom protocol that requires it. (See <code class="xref py py-class docutils literal notranslate"><span class="pre">libgs.protocols.ProtocolBase</span></code>)
+It may also be used by a custom protocol that requires it. (See <a class="reference external" href="https://kworm1.github.io/libgs-docs/_autosummary/libgs.protocols.protocolbase.ProtocolBase.html#libgs.protocols.protocolbase.ProtocolBase" title="(in libgs)"><code class="xref py py-class docutils literal notranslate"><span class="pre">libgs.protocols.protocolbase.ProtocolBase</span></code></a>)
 The metadata can be seen in the <a class="reference internal" href="libgs_ops.scheduling.CommsPass.metadata.html#libgs_ops.scheduling.CommsPass.metadata" title="libgs_ops.scheduling.CommsPass.metadata"><code class="xref py py-attr docutils literal notranslate"><span class="pre">CommsPass.metadata</span></code></a> attribute. It is also directly accessible by the . operator, but
 the . operator can <em>not</em> be used to create new metadata. Either add it to the metadata dict, or on <a class="reference internal" href="libgs_ops.scheduling.CommsPass.html#libgs_ops.scheduling.CommsPass" title="libgs_ops.scheduling.CommsPass"><code class="xref py py-class docutils literal notranslate"><span class="pre">CommsPass</span></code></a> construction as
 in the example below.</p>
@@ -231,7 +231,7 @@ the <code class="docutils literal notranslate"><span class="pre">retries</span><
 </pre></div>
 </div>
 <p>The scheduler also supports actions. <a class="reference internal" href="libgs_ops.scheduling.Action.html#libgs_ops.scheduling.Action" title="libgs_ops.scheduling.Action"><code class="xref py py-class docutils literal notranslate"><span class="pre">Action</span></code></a> s refer to any functionality you may have implemented in the protocol’s
-<code class="xref py py-meth docutils literal notranslate"><span class="pre">libgs.protocols.ProtocolBase.do_action()</span></code> method,  and there is no standard format since the syntax depends on the function.
+<a class="reference external" href="https://kworm1.github.io/libgs-docs/_autosummary/libgs.protocols.protocolbase.ProtocolBase.do_action.html#libgs.protocols.protocolbase.ProtocolBase.do_action" title="(in libgs)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">libgs.protocols.protocolbase.ProtocolBase.do_action()</span></code></a> method,  and there is no standard format since the syntax depends on the function.
 Assuming you have made some actions for starting and stopping comms, you could add them with something like this:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">cp</span><span class="o">.</span><span class="n">add_communication</span><span class="p">(</span><span class="n">Action</span><span class="p">((</span><span class="s2">&quot;start_comms&quot;</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="p">{</span><span class="s1">&#39;some_kwarg&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">},</span> <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;Start communication&quot;</span><span class="p">,</span> <span class="n">retries</span><span class="o">=</span><span class="mi">5</span><span class="p">))</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">cp</span><span class="o">.</span><span class="n">add_communication</span><span class="p">(</span><span class="n">Action</span><span class="p">((</span><span class="s2">&quot;stop_comms&quot;</span><span class="p">,)))</span>
@@ -251,7 +251,7 @@ Assuming you have made some actions for starting and stopping comms, you could a
 </pre></div>
 </div>
 <p>In general it is recommended to only use one positional argument, (first tuple in <a class="reference internal" href="libgs_ops.scheduling.CommsPass.add_communication.html#libgs_ops.scheduling.CommsPass.add_communication" title="libgs_ops.scheduling.CommsPass.add_communication"><code class="xref py py-meth docutils literal notranslate"><span class="pre">CommsPass.add_communication()</span></code></a>) and keep action-specific parameters in the dictionary (second tuple).
-But this is not a requirement. See <code class="xref py py-meth docutils literal notranslate"><span class="pre">libgs.protocolbase.ProtocolBase.do_action()</span></code>.</p>
+But this is not a requirement. See <a class="reference external" href="https://kworm1.github.io/libgs-docs/_autosummary/libgs.protocols.protocolbase.ProtocolBase.do_action.html#libgs.protocols.protocolbase.ProtocolBase.do_action" title="(in libgs)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">libgs.protocols.protocolbase.ProtocolBase.do_action()</span></code></a>.</p>
 <p>You can access the pass data in the commspass directly. This is exatly the same pdat structure you passed in on creation:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">cp</span><span class="o">.</span><span class="n">pass_data</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
@@ -373,11 +373,11 @@ excel file did not specify it. It does not have to be a valid NID, so if this wa
 <blockquote>
 <div><ol class="arabic simple">
 <li>You can start your software (and scheduler) by loading and running the schedule file.</li>
-<li>You can start your software by starting the <code class="xref py py-class docutils literal notranslate"><span class="pre">libgs.rpc.RPCSchedulerClient</span></code>. You will then be able to send
-the schedule to the groundstation with a simple XMLRPC call.</li>
+<li>You can start your software by starting the <a class="reference external" href="https://kworm1.github.io/libgs-docs/_autosummary/libgs.rpc.RPCSchedulerServer.html#libgs.rpc.RPCSchedulerServer" title="(in libgs)"><code class="xref py py-class docutils literal notranslate"><span class="pre">libgs.rpc.RPCSchedulerServer</span></code></a>. You will then be able to send
+the schedule to the groundstation with a simple XMLRPC call via <a class="reference internal" href="libgs_ops.scheduling.RPCSchedulerClient.html#libgs_ops.scheduling.RPCSchedulerClient" title="libgs_ops.scheduling.RPCSchedulerClient"><code class="xref py py-class docutils literal notranslate"><span class="pre">RPCSchedulerClient</span></code></a>.</li>
 </ol>
 </div></blockquote>
-<p>If <code class="xref py py-class docutils literal notranslate"><span class="pre">libgs.rpc.RPCSchedulerClient</span></code> is running on the target ground station, you can upload a schedule as follows:</p>
+<p>If <a class="reference external" href="https://kworm1.github.io/libgs-docs/_autosummary/libgs.rpc.RPCSchedulerServer.html#libgs.rpc.RPCSchedulerServer" title="(in libgs)"><code class="xref py py-class docutils literal notranslate"><span class="pre">libgs.rpc.RPCSchedulerServer</span></code></a> is running on the target ground station, you can upload a schedule as follows:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">sch</span> <span class="o">=</span> <span class="n">RPCSchedulerClient</span><span class="p">(</span><span class="n">schedule</span><span class="o">=</span><span class="n">s</span><span class="p">,</span> <span class="n">rpcaddr</span><span class="o">=</span><span class="s1">&#39;http://xmlrpc/address/goes/here&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
