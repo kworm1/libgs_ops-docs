@@ -1,5 +1,5 @@
-libgs\_ops\.scheduling\.Communication\.viewitems
-================================================
+libgs\_ops.scheduling.Communication.viewitems
+=============================================
 
 .. currentmodule:: libgs_ops.scheduling
 

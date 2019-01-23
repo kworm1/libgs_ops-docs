@@ -1,5 +1,5 @@
-libgs\_ops\.scheduling\.CommsPass\.add\_communication
-=====================================================
+libgs\_ops.scheduling.CommsPass.add\_communication
+==================================================
 
 .. currentmodule:: libgs_ops.scheduling
 

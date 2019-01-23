@@ -1,7 +1,7 @@
 
 
-libgs\_ops\.propagator\.TLEDb
-=============================
+libgs\_ops.propagator.TLEDb
+===========================
 
 .. currentmodule:: libgs_ops.propagator
 

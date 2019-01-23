@@ -81,12 +81,16 @@
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="libgs_ops.propagator.html">libgs_ops.propagator</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">libgs_ops.scheduling</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="libgs_ops.scheduling.Action.html">libgs_ops.scheduling.Action</a></li>
-<li class="toctree-l2"><a class="reference internal" href="libgs_ops.scheduling.CommsPass.html">libgs_ops.scheduling.CommsPass</a></li>
-<li class="toctree-l2"><a class="reference internal" href="libgs_ops.scheduling.Communication.html">libgs_ops.scheduling.Communication</a></li>
-<li class="toctree-l2"><a class="reference internal" href="libgs_ops.scheduling.RPCSchedulerClient.html">libgs_ops.scheduling.RPCSchedulerClient</a></li>
-<li class="toctree-l2"><a class="reference internal" href="libgs_ops.scheduling.Schedule.html">libgs_ops.scheduling.Schedule</a></li>
-<li class="toctree-l2"><a class="reference internal" href="libgs_ops.scheduling.Error.html">libgs_ops.scheduling.Error</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#usage">Usage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-reference">Module Reference</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="libgs_ops.scheduling.Action.html">libgs_ops.scheduling.Action</a></li>
+<li class="toctree-l3"><a class="reference internal" href="libgs_ops.scheduling.CommsPass.html">libgs_ops.scheduling.CommsPass</a></li>
+<li class="toctree-l3"><a class="reference internal" href="libgs_ops.scheduling.Communication.html">libgs_ops.scheduling.Communication</a></li>
+<li class="toctree-l3"><a class="reference internal" href="libgs_ops.scheduling.RPCSchedulerClient.html">libgs_ops.scheduling.RPCSchedulerClient</a></li>
+<li class="toctree-l3"><a class="reference internal" href="libgs_ops.scheduling.Schedule.html">libgs_ops.scheduling.Schedule</a></li>
+<li class="toctree-l3"><a class="reference internal" href="libgs_ops.scheduling.Error.html">libgs_ops.scheduling.Error</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="libgs_ops.rpc.html">libgs_ops.rpc</a></li>
@@ -166,6 +170,242 @@
 </tr>
 </tbody>
 </table>
+<div class="section" id="usage">
+<h2>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h2>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This example focues on the scheduler. Please see <a class="reference internal" href="libgs_ops.propagator.html#module-libgs_ops.propagator" title="libgs_ops.propagator"><code class="xref py py-mod docutils literal notranslate"><span class="pre">propagator</span></code></a> for instructions on how to compute
+pass data (az, el and range_rate) for your pass. For the remainder of these tutorials it is assumed
+that pdat exists.</p>
+</div>
+<p>First the pass data must be converted into a <a class="reference internal" href="libgs_ops.scheduling.CommsPass.html#libgs_ops.scheduling.CommsPass" title="libgs_ops.scheduling.CommsPass"><code class="xref py py-class docutils literal notranslate"><span class="pre">CommsPass</span></code></a>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">cp</span> <span class="o">=</span> <span class="n">CommsPass</span><span class="p">(</span><span class="n">pdat</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;Test pass&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cp</span>
+<span class="go">Communication Pass:</span>
+<span class="go">  Norad ID:       25544</span>
+<span class="go">  Description:    Test pass</span>
+<span class="go">  Visib. horizon: 10</span>
+<span class="go">  Pass start:     2017/10/13 13:57:16</span>
+<span class="go">  Pass end:       2017/10/13 14:03:58</span>
+<span class="go">  Scheduled comms:</span>
+<span class="go">   (no comms added but NOT listen mode)</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The <a class="reference internal" href="libgs_ops.scheduling.CommsPass.html#libgs_ops.scheduling.CommsPass" title="libgs_ops.scheduling.CommsPass"><code class="xref py py-class docutils literal notranslate"><span class="pre">CommsPass</span></code></a> allows you to set arbitrary metadata. Such metadata will be stored in the pass database together with the schedule.
+It may also be used by a custom protocol that requires it. (See <code class="xref py py-class docutils literal notranslate"><span class="pre">libgs.protocols.ProtocolBase</span></code>)
+The metadata can be seen in the <a class="reference internal" href="libgs_ops.scheduling.CommsPass.metadata.html#libgs_ops.scheduling.CommsPass.metadata" title="libgs_ops.scheduling.CommsPass.metadata"><code class="xref py py-attr docutils literal notranslate"><span class="pre">CommsPass.metadata</span></code></a> attribute. It is also directly accessible by the . operator, but
+the . operator can <em>not</em> be used to create new metadata. Either add it to the metadata dict, or on <a class="reference internal" href="libgs_ops.scheduling.CommsPass.html#libgs_ops.scheduling.CommsPass" title="libgs_ops.scheduling.CommsPass"><code class="xref py py-class docutils literal notranslate"><span class="pre">CommsPass</span></code></a> construction as
+in the example below.</p>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">cp</span> <span class="o">=</span> <span class="n">CommsPass</span><span class="p">(</span><span class="n">pdat</span><span class="p">,</span> <span class="n">hello</span><span class="o">=</span><span class="mi">123</span><span class="p">,</span> <span class="n">test</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">],</span> <span class="n">another</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">b</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cp</span><span class="o">.</span><span class="n">metadata</span>
+<span class="go">{&#39;another&#39;: {&#39;a&#39;: 1, &#39;b&#39;: 2},</span>
+<span class="go"> &#39;desc&#39;: None,</span>
+<span class="go"> &#39;hello&#39;: 123,</span>
+<span class="go"> &#39;horizon&#39;: 10.0,</span>
+<span class="go"> &#39;listen&#39;: False,</span>
+<span class="go"> &#39;nid&#39;: 25544,</span>
+<span class="go"> &#39;test&#39;: [1, 2, 3]}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cp</span><span class="o">.</span><span class="n">test</span>
+<span class="go">[1, 2, 3]</span>
+</pre></div>
+</div>
+<p>Then add communications to the pass. There are several ways to specify the byte sequence of the communications. You can also set
+the <code class="docutils literal notranslate"><span class="pre">retries</span></code> parameter that specifies how many times to try again in case of failure.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">cp</span><span class="o">.</span><span class="n">add_communication</span><span class="p">(</span><span class="s1">&#39;DC-00-34-BB-AA&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cp</span><span class="o">.</span><span class="n">add_communication</span><span class="p">(</span><span class="s1">&#39;AA-BB-CC-DD&#39;</span><span class="p">,</span> <span class="n">retries</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cp</span><span class="o">.</span><span class="n">add_communication</span><span class="p">(</span><span class="nb">bytearray</span><span class="p">([</span><span class="mh">0xaa</span><span class="p">,</span><span class="mh">0xab</span><span class="p">,</span> <span class="mi">234</span><span class="p">,</span><span class="mi">43</span><span class="p">,</span><span class="mi">23</span><span class="p">,</span><span class="mi">45</span><span class="p">]))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cp</span>
+<span class="go">Communication Pass:</span>
+<span class="go">  Norad ID:       25544</span>
+<span class="go">  Description:    None</span>
+<span class="go">  Visib. horizon: 10</span>
+<span class="go">  Pass start:     2017/10/13 13:57:16</span>
+<span class="go">  Pass end:       2017/10/13 14:03:58</span>
+<span class="go">  Scheduled comms:</span>
+<span class="go">     0 ( 3 retries) : DC-00-34-BB-AA</span>
+<span class="go">     1 ( 1 retries) : AA-BB-CC-DD</span>
+<span class="go">     2 ( 3 retries) : AA-AB-EA-2B-17-2D</span>
+</pre></div>
+</div>
+<p>The scheduler also supports actions. <a class="reference internal" href="libgs_ops.scheduling.Action.html#libgs_ops.scheduling.Action" title="libgs_ops.scheduling.Action"><code class="xref py py-class docutils literal notranslate"><span class="pre">Action</span></code></a> s refer to any functionality you may have implemented in the protocol’s
+<code class="xref py py-meth docutils literal notranslate"><span class="pre">libgs.protocols.ProtocolBase.do_action()</span></code> method,  and there is no standard format since the syntax depends on the function.
+Assuming you have made some actions for starting and stopping comms, you could add them with something like this:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">cp</span><span class="o">.</span><span class="n">add_communication</span><span class="p">(</span><span class="n">Action</span><span class="p">((</span><span class="s2">&quot;start_comms&quot;</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="p">{</span><span class="s1">&#39;some_kwarg&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">},</span> <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;Start communication&quot;</span><span class="p">,</span> <span class="n">retries</span><span class="o">=</span><span class="mi">5</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cp</span><span class="o">.</span><span class="n">add_communication</span><span class="p">(</span><span class="n">Action</span><span class="p">((</span><span class="s2">&quot;stop_comms&quot;</span><span class="p">,)))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cp</span>
+<span class="go">Communication Pass:</span>
+<span class="go">  Norad ID:       25544</span>
+<span class="go">  Description:    None</span>
+<span class="go">  Visib. horizon: 10</span>
+<span class="go">  Pass start:     2017/10/13 13:57:16</span>
+<span class="go">  Pass end:       2017/10/13 14:03:58</span>
+<span class="go">  Scheduled comms:</span>
+<span class="go">     0 ( 3 retries) : DC-00-34-BB-AA</span>
+<span class="go">     1 ( 1 retries) : AA-BB-CC-DD</span>
+<span class="go">     2 ( 3 retries) : AA-AB-EA-2B-17-2D</span>
+<span class="go">     3 ( 5 retries) : &#39;Start communication&#39; &lt;(&#39;start_comms&#39;, 3), {&#39;some_kwarg&#39;: 2}&gt;</span>
+<span class="go">     4 ( 0 retries) : &#39;unnamed&#39; &lt;(&#39;stop_comms&#39;,), {}&gt;</span>
+</pre></div>
+</div>
+<p>In general it is recommended to only use one positional argument, (first tuple in <a class="reference internal" href="libgs_ops.scheduling.CommsPass.add_communication.html#libgs_ops.scheduling.CommsPass.add_communication" title="libgs_ops.scheduling.CommsPass.add_communication"><code class="xref py py-meth docutils literal notranslate"><span class="pre">CommsPass.add_communication()</span></code></a>) and keep action-specific parameters in the dictionary (second tuple).
+But this is not a requirement. See <code class="xref py py-meth docutils literal notranslate"><span class="pre">libgs.protocolbase.ProtocolBase.do_action()</span></code>.</p>
+<p>You can access the pass data in the commspass directly. This is exatly the same pdat structure you passed in on creation:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">cp</span><span class="o">.</span><span class="n">pass_data</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+<table border="1" class="docutils">
+<colgroup>
+<col width="21%" />
+<col width="32%" />
+<col width="15%" />
+<col width="15%" />
+<col width="17%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">.</th>
+<th class="head">tstamp_str</th>
+<th class="head">az</th>
+<th class="head">el</th>
+<th class="head">range_rate</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>43020.081435</td>
+<td>2017/10/13 13:57:16</td>
+<td>314.109</td>
+<td>10.0034</td>
+<td>-6800.68</td>
+</tr>
+<tr class="row-odd"><td>43020.081447</td>
+<td>2017/10/13 13:57:17</td>
+<td>314.111</td>
+<td>10.1116</td>
+<td>-6798.35</td>
+</tr>
+<tr class="row-even"><td>43020.081458</td>
+<td>2017/10/13 13:57:18</td>
+<td>314.113</td>
+<td>10.2206</td>
+<td>-6795.98</td>
+</tr>
+<tr class="row-odd"><td>43020.081470</td>
+<td>2017/10/13 13:57:19</td>
+<td>314.115</td>
+<td>10.3303</td>
+<td>-6793.57</td>
+</tr>
+<tr class="row-even"><td>43020.081481</td>
+<td>2017/10/13 13:57:20</td>
+<td>314.117</td>
+<td>10.4407</td>
+<td>-6791.12</td>
+</tr>
+</tbody>
+</table>
+<p>To make a schedule, you need to add <a class="reference internal" href="libgs_ops.scheduling.CommsPass.html#libgs_ops.scheduling.CommsPass" title="libgs_ops.scheduling.CommsPass"><code class="xref py py-class docutils literal notranslate"><span class="pre">CommsPass</span></code></a>’es to a <a class="reference internal" href="libgs_ops.scheduling.Schedule.html#libgs_ops.scheduling.Schedule" title="libgs_ops.scheduling.Schedule"><code class="xref py py-class docutils literal notranslate"><span class="pre">Schedule</span></code></a>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">s</span> <span class="o">=</span> <span class="n">Schedule</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s</span><span class="o">.</span><span class="n">add_pass</span><span class="p">(</span><span class="n">cp</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s</span>
+<span class="go">---- -------- -------------------- -------------------- --------------</span>
+<span class="go">#    Norad id Pass start (utc)     Pass end (utc)       Communications</span>
+<span class="go">---- -------- -------------------- -------------------- --------------</span>
+<span class="go">0    25544    2017/10/13 13:57:16  2017/10/13 14:03:58  5</span>
+</pre></div>
+</div>
+<p>The schedule does not permit you to add overlapping passes:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">s</span><span class="o">.</span><span class="n">add_pass</span><span class="p">(</span><span class="n">cp</span><span class="p">)</span>
+<span class="go">Error: Can&#39;t add pass as it overlaps with another pass in the schedule</span>
+</pre></div>
+</div>
+<p>It is often useful to dump the schedule to a file that can be shared with other operators or loaded into adfa-gs.
+To dump a schedule to file in JSON format use the to_json() method:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;test.schedule&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fp</span><span class="p">:</span>
+<span class="gp">&gt;&gt;&gt; </span>   <span class="n">fp</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">to_json</span><span class="p">())</span>
+</pre></div>
+</div>
+<p>To load it again, use from_json classmethod:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">s2</span> <span class="o">=</span> <span class="n">Schedule</span><span class="o">.</span><span class="n">from_json</span><span class="p">(</span><span class="s1">&#39;test.schedule&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The <a class="reference internal" href="libgs_ops.scheduling.Schedule.html#libgs_ops.scheduling.Schedule" title="libgs_ops.scheduling.Schedule"><code class="xref py py-class docutils literal notranslate"><span class="pre">Schedule</span></code></a> provides several convenience functions. Check the help for details.</p>
+<p>The below complete example adds schedules for several upcoming passes, all with the same communication, and with an extra communication
+to the final:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">passes</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">get_passes</span><span class="p">(</span><span class="mi">25544</span><span class="p">,</span> <span class="n">N</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">when</span><span class="o">=</span><span class="s1">&#39;2017/10/14&#39;</span><span class="p">,</span> <span class="n">horizon</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cps</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">k</span><span class="p">,</span><span class="n">satpass</span> <span class="ow">in</span> <span class="n">passes</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
+<span class="gp">&gt;&gt;&gt; </span>   <span class="n">pdat</span><span class="p">,</span> <span class="n">psum</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">compute_pass</span><span class="p">(</span><span class="n">satpass</span><span class="o">.</span><span class="n">nid</span><span class="p">,</span> <span class="n">when</span><span class="o">=</span><span class="n">satpass</span><span class="o">.</span><span class="n">rise_t</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span>   <span class="n">cps</span> <span class="o">+=</span> <span class="p">[</span><span class="n">CommsPass</span><span class="p">(</span><span class="n">pdat</span><span class="p">)]</span>
+<span class="gp">&gt;&gt;&gt; </span>   <span class="n">cps</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">add_communication</span><span class="p">(</span><span class="nb">bytearray</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">]))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s</span> <span class="o">=</span> <span class="n">Schedule</span><span class="p">(</span><span class="n">cps</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s</span><span class="o">.</span><span class="n">passes</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">add_communication</span><span class="p">(</span><span class="s1">&#39;AA-BB-CC-DD&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s</span>
+<span class="go">---- -------- -------------------- -------------------- --------------</span>
+<span class="go">#    Norad id Pass start (utc)     Pass end (utc)       Communications</span>
+<span class="go">---- -------- -------------------- -------------------- --------------</span>
+<span class="go">0       25544   2017/10/14 13:05:17     2017/10/14 13:11:33     1</span>
+<span class="go">1       25544   2017/10/14 14:42:23     2017/10/14 14:47:36     1</span>
+<span class="go">2       25544   2017/10/14 19:36:11     2017/10/14 19:40:33     1</span>
+<span class="go">3       25544   2017/10/14 21:11:50     2017/10/14 21:18:22     1</span>
+<span class="go">4       25544   2017/10/15 12:13:52     2017/10/15 12:18:42     1</span>
+<span class="go">5       25544   2017/10/15 13:49:28     2017/10/15 13:55:42     1</span>
+<span class="go">6       25544   2017/10/15 18:44:54     2017/10/15 18:46:44     1</span>
+<span class="go">7       25544   2017/10/15 20:19:33     2017/10/15 20:26:08     1</span>
+<span class="go">8       25544   2017/10/15 21:58:46     2017/10/15 21:59:03     1</span>
+<span class="go">9       25544   2017/10/16 12:56:54     2017/10/16 13:03:35     2</span>
+</pre></div>
+</div>
+<p>In some situations you may want to manually calculate the pointings of the antenna, or the schedule.
+If so, just ensure you create a pdat in the correct format (i.e. with tstamp_str, az, el, range_rate as
+appropriate - other headings do not matter):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">pdat</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="s1">&#39;passes_test.xlsx&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cp</span> <span class="o">=</span> <span class="n">CommsPass</span><span class="p">(</span><span class="n">pdat</span><span class="p">,</span> <span class="n">nid</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">When specifying the pass data this way you will need  to specify which Norad ID the schedule is associated with since the
+excel file did not specify it. It does not have to be a valid NID, so if this was a testing pass we could for example set it to -1</p>
+</div>
+<p>There are two main ways of executing the schedule on the groundstation depending on how you have implemented it.</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li>You can start your software (and scheduler) by loading and running the schedule file.</li>
+<li>You can start your software by starting the <code class="xref py py-class docutils literal notranslate"><span class="pre">libgs.rpc.RPCSchedulerClient</span></code>. You will then be able to send
+the schedule to the groundstation with a simple XMLRPC call.</li>
+</ol>
+</div></blockquote>
+<p>If <code class="xref py py-class docutils literal notranslate"><span class="pre">libgs.rpc.RPCSchedulerClient</span></code> is running on the target ground station, you can upload a schedule as follows:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">sch</span> <span class="o">=</span> <span class="n">RPCSchedulerClient</span><span class="p">(</span><span class="n">schedule</span><span class="o">=</span><span class="n">s</span><span class="p">,</span> <span class="n">rpcaddr</span><span class="o">=</span><span class="s1">&#39;http://xmlrpc/address/goes/here&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The syntax for rpcaddr is http(s)://&lt;uname&gt;:&lt;passwd&gt;&#64;&lt;host&gt;:&lt;port&gt;/…
+So if basic authentication has been enabled, or the rpc runs on an unsual port you can adjust as required</p>
+</div>
+<p><a class="reference internal" href="libgs_ops.scheduling.RPCSchedulerClient.html#libgs_ops.scheduling.RPCSchedulerClient" title="libgs_ops.scheduling.RPCSchedulerClient"><code class="xref py py-class docutils literal notranslate"><span class="pre">RPCSchedulerClient</span></code></a> implements all the methods of the <a class="reference external" href="https://kworm1.github.io/libgs-docs/_autosummary/libgs.scheduler.Scheduler.html#libgs.scheduler.Scheduler" title="(in libgs)"><code class="xref py py-class docutils literal notranslate"><span class="pre">libgs.scheduler.Scheduler</span></code></a> so you can use it the same way:</p>
+<p>To start:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">sch</span><span class="o">.</span><span class="n">execute</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>To stop (abort) a running schedule:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">sch</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>The scheduler implements two flags; track_full_pass and compute_ant_points. If the former has been set to true,
+the antenna will keep tracking even after finishing its communications.
+If the latter has been set to false, the antenna will stupidly execute every line in the schedule.
+This is a really bad idea for automatically computed passes but you will probably want to use it if you are
+pointing the antenna in a fixed direction for testing:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">sch</span> <span class="o">=</span> <span class="n">RPCSchedulerClient</span><span class="p">(</span><span class="n">schedule</span><span class="o">=</span><span class="n">s</span><span class="p">,</span> <span class="n">rpcaddr</span><span class="o">=</span><span class="s1">&#39;http://rpc.mygroundstation.com:8000&#39;</span><span class="p">,</span> <span class="n">track_full_pass</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">compute_ant_points</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="module-reference">
+<h2>Module Reference<a class="headerlink" href="#module-reference" title="Permalink to this headline">¶</a></h2>
 <p class="rubric">Classes</p>
 <table border="1" class="longtable docutils">
 <colgroup>
@@ -202,6 +442,7 @@
 </tr>
 </tbody>
 </table>
+</div>
 </div>
 
 

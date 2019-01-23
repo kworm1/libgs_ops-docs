@@ -1,5 +1,5 @@
-libgs\_ops\.propagator\.Propagator\.get\_ground\_coord
-======================================================
+libgs\_ops.propagator.Propagator.get\_ground\_coord
+===================================================
 
 .. currentmodule:: libgs_ops.propagator
 

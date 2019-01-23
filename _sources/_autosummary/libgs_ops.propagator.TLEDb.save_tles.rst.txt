@@ -1,5 +1,5 @@
-libgs\_ops\.propagator\.TLEDb\.save\_tles
-=========================================
+libgs\_ops.propagator.TLEDb.save\_tles
+======================================
 
 .. currentmodule:: libgs_ops.propagator
 

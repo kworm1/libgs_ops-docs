@@ -1,5 +1,5 @@
-libgs\_ops\.scheduling\.Schedule\.remove\_pass
-==============================================
+libgs\_ops.scheduling.Schedule.remove\_pass
+===========================================
 
 .. currentmodule:: libgs_ops.scheduling
 

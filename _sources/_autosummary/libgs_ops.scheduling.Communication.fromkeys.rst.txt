@@ -1,5 +1,5 @@
-libgs\_ops\.scheduling\.Communication\.fromkeys
-===============================================
+libgs\_ops.scheduling.Communication.fromkeys
+============================================
 
 .. currentmodule:: libgs_ops.scheduling
 

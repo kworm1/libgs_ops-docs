@@ -1,5 +1,5 @@
-libgs\_ops\.propagator\.Propagator\.get\_range\_rate
-====================================================
+libgs\_ops.propagator.Propagator.get\_range\_rate
+=================================================
 
 .. currentmodule:: libgs_ops.propagator
 

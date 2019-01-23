@@ -180,7 +180,201 @@
 <span class="sd">:date: Sun Aug  6 17:36:19 2017</span>
 <span class="sd">:author: kjetil</span>
 
+<span class="sd">Usage</span>
+<span class="sd">-----</span>
 
+<span class="sd">.. note::</span>
+<span class="sd">    This example focues on the scheduler. Please see :mod:`.propagator` for instructions on how to compute</span>
+<span class="sd">    pass data (az, el and range_rate) for your pass. For the remainder of these tutorials it is assumed</span>
+<span class="sd">    that pdat exists.</span>
+
+<span class="sd">First the pass data must be converted into a :class:`CommsPass`:</span>
+
+<span class="sd">&gt;&gt;&gt; cp = CommsPass(pdat, desc=&quot;Test pass&quot;)</span>
+<span class="sd">&gt;&gt;&gt; cp</span>
+<span class="sd">Communication Pass:</span>
+<span class="sd">  Norad ID:       25544</span>
+<span class="sd">  Description:    Test pass</span>
+<span class="sd">  Visib. horizon: 10</span>
+<span class="sd">  Pass start:     2017/10/13 13:57:16</span>
+<span class="sd">  Pass end:       2017/10/13 14:03:58</span>
+<span class="sd">  Scheduled comms:</span>
+<span class="sd">   (no comms added but NOT listen mode)</span>
+
+<span class="sd">.. note::</span>
+<span class="sd">    The :class:`CommsPass` allows you to set arbitrary metadata. Such metadata will be stored in the pass database together with the schedule. </span>
+<span class="sd">    It may also be used by a custom protocol that requires it. (See :class:`libgs.protocols.ProtocolBase`) </span>
+<span class="sd">    The metadata can be seen in the :attr:`CommsPass.metadata` attribute. It is also directly accessible by the . operator, but </span>
+<span class="sd">    the . operator can *not* be used to create new metadata. Either add it to the metadata dict, or on :class:`CommsPass` construction as </span>
+<span class="sd">    in the example below.   </span>
+
+<span class="sd">&gt;&gt;&gt; cp = CommsPass(pdat, hello=123, test=[1,2,3], another=dict(a=1,b=2))</span>
+<span class="sd">&gt;&gt;&gt; cp.metadata</span>
+<span class="sd">{&#39;another&#39;: {&#39;a&#39;: 1, &#39;b&#39;: 2},</span>
+<span class="sd"> &#39;desc&#39;: None,</span>
+<span class="sd"> &#39;hello&#39;: 123,</span>
+<span class="sd"> &#39;horizon&#39;: 10.0,</span>
+<span class="sd"> &#39;listen&#39;: False,</span>
+<span class="sd"> &#39;nid&#39;: 25544,</span>
+<span class="sd"> &#39;test&#39;: [1, 2, 3]}</span>
+<span class="sd">&gt;&gt;&gt; cp.test</span>
+<span class="sd">[1, 2, 3]</span>
+
+<span class="sd">Then add communications to the pass. There are several ways to specify the byte sequence of the communications. You can also set</span>
+<span class="sd">the ``retries`` parameter that specifies how many times to try again in case of failure.</span>
+
+<span class="sd">&gt;&gt;&gt; cp.add_communication(&#39;DC-00-34-BB-AA&#39;)</span>
+<span class="sd">&gt;&gt;&gt; cp.add_communication(&#39;AA-BB-CC-DD&#39;, retries=1)</span>
+<span class="sd">&gt;&gt;&gt; cp.add_communication(bytearray([0xaa,0xab, 234,43,23,45]))</span>
+<span class="sd">&gt;&gt;&gt; cp</span>
+<span class="sd">Communication Pass:</span>
+<span class="sd">  Norad ID:       25544</span>
+<span class="sd">  Description:    None</span>
+<span class="sd">  Visib. horizon: 10</span>
+<span class="sd">  Pass start:     2017/10/13 13:57:16</span>
+<span class="sd">  Pass end:       2017/10/13 14:03:58</span>
+<span class="sd">  Scheduled comms:</span>
+<span class="sd">     0 ( 3 retries) : DC-00-34-BB-AA</span>
+<span class="sd">     1 ( 1 retries) : AA-BB-CC-DD</span>
+<span class="sd">     2 ( 3 retries) : AA-AB-EA-2B-17-2D</span>
+
+<span class="sd">The scheduler also supports actions. :class:`Action` s refer to any functionality you may have implemented in the protocol&#39;s </span>
+<span class="sd">:meth:`libgs.protocols.ProtocolBase.do_action` method,  and there is no standard format since the syntax depends on the function. </span>
+<span class="sd">Assuming you have made some actions for starting and stopping comms, you could add them with something like this:</span>
+
+<span class="sd">&gt;&gt;&gt; cp.add_communication(Action((&quot;start_comms&quot;, 3), {&#39;some_kwarg&#39;: 2}, desc=&quot;Start communication&quot;, retries=5))</span>
+<span class="sd">&gt;&gt;&gt; cp.add_communication(Action((&quot;stop_comms&quot;,)))</span>
+<span class="sd">&gt;&gt;&gt; cp</span>
+<span class="sd">Communication Pass:</span>
+<span class="sd">  Norad ID:       25544</span>
+<span class="sd">  Description:    None</span>
+<span class="sd">  Visib. horizon: 10</span>
+<span class="sd">  Pass start:     2017/10/13 13:57:16</span>
+<span class="sd">  Pass end:       2017/10/13 14:03:58</span>
+<span class="sd">  Scheduled comms:</span>
+<span class="sd">     0 ( 3 retries) : DC-00-34-BB-AA</span>
+<span class="sd">     1 ( 1 retries) : AA-BB-CC-DD</span>
+<span class="sd">     2 ( 3 retries) : AA-AB-EA-2B-17-2D</span>
+<span class="sd">     3 ( 5 retries) : &#39;Start communication&#39; &lt;(&#39;start_comms&#39;, 3), {&#39;some_kwarg&#39;: 2}&gt;</span>
+<span class="sd">     4 ( 0 retries) : &#39;unnamed&#39; &lt;(&#39;stop_comms&#39;,), {}&gt;</span>
+
+<span class="sd">In general it is recommended to only use one positional argument, (first tuple in :meth:`CommsPass.add_communication`) and keep action-specific parameters in the dictionary (second tuple).</span>
+<span class="sd">But this is not a requirement. See :meth:`libgs.protocolbase.ProtocolBase.do_action`.</span>
+
+<span class="sd">You can access the pass data in the commspass directly. This is exatly the same pdat structure you passed in on creation:</span>
+
+<span class="sd">&gt;&gt;&gt; cp.pass_data.head()</span>
+
+<span class="sd">=============== ======================= =========== =========== ============</span>
+<span class="sd">.                tstamp_str              az          el          range_rate</span>
+<span class="sd">=============== ======================= =========== =========== ============</span>
+<span class="sd">43020.081435     2017/10/13 13:57:16     314.109     10.0034     -6800.68</span>
+<span class="sd">43020.081447     2017/10/13 13:57:17     314.111     10.1116     -6798.35</span>
+<span class="sd">43020.081458     2017/10/13 13:57:18     314.113     10.2206     -6795.98</span>
+<span class="sd">43020.081470     2017/10/13 13:57:19     314.115     10.3303     -6793.57</span>
+<span class="sd">43020.081481     2017/10/13 13:57:20     314.117     10.4407     -6791.12</span>
+<span class="sd">=============== ======================= =========== =========== ============</span>
+
+<span class="sd">To make a schedule, you need to add :class:`CommsPass`&#39;es to a :class:`Schedule`:</span>
+
+<span class="sd">&gt;&gt;&gt; s = Schedule()</span>
+<span class="sd">&gt;&gt;&gt; s.add_pass(cp)</span>
+<span class="sd">&gt;&gt;&gt; s</span>
+<span class="sd">---- -------- -------------------- -------------------- --------------</span>
+<span class="sd">#    Norad id Pass start (utc)     Pass end (utc)       Communications</span>
+<span class="sd">---- -------- -------------------- -------------------- --------------</span>
+<span class="sd">0    25544    2017/10/13 13:57:16  2017/10/13 14:03:58  5</span>
+
+<span class="sd">The schedule does not permit you to add overlapping passes:</span>
+
+<span class="sd">&gt;&gt;&gt; s.add_pass(cp)</span>
+<span class="sd">Error: Can&#39;t add pass as it overlaps with another pass in the schedule</span>
+
+<span class="sd">It is often useful to dump the schedule to a file that can be shared with other operators or loaded into adfa-gs. </span>
+<span class="sd">To dump a schedule to file in JSON format use the to_json() method:</span>
+
+<span class="sd">&gt;&gt;&gt; with open(&#39;test.schedule&#39;, &#39;w&#39;) as fp:</span>
+<span class="sd">&gt;&gt;&gt;    fp.write(s.to_json())</span>
+
+<span class="sd">To load it again, use from_json classmethod:</span>
+
+<span class="sd">&gt;&gt;&gt; s2 = Schedule.from_json(&#39;test.schedule&#39;)</span>
+
+<span class="sd">The :class:`Schedule` provides several convenience functions. Check the help for details.</span>
+
+<span class="sd">The below complete example adds schedules for several upcoming passes, all with the same communication, and with an extra communication</span>
+<span class="sd">to the final:</span>
+
+<span class="sd">&gt;&gt;&gt; passes = p.get_passes(25544, N=10, when=&#39;2017/10/14&#39;, horizon=10)</span>
+<span class="sd">&gt;&gt;&gt; cps = []</span>
+<span class="sd">&gt;&gt;&gt; for k,satpass in passes.iterrows():</span>
+<span class="sd">&gt;&gt;&gt;    pdat, psum = p.compute_pass(satpass.nid, when=satpass.rise_t)</span>
+<span class="sd">&gt;&gt;&gt;    cps += [CommsPass(pdat)]</span>
+<span class="sd">&gt;&gt;&gt;    cps[-1].add_communication(bytearray([1,2,3,4]))</span>
+<span class="sd">&gt;&gt;&gt; s = Schedule(cps)    </span>
+<span class="sd">&gt;&gt;&gt; s.passes[-1].add_communication(&#39;AA-BB-CC-DD&#39;)</span>
+<span class="sd">&gt;&gt;&gt; s</span>
+<span class="sd">---- -------- -------------------- -------------------- --------------</span>
+<span class="sd">#    Norad id Pass start (utc)     Pass end (utc)       Communications</span>
+<span class="sd">---- -------- -------------------- -------------------- --------------</span>
+<span class="sd">0 	25544 	2017/10/14 13:05:17 	2017/10/14 13:11:33 	1</span>
+<span class="sd">1 	25544 	2017/10/14 14:42:23 	2017/10/14 14:47:36 	1</span>
+<span class="sd">2 	25544 	2017/10/14 19:36:11 	2017/10/14 19:40:33 	1</span>
+<span class="sd">3 	25544 	2017/10/14 21:11:50 	2017/10/14 21:18:22 	1</span>
+<span class="sd">4 	25544 	2017/10/15 12:13:52 	2017/10/15 12:18:42 	1</span>
+<span class="sd">5 	25544 	2017/10/15 13:49:28 	2017/10/15 13:55:42 	1</span>
+<span class="sd">6 	25544 	2017/10/15 18:44:54 	2017/10/15 18:46:44 	1</span>
+<span class="sd">7 	25544 	2017/10/15 20:19:33 	2017/10/15 20:26:08 	1</span>
+<span class="sd">8 	25544 	2017/10/15 21:58:46 	2017/10/15 21:59:03 	1</span>
+<span class="sd">9 	25544 	2017/10/16 12:56:54 	2017/10/16 13:03:35 	2</span>
+
+
+<span class="sd">In some situations you may want to manually calculate the pointings of the antenna, or the schedule. </span>
+<span class="sd">If so, just ensure you create a pdat in the correct format (i.e. with tstamp_str, az, el, range_rate as </span>
+<span class="sd">appropriate - other headings do not matter):</span>
+
+<span class="sd">&gt;&gt;&gt; pdat = pd.read_excel(&#39;passes_test.xlsx&#39;)</span>
+<span class="sd">&gt;&gt;&gt; cp = CommsPass(pdat, nid=-1)</span>
+
+<span class="sd">.. note::</span>
+<span class="sd">   When specifying the pass data this way you will need  to specify which Norad ID the schedule is associated with since the </span>
+<span class="sd">   excel file did not specify it. It does not have to be a valid NID, so if this was a testing pass we could for example set it to -1</span>
+
+
+<span class="sd">There are two main ways of executing the schedule on the groundstation depending on how you have implemented it.</span>
+
+<span class="sd">    1. You can start your software (and scheduler) by loading and running the schedule file.</span>
+<span class="sd">    2. You can start your software by starting the :class:`libgs.rpc.RPCSchedulerClient`. You will then be able to send</span>
+<span class="sd">       the schedule to the groundstation with a simple XMLRPC call.</span>
+
+<span class="sd">If :class:`libgs.rpc.RPCSchedulerClient` is running on the target ground station, you can upload a schedule as follows:</span>
+
+<span class="sd">&gt;&gt;&gt; sch = RPCSchedulerClient(schedule=s, rpcaddr=&#39;http://xmlrpc/address/goes/here&#39;)</span>
+
+<span class="sd">.. note::</span>
+<span class="sd">   The syntax for rpcaddr is http(s)://&lt;uname&gt;:&lt;passwd&gt;@&lt;host&gt;:&lt;port&gt;/...</span>
+<span class="sd">   So if basic authentication has been enabled, or the rpc runs on an unsual port you can adjust as required</span>
+
+<span class="sd">:class:`RPCSchedulerClient` implements all the methods of the :class:`libgs.scheduler.Scheduler` so you can use it the same way:</span>
+
+<span class="sd">To start:</span>
+
+<span class="sd">&gt;&gt;&gt; sch.execute()</span>
+
+<span class="sd">To stop (abort) a running schedule:</span>
+
+<span class="sd">&gt;&gt;&gt; sch.stop()</span>
+
+<span class="sd">The scheduler implements two flags; track_full_pass and compute_ant_points. If the former has been set to true, </span>
+<span class="sd">the antenna will keep tracking even after finishing its communications. </span>
+<span class="sd">If the latter has been set to false, the antenna will stupidly execute every line in the schedule. </span>
+<span class="sd">This is a really bad idea for automatically computed passes but you will probably want to use it if you are </span>
+<span class="sd">pointing the antenna in a fixed direction for testing:</span>
+
+<span class="sd">&gt;&gt;&gt; sch = RPCSchedulerClient(schedule=s, rpcaddr=&#39;http://rpc.mygroundstation.com:8000&#39;, track_full_pass=True, compute_ant_points=False)</span>
+
+<span class="sd">Module Reference</span>
+<span class="sd">----------------</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>

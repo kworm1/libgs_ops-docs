@@ -1,5 +1,5 @@
-libgs\_ops\.scheduling\.Action\.get
-===================================
+libgs\_ops.scheduling.Action.get
+================================
 
 .. currentmodule:: libgs_ops.scheduling
 

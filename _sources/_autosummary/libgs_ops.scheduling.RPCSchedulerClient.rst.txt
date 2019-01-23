@@ -1,7 +1,7 @@
 
 
-libgs\_ops\.scheduling\.RPCSchedulerClient
-==========================================
+libgs\_ops.scheduling.RPCSchedulerClient
+========================================
 
 .. currentmodule:: libgs_ops.scheduling
 
@@ -33,6 +33,13 @@ libgs\_ops\.scheduling\.RPCSchedulerClient
    
 
    
+   
+   .. rubric:: Attributes
+   
+   .. autosummary::
+      :toctree: .
+   
+      ~RPCSchedulerClient.state
    
    
 

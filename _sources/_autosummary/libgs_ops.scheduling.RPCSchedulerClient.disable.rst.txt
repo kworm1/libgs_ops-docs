@@ -1,5 +1,5 @@
-libgs\_ops\.scheduling\.RPCSchedulerClient\.disable
-===================================================
+libgs\_ops.scheduling.RPCSchedulerClient.disable
+================================================
 
 .. currentmodule:: libgs_ops.scheduling
 

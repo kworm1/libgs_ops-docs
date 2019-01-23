@@ -1,0 +1,6 @@
+libgs\_ops.scheduling.CommsPass.metadata
+========================================
+
+.. currentmodule:: libgs_ops.scheduling
+
+.. autoattribute:: CommsPass.metadata

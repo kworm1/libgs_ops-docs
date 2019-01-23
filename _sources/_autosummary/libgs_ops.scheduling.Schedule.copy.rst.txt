@@ -1,5 +1,5 @@
-libgs\_ops\.scheduling\.Schedule\.copy
-======================================
+libgs\_ops.scheduling.Schedule.copy
+===================================
 
 .. currentmodule:: libgs_ops.scheduling
 

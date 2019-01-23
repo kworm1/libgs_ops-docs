@@ -81,18 +81,23 @@
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="libgs_ops.propagator.html">libgs_ops.propagator</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="libgs_ops.scheduling.html">libgs_ops.scheduling</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="libgs_ops.scheduling.Action.html">libgs_ops.scheduling.Action</a></li>
-<li class="toctree-l2"><a class="reference internal" href="libgs_ops.scheduling.CommsPass.html">libgs_ops.scheduling.CommsPass</a></li>
-<li class="toctree-l2"><a class="reference internal" href="libgs_ops.scheduling.Communication.html">libgs_ops.scheduling.Communication</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">libgs_ops.scheduling.RPCSchedulerClient</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="libgs_ops.scheduling.RPCSchedulerClient.disable.html">libgs_ops.scheduling.RPCSchedulerClient.disable</a></li>
-<li class="toctree-l3"><a class="reference internal" href="libgs_ops.scheduling.RPCSchedulerClient.enable.html">libgs_ops.scheduling.RPCSchedulerClient.enable</a></li>
-<li class="toctree-l3"><a class="reference internal" href="libgs_ops.scheduling.RPCSchedulerClient.execute.html">libgs_ops.scheduling.RPCSchedulerClient.execute</a></li>
-<li class="toctree-l3"><a class="reference internal" href="libgs_ops.scheduling.RPCSchedulerClient.stop.html">libgs_ops.scheduling.RPCSchedulerClient.stop</a></li>
+<li class="toctree-l2"><a class="reference internal" href="libgs_ops.scheduling.html#usage">Usage</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="libgs_ops.scheduling.html#module-reference">Module Reference</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="libgs_ops.scheduling.Action.html">libgs_ops.scheduling.Action</a></li>
+<li class="toctree-l3"><a class="reference internal" href="libgs_ops.scheduling.CommsPass.html">libgs_ops.scheduling.CommsPass</a></li>
+<li class="toctree-l3"><a class="reference internal" href="libgs_ops.scheduling.Communication.html">libgs_ops.scheduling.Communication</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">libgs_ops.scheduling.RPCSchedulerClient</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="libgs_ops.scheduling.RPCSchedulerClient.disable.html">libgs_ops.scheduling.RPCSchedulerClient.disable</a></li>
+<li class="toctree-l4"><a class="reference internal" href="libgs_ops.scheduling.RPCSchedulerClient.enable.html">libgs_ops.scheduling.RPCSchedulerClient.enable</a></li>
+<li class="toctree-l4"><a class="reference internal" href="libgs_ops.scheduling.RPCSchedulerClient.execute.html">libgs_ops.scheduling.RPCSchedulerClient.execute</a></li>
+<li class="toctree-l4"><a class="reference internal" href="libgs_ops.scheduling.RPCSchedulerClient.stop.html">libgs_ops.scheduling.RPCSchedulerClient.stop</a></li>
+<li class="toctree-l4"><a class="reference internal" href="libgs_ops.scheduling.RPCSchedulerClient.state.html">libgs_ops.scheduling.RPCSchedulerClient.state</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="libgs_ops.scheduling.Schedule.html">libgs_ops.scheduling.Schedule</a></li>
-<li class="toctree-l2"><a class="reference internal" href="libgs_ops.scheduling.Error.html">libgs_ops.scheduling.Error</a></li>
+<li class="toctree-l3"><a class="reference internal" href="libgs_ops.scheduling.Schedule.html">libgs_ops.scheduling.Schedule</a></li>
+<li class="toctree-l3"><a class="reference internal" href="libgs_ops.scheduling.Error.html">libgs_ops.scheduling.Error</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="libgs_ops.rpc.html">libgs_ops.rpc</a></li>
@@ -169,7 +174,7 @@
 <em class="property">class </em><code class="descclassname">libgs_ops.scheduling.</code><code class="descname">RPCSchedulerClient</code><span class="sig-paren">(</span><em>schedule</em>, <em>track_full_pass=True</em>, <em>compute_ant_points=True</em>, <em>rpcaddr='http://localhost:8000'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/libgs_ops/scheduling.html#RPCSchedulerClient"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#libgs_ops.scheduling.RPCSchedulerClient" title="Permalink to this definition">¶</a></dt>
 <dd><p>The RPCSchedulerClient class connects to a remote scheduler and allows basic interaction with it to
 upload/start/stop schedules.</p>
-<p>For futher information see <code class="xref py py-class docutils literal notranslate"><span class="pre">libgs.scheduler.Scheduler</span></code></p>
+<p>For futher information see <a class="reference external" href="https://kworm1.github.io/libgs-docs/_autosummary/libgs.scheduler.Scheduler.html#libgs.scheduler.Scheduler" title="(in libgs)"><code class="xref py py-class docutils literal notranslate"><span class="pre">libgs.scheduler.Scheduler</span></code></a></p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -203,6 +208,18 @@ Otherwise the schedule will be followed slavishly.</li>
 </tr>
 <tr class="row-even"><td><a class="reference internal" href="libgs_ops.scheduling.RPCSchedulerClient.stop.html#libgs_ops.scheduling.RPCSchedulerClient.stop" title="libgs_ops.scheduling.RPCSchedulerClient.stop"><code class="xref py py-obj docutils literal notranslate"><span class="pre">stop</span></code></a>()</td>
 <td>Stop the scheduler on the remote</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Attributes</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="libgs_ops.scheduling.RPCSchedulerClient.state.html#libgs_ops.scheduling.RPCSchedulerClient.state" title="libgs_ops.scheduling.RPCSchedulerClient.state"><code class="xref py py-obj docutils literal notranslate"><span class="pre">state</span></code></a></td>
+<td>Get current scheduler state from remote</td>
 </tr>
 </tbody>
 </table>

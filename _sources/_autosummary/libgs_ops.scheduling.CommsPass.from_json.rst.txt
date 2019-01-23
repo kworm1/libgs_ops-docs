@@ -1,5 +1,5 @@
-libgs\_ops\.scheduling\.CommsPass\.from\_json
-=============================================
+libgs\_ops.scheduling.CommsPass.from\_json
+==========================================
 
 .. currentmodule:: libgs_ops.scheduling
 

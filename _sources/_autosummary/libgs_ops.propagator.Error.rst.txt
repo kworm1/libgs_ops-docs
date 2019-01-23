@@ -1,5 +1,5 @@
-libgs\_ops\.propagator\.Error
-=============================
+libgs\_ops.propagator.Error
+===========================
 
 .. currentmodule:: libgs_ops.propagator
 

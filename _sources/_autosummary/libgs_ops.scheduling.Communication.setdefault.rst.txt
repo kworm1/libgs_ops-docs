@@ -1,5 +1,5 @@
-libgs\_ops\.scheduling\.Communication\.setdefault
-=================================================
+libgs\_ops.scheduling.Communication.setdefault
+==============================================
 
 .. currentmodule:: libgs_ops.scheduling
 

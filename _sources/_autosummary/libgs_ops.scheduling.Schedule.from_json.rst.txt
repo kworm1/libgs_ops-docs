@@ -1,5 +1,5 @@
-libgs\_ops\.scheduling\.Schedule\.from\_json
-============================================
+libgs\_ops.scheduling.Schedule.from\_json
+=========================================
 
 .. currentmodule:: libgs_ops.scheduling
 

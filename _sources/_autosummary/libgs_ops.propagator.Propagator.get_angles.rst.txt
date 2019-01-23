@@ -1,5 +1,5 @@
-libgs\_ops\.propagator\.Propagator\.get\_angles
-===============================================
+libgs\_ops.propagator.Propagator.get\_angles
+============================================
 
 .. currentmodule:: libgs_ops.propagator
 

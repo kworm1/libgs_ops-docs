@@ -1,0 +1,6 @@
+libgs\_ops.scheduling.RPCSchedulerClient.state
+==============================================
+
+.. currentmodule:: libgs_ops.scheduling
+
+.. autoattribute:: RPCSchedulerClient.state

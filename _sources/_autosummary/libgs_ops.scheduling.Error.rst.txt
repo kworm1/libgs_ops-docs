@@ -1,5 +1,5 @@
-libgs\_ops\.scheduling\.Error
-=============================
+libgs\_ops.scheduling.Error
+===========================
 
 .. currentmodule:: libgs_ops.scheduling
 

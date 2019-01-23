@@ -1,0 +1,6 @@
+libgs\_ops.propagator.SpaceTrackAPI.ST\_URL
+===========================================
+
+.. currentmodule:: libgs_ops.propagator
+
+.. autoattribute:: SpaceTrackAPI.ST_URL

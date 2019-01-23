@@ -1,5 +1,5 @@
-libgs\_ops\.scheduling\.Action\.iterkeys
-========================================
+libgs\_ops.scheduling.Action.iterkeys
+=====================================
 
 .. currentmodule:: libgs_ops.scheduling
 

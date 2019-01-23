@@ -1,5 +1,5 @@
-libgs\_ops\.scheduling\.Action\.setdefault
-==========================================
+libgs\_ops.scheduling.Action.setdefault
+=======================================
 
 .. currentmodule:: libgs_ops.scheduling
 

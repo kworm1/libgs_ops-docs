@@ -1,7 +1,7 @@
 
 
-libgs\_ops\.propagator\.Propagator
-==================================
+libgs\_ops.propagator.Propagator
+================================
 
 .. currentmodule:: libgs_ops.propagator
 
@@ -63,6 +63,13 @@ libgs\_ops\.propagator\.Propagator
    
 
    
+   
+   .. rubric:: Attributes
+   
+   .. autosummary::
+      :toctree: .
+   
+      ~Propagator.ST_URL
    
    
 

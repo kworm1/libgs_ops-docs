@@ -1,5 +1,5 @@
-libgs\_ops\.scheduling\.CommsPass\.plot
-=======================================
+libgs\_ops.scheduling.CommsPass.plot
+====================================
 
 .. currentmodule:: libgs_ops.scheduling
 

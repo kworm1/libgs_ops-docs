@@ -1,0 +1,6 @@
+libgs\_ops.propagator.Propagator.ST\_URL
+========================================
+
+.. currentmodule:: libgs_ops.propagator
+
+.. autoattribute:: Propagator.ST_URL

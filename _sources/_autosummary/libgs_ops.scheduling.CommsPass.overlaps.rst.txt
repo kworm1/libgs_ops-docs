@@ -1,5 +1,5 @@
-libgs\_ops\.scheduling\.CommsPass\.overlaps
-===========================================
+libgs\_ops.scheduling.CommsPass.overlaps
+========================================
 
 .. currentmodule:: libgs_ops.scheduling
 

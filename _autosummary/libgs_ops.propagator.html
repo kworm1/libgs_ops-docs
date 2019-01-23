@@ -80,11 +80,15 @@
             
               <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">libgs_ops.propagator</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="libgs_ops.propagator.mpl_plot_pass.html">libgs_ops.propagator.mpl_plot_pass</a></li>
-<li class="toctree-l2"><a class="reference internal" href="libgs_ops.propagator.Propagator.html">libgs_ops.propagator.Propagator</a></li>
-<li class="toctree-l2"><a class="reference internal" href="libgs_ops.propagator.SpaceTrackAPI.html">libgs_ops.propagator.SpaceTrackAPI</a></li>
-<li class="toctree-l2"><a class="reference internal" href="libgs_ops.propagator.TLEDb.html">libgs_ops.propagator.TLEDb</a></li>
-<li class="toctree-l2"><a class="reference internal" href="libgs_ops.propagator.Error.html">libgs_ops.propagator.Error</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#usage">Usage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-reference">Module reference</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="libgs_ops.propagator.mpl_plot_pass.html">libgs_ops.propagator.mpl_plot_pass</a></li>
+<li class="toctree-l3"><a class="reference internal" href="libgs_ops.propagator.Propagator.html">libgs_ops.propagator.Propagator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="libgs_ops.propagator.SpaceTrackAPI.html">libgs_ops.propagator.SpaceTrackAPI</a></li>
+<li class="toctree-l3"><a class="reference internal" href="libgs_ops.propagator.TLEDb.html">libgs_ops.propagator.TLEDb</a></li>
+<li class="toctree-l3"><a class="reference internal" href="libgs_ops.propagator.Error.html">libgs_ops.propagator.Error</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="libgs_ops.scheduling.html">libgs_ops.scheduling</a></li>
@@ -165,6 +169,347 @@
 </tr>
 </tbody>
 </table>
+<p>libgs_ops.propagator has been designed to allow you to design and plan satellite passes, and to calculate the data required by
+<a class="reference internal" href="libgs_ops.scheduling.html#module-libgs_ops.scheduling" title="libgs_ops.scheduling"><code class="xref py py-mod docutils literal notranslate"><span class="pre">scheduling</span></code></a> when creating the Schedules to upload to the groundstation.</p>
+<div class="section" id="usage">
+<h2>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h2>
+<p>You can use TLEs from a database with the TLEDb interface:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">p</span> <span class="o">=</span> <span class="n">Propagator</span><span class="p">(</span><span class="n">api</span><span class="o">=</span><span class="n">TLEDb</span><span class="p">(</span><span class="s1">&#39;leo_tles.txt&#39;</span><span class="p">),</span> <span class="n">gs_lat</span> <span class="o">=</span> <span class="n">GS_LAT</span><span class="p">,</span> <span class="n">gs_lon</span> <span class="o">=</span> <span class="n">GS_LON</span><span class="p">,</span> <span class="n">gs_elev</span> <span class="o">=</span> <span class="n">GS_ELEV</span><span class="p">)</span> <span class="c1">#&lt;-- replace path with a txt file of recent TLEs</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">p</span><span class="o">.</span><span class="n">get_tle</span><span class="p">(</span><span class="mi">25544</span><span class="p">)</span>
+<span class="go">(&#39;0 ISS (ZARYA)&#39;,</span>
+<span class="go"> &#39;1 25544U 98067A   17330.99569027  .00003456  00000-0  59208-4 0  9997&#39;,</span>
+<span class="go"> &#39;2 25544  51.6427 306.6944 0004138 155.0450 324.2726 15.54239375 87077&#39;)</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This assumes the file leo_tles.txt exists, and is in the correct format. The file can contain many tles.
+You can download tles from Space-Track.org. They need to be in the 3le format.</p>
+</div>
+<p>A TLE that is not in the database will fail:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">p</span><span class="o">.</span><span class="n">get_tle</span><span class="p">(</span><span class="mi">40000</span><span class="p">)</span>
+<span class="go">KeyError: 40000</span>
+</pre></div>
+</div>
+<p>Or you can connect directly to spacetrack if you have login credentials. Note hat uname, pwd are your Space-Track.org
+username and password. GS_LAT, GS_LON, GS_ELEV are the coordinates of your ground station.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">p</span> <span class="o">=</span> <span class="n">Propagator</span><span class="p">(</span><span class="n">api</span><span class="o">=</span><span class="n">SpaceTrackAPI</span><span class="p">(</span><span class="n">uname</span><span class="p">,</span> <span class="n">pwd</span><span class="p">),</span> <span class="n">gs_lat</span> <span class="o">=</span> <span class="n">GS_LAT</span><span class="p">,</span> <span class="n">gs_lon</span> <span class="o">=</span> <span class="n">GS_LON</span><span class="p">,</span> <span class="n">gs_elev</span> <span class="o">=</span> <span class="n">GS_ELEV</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Now we can get any TLE:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="p">[</span><span class="n">p</span><span class="o">.</span><span class="n">get_tle</span><span class="p">(</span><span class="mi">25544</span><span class="p">),</span> <span class="n">p</span><span class="o">.</span><span class="n">get_tle</span><span class="p">(</span><span class="mi">40000</span><span class="p">)]</span>
+<span class="go">[(&#39;0 ISS (ZARYA)&#39;,</span>
+<span class="go">  &#39;1 25544U 98067A   18191.92601852  .00011951  00000-0  18828-3 0  9990&#39;,</span>
+<span class="go">  &#39;2 25544  51.6420 260.3859 0003584 301.4077  43.7815 15.54010757122205&#39;),</span>
+<span class="go"> (&#39;0 FENGYUN 2C DEB&#39;,</span>
+<span class="go">  &#39;1 40000U 04042D   17363.55183407 -.00000332  00000-0  00000+0 0  9995&#39;,</span>
+<span class="go">  &#39;2 40000   9.4060  40.1038 0077532 344.5713  15.1779  1.00303233 32417&#39;)]</span>
+</pre></div>
+</div>
+<p>Or you can even specify a TLE directly (only really useful for testing):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">tle</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;0 ISS (ZARYA)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="s2">1 25544U 98067A   17284.88510854  .00004604  00000-0  76690-4 0  9997</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="s2">2 25544  51.6422 176.5756 0004586  12.7905  64.0182 15.54151166 79907&quot;&quot;&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">p</span> <span class="o">=</span> <span class="n">Propagator</span><span class="p">(</span><span class="n">tles</span><span class="o">=</span><span class="n">tle</span><span class="p">,</span> <span class="n">gs_lat</span> <span class="o">=</span> <span class="n">GS_LAT</span><span class="p">,</span> <span class="n">gs_lon</span> <span class="o">=</span> <span class="n">GS_LON</span><span class="p">,</span> <span class="n">gs_elev</span> <span class="o">=</span> <span class="n">GS_ELEV</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The propagator provides many utility functions to allow you to easily visualise and plan passes. For this example, we will
+work with the International Space Station (ISS) which has NORAD ID 25544. To print details about it, including
+where  it is at the moment:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">p</span><span class="o">.</span><span class="n">print_info</span><span class="p">(</span><span class="mi">25544</span><span class="p">)</span>
+<span class="go">TLE (updated 12/04/2018 09:56:44):</span>
+<span class="go">0 ISS (ZARYA)</span>
+<span class="go">    1 25544U 98067A   17284.88510854  .00004604  00000-0  76690-4 0  9997</span>
+<span class="go">    2 25544  51.6422 176.5756 0004586  12.7905  64.0182 15.54151166 79907</span>
+<span class="go">Orbit:</span>
+<span class="go">        epoch (utc) : 2017/10/11 21:14:33</span>
+<span class="go">        eccentricity: 0.000459</span>
+<span class="go">        inclindation: 51.642200</span>
+<span class="go">                RAAN: 176.575607</span>
+<span class="go">                  AP: 12.790500</span>
+<span class="go">       revol per day: 15.541512</span>
+<span class="go">  mean anom at epoch: 64.018204</span>
+<span class="go">   orbit no at epoch: 7990</span>
+<span class="go">Observer:</span>
+<span class="go">                 lat: -35.291447</span>
+<span class="go">                 lon: 149.165655</span>
+<span class="go">                elev: 614</span>
+<span class="go">          date (utc): 2018/04/11 23:56:55</span>
+<span class="go">Satellite:</span>
+<span class="go">    ground track pos: (lat = 33.998, lon = -179.991)</span>
+<span class="go">            pointing: (az  = 26.178, el  = -35.329)</span>
+<span class="go">               range: 7997806.500000</span>
+<span class="go">          range rate: 5306.109375</span>
+<span class="go">            altitude: 400772.000000</span>
+<span class="go">        orbit number: 10820.520789</span>
+</pre></div>
+</div>
+<p>We can compute the details of the next pass using <a class="reference internal" href="libgs_ops.propagator.Propagator.compute_pass.html#libgs_ops.propagator.Propagator.compute_pass" title="libgs_ops.propagator.Propagator.compute_pass"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Propagator.compute_pass()</span></code></a>. It returns two tables, pdat and psum.
+pdat includes deails about az, el and range_rate during the pass and is what the <code class="xref py py-class docutils literal notranslate"><span class="pre">Scheduler</span></code> will require (more about
+that later), and psum shows an overview:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">pdat</span><span class="p">,</span> <span class="n">psum</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">compute_pass</span><span class="p">(</span><span class="mi">25544</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">psum</span>
+</pre></div>
+</div>
+<table border="1" class="docutils">
+<colgroup>
+<col width="5%" />
+<col width="5%" />
+<col width="15%" />
+<col width="10%" />
+<col width="7%" />
+<col width="7%" />
+<col width="10%" />
+<col width="10%" />
+<col width="9%" />
+<col width="8%" />
+<col width="7%" />
+<col width="5%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">.</th>
+<th class="head">norad_id</th>
+<th class="head">tstamp_str</th>
+<th class="head">orbit_no</th>
+<th class="head">az</th>
+<th class="head">el</th>
+<th class="head">range</th>
+<th class="head">range_rate</th>
+<th class="head">altitude</th>
+<th class="head">lat</th>
+<th class="head">long</th>
+<th class="head">eclipsed</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>rise</td>
+<td>25544</td>
+<td>2018/4/12 12:56:27</td>
+<td>10828.934071</td>
+<td>341.021182</td>
+<td>0.017601</td>
+<td>2.362804e+06</td>
+<td>-6453.000000</td>
+<td>404883.78125</td>
+<td>-15.640039</td>
+<td>142.408351</td>
+<td>True</td>
+</tr>
+<tr class="row-odd"><td>peak</td>
+<td>25544</td>
+<td>2018/4/12 13:01:33</td>
+<td>10828.989114</td>
+<td>50.446186</td>
+<td>21.951227</td>
+<td>9.426514e+05</td>
+<td>57.450962</td>
+<td>408999.65625</td>
+<td>-30.219701</td>
+<td>155.773119</td>
+<td>True</td>
+</tr>
+<tr class="row-even"><td>set</td>
+<td>25544</td>
+<td>2018/4/12 13:06:40</td>
+<td>10829.044337</td>
+<td>118.978849</td>
+<td>0.075523</td>
+<td>2.383968e+06</td>
+<td>6468.492188</td>
+<td>413027.25000</td>
+<td>-42.669076</td>
+<td>173.889048</td>
+<td>True</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">pdat (and psum) returns more information (columns) than are required by <code class="xref py py-class docutils literal notranslate"><span class="pre">Schedule</span></code>, which only needs az, el and range_rate.</p>
+</div>
+<p>Most of the other functionality in this module are subsets of <a class="reference internal" href="libgs_ops.propagator.Propagator.get_all.html#libgs_ops.propagator.Propagator.get_all" title="libgs_ops.propagator.Propagator.get_all"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Propagator.get_all()</span></code></a>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">p</span><span class="o">.</span><span class="n">get_all</span><span class="p">(</span><span class="mi">25544</span><span class="p">)</span>
+<span class="go">norad_id                    25544</span>
+<span class="go">tstamp_str    2018/04/11 23:59:00</span>
+<span class="go">orbit_no                  10820.5</span>
+<span class="go">az                        28.9954</span>
+<span class="go">el                       -39.2531</span>
+<span class="go">range                 8.64443e+06</span>
+<span class="go">range_rate                5033.92</span>
+<span class="go">altitude                   402203</span>
+<span class="go">lat                       39.1371</span>
+<span class="go">long                     -172.682</span>
+<span class="go">eclipsed                    False</span>
+<span class="go">Name: 2018/04/11 23:59:00, dtype: object</span>
+</pre></div>
+</div>
+<p>You can provide a when=keyword to specify when you want the details computed for, or even an array of timestamps:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">p</span><span class="o">.</span><span class="n">get_all</span><span class="p">(</span><span class="mi">25544</span><span class="p">,</span> <span class="n">when</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;2018/04/11 23:59:00&#39;</span><span class="p">,</span> <span class="s1">&#39;2018/04/11 23:60:00&#39;</span><span class="p">,</span> <span class="s1">&#39;2018/04/11 23:61:00&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+<table border="1" class="docutils">
+<colgroup>
+<col width="17%" />
+<col width="7%" />
+<col width="15%" />
+<col width="7%" />
+<col width="6%" />
+<col width="7%" />
+<col width="9%" />
+<col width="8%" />
+<col width="7%" />
+<col width="6%" />
+<col width="7%" />
+<col width="7%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">.</th>
+<th class="head">norad_id</th>
+<th class="head">tstamp_str</th>
+<th class="head">orbit_no</th>
+<th class="head">az</th>
+<th class="head">el</th>
+<th class="head">range</th>
+<th class="head">range_rate</th>
+<th class="head">altitude</th>
+<th class="head">lat</th>
+<th class="head">long</th>
+<th class="head">eclipsed</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>2018/04/11 23:59:00</td>
+<td>25544</td>
+<td>2018/04/11 23:59:00</td>
+<td>10820.5</td>
+<td>28.9954</td>
+<td>-39.2531</td>
+<td>8.64443e+06</td>
+<td>5033.92</td>
+<td>402203</td>
+<td>39.1371</td>
+<td>-172.682</td>
+<td>False</td>
+</tr>
+<tr class="row-odd"><td>2018/04/11 23:60:00</td>
+<td>25544</td>
+<td>2018/04/11 23:60:00</td>
+<td>10820.6</td>
+<td>30.3388</td>
+<td>-41.12</td>
+<td>8.94222e+06</td>
+<td>4891.28</td>
+<td>402885</td>
+<td>41.401</td>
+<td>-168.776</td>
+<td>False</td>
+</tr>
+<tr class="row-even"><td>2018/04/11 23:61:00</td>
+<td>25544</td>
+<td>2018/04/11 23:61:00</td>
+<td>10820.6</td>
+<td>31.6915</td>
+<td>-42.9758</td>
+<td>9.23124e+06</td>
+<td>4741.58</td>
+<td>403546</td>
+<td>43.5045</td>
+<td>-164.581</td>
+<td>False</td>
+</tr>
+</tbody>
+</table>
+<p>A more complicated example to show how you can do anything you can do in python.
+Requires mplleaflet to be installed (pip install mplleaflet):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">mplleaflet</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">latlon</span> <span class="o">=</span> <span class="p">[</span><span class="n">p</span><span class="o">.</span><span class="n">get_ground_coord</span><span class="p">(</span><span class="mi">25544</span><span class="p">,</span> <span class="n">when</span><span class="o">=</span><span class="n">tstamp</span><span class="p">)</span> <span class="k">for</span> <span class="n">tstamp</span> <span class="ow">in</span> <span class="n">pdat</span><span class="o">.</span><span class="n">tstamp_str</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">lat</span><span class="p">,</span> <span class="n">lon</span> <span class="o">=</span> <span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="n">latlon</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">lon</span><span class="p">,</span> <span class="n">lat</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">gs_lon</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">gs_lat</span><span class="p">,</span> <span class="s1">&#39;ro&#39;</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mplleaflet</span><span class="o">.</span><span class="n">display</span><span class="p">(</span><span class="n">tiles</span><span class="o">=</span><span class="s1">&#39;esri_aerial&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>It can be useful to get an overview of upcoming satellite passes. Just use <a class="reference internal" href="libgs_ops.propagator.Propagator.get_passes.html#libgs_ops.propagator.Propagator.get_passes" title="libgs_ops.propagator.Propagator.get_passes"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Propagator.get_passes()</span></code></a> to very quickly calculate upcoming
+passes. It also optionally accepts the <code class="docutils literal notranslate"><span class="pre">when</span></code> keyword in the same way as <a class="reference internal" href="libgs_ops.propagator.Propagator.get_all.html#libgs_ops.propagator.Propagator.get_all" title="libgs_ops.propagator.Propagator.get_all"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Propagator.get_all()</span></code></a> (if omitted when = Now) as well as <code class="docutils literal notranslate"><span class="pre">N</span></code> to specify the number
+of upcoming passes to calculate (if omitted N=1), and <code class="docutils literal notranslate"><span class="pre">horizon</span></code> to filter by passes that are higher than a certain elevation. For example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">p</span><span class="o">.</span><span class="n">get_passes</span><span class="p">([</span><span class="mi">25544</span><span class="p">,</span> <span class="mi">42778</span><span class="p">,</span> <span class="mi">42017</span><span class="p">],</span> <span class="n">N</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">horizon</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+</pre></div>
+</div>
+<table border="1" class="docutils">
+<colgroup>
+<col width="2%" />
+<col width="5%" />
+<col width="10%" />
+<col width="17%" />
+<col width="11%" />
+<col width="17%" />
+<col width="10%" />
+<col width="17%" />
+<col width="10%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">.</th>
+<th class="head">nid</th>
+<th class="head">orbit_no</th>
+<th class="head">rise_t</th>
+<th class="head">rise_az</th>
+<th class="head">max_elev_t</th>
+<th class="head">max_elev</th>
+<th class="head">set_t</th>
+<th class="head">set_az</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>0</td>
+<td>42778</td>
+<td>4451.856863</td>
+<td>2018/04/12 11:00:07</td>
+<td>150.894247</td>
+<td>2018/04/12 11:05:31</td>
+<td>18.542780</td>
+<td>2018/04/12 11:10:50</td>
+<td>19.517481</td>
+</tr>
+<tr class="row-odd"><td>1</td>
+<td>42017</td>
+<td>6406.847362</td>
+<td>2018/04/12 12:10:13</td>
+<td>169.722360</td>
+<td>2018/04/12 12:16:10</td>
+<td>83.098219</td>
+<td>2018/04/12 12:22:01</td>
+<td>345.571864</td>
+</tr>
+<tr class="row-even"><td>2</td>
+<td>25544</td>
+<td>10832.568897</td>
+<td>2018/04/12 14:03:15</td>
+<td>308.388451</td>
+<td>2018/04/12 14:08:46</td>
+<td>69.318347</td>
+<td>2018/04/12 14:14:22</td>
+<td>133.721252</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The horizon parameter just filters the rows to show anything with max_elev &gt; horizon. rise_t and set_t still correspond to horizon=0.
+This is because get_passes uses a quick computation algorithm (See <code class="xref py py-meth docutils literal notranslate"><span class="pre">ephem.Observer.next_pass()</span></code>). To get the actual
+rise_t and set_t for that horizon, run <a class="reference internal" href="libgs_ops.propagator.Propagator.compute_pass.html#libgs_ops.propagator.Propagator.compute_pass" title="libgs_ops.propagator.Propagator.compute_pass"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Propagator.compute_pass()</span></code></a> with <code class="docutils literal notranslate"><span class="pre">when</span></code> set to the corresponding rise_t.</p>
+</div>
+<p>A common use of get_passes is to get the list of upcoming passes you want to create a schedule for. You then need to call compute_passes
+for each of the rows in the get_passes table by giving the <code class="docutils literal notranslate"><span class="pre">when</span></code> parameter as the corresponding rise_t. The below example uses the
+<a class="reference internal" href="libgs_ops.propagator.mpl_plot_pass.html#libgs_ops.propagator.mpl_plot_pass" title="libgs_ops.propagator.mpl_plot_pass"><code class="xref py py-func docutils literal notranslate"><span class="pre">mpl_plot_pass()</span></code></a> convenience function to plot a representation for each of the upcoming passes:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">k</span><span class="p">,</span><span class="n">satpass</span> <span class="ow">in</span> <span class="n">p</span><span class="o">.</span><span class="n">get_passes</span><span class="p">([</span><span class="mi">25544</span><span class="p">,</span> <span class="mi">42778</span><span class="p">,</span> <span class="mi">42017</span><span class="p">],</span> <span class="n">N</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">horizon</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">pdat</span><span class="p">,</span> <span class="n">psum</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">compute_pass</span><span class="p">(</span><span class="n">satpass</span><span class="o">.</span><span class="n">nid</span><span class="p">,</span> <span class="n">when</span><span class="o">=</span><span class="n">satpass</span><span class="o">.</span><span class="n">rise_t</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">mpl_plot_pass</span><span class="p">(</span><span class="n">pdat</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="module-reference">
+<h2>Module reference<a class="headerlink" href="#module-reference" title="Permalink to this headline">¶</a></h2>
 <p class="rubric">Functions</p>
 <table border="1" class="longtable docutils">
 <colgroup>
@@ -207,6 +552,7 @@
 </tr>
 </tbody>
 </table>
+</div>
 </div>
 
 

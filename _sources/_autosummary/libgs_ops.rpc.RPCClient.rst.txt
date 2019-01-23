@@ -1,7 +1,7 @@
 
 
-libgs\_ops\.rpc\.RPCClient
-==========================
+libgs\_ops.rpc.RPCClient
+========================
 
 .. currentmodule:: libgs_ops.rpc
 

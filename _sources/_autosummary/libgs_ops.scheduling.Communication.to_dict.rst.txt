@@ -1,5 +1,5 @@
-libgs\_ops\.scheduling\.Communication\.to\_dict
-===============================================
+libgs\_ops.scheduling.Communication.to\_dict
+============================================
 
 .. currentmodule:: libgs_ops.scheduling
 

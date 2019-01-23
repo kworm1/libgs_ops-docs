@@ -1,5 +1,5 @@
-libgs\_ops\.scheduling\.Communication\.items
-============================================
+libgs\_ops.scheduling.Communication.items
+=========================================
 
 .. currentmodule:: libgs_ops.scheduling
 

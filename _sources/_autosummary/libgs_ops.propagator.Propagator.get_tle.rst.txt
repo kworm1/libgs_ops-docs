@@ -1,5 +1,5 @@
-libgs\_ops\.propagator\.Propagator\.get\_tle
-============================================
+libgs\_ops.propagator.Propagator.get\_tle
+=========================================
 
 .. currentmodule:: libgs_ops.propagator
 

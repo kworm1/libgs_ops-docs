@@ -1,5 +1,5 @@
-libgs\_ops\.propagator\.Propagator\.get\_eclipsed
-=================================================
+libgs\_ops.propagator.Propagator.get\_eclipsed
+==============================================
 
 .. currentmodule:: libgs_ops.propagator
 

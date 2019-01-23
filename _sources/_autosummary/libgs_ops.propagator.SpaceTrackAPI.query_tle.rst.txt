@@ -1,5 +1,5 @@
-libgs\_ops\.propagator\.SpaceTrackAPI\.query\_tle
-=================================================
+libgs\_ops.propagator.SpaceTrackAPI.query\_tle
+==============================================
 
 .. currentmodule:: libgs_ops.propagator
 

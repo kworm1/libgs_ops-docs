@@ -1,5 +1,5 @@
-libgs\_ops\.propagator\.Propagator\.get\_visible\_satellites
-============================================================
+libgs\_ops.propagator.Propagator.get\_visible\_satellites
+=========================================================
 
 .. currentmodule:: libgs_ops.propagator
 

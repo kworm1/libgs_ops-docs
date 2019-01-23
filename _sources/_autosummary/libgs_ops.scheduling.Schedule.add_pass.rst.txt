@@ -1,5 +1,5 @@
-libgs\_ops\.scheduling\.Schedule\.add\_pass
-===========================================
+libgs\_ops.scheduling.Schedule.add\_pass
+========================================
 
 .. currentmodule:: libgs_ops.scheduling
 

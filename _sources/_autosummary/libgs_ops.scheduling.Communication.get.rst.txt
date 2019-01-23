@@ -1,5 +1,5 @@
-libgs\_ops\.scheduling\.Communication\.get
-==========================================
+libgs\_ops.scheduling.Communication.get
+=======================================
 
 .. currentmodule:: libgs_ops.scheduling
 

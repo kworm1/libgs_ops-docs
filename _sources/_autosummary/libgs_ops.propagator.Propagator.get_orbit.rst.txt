@@ -1,5 +1,5 @@
-libgs\_ops\.propagator\.Propagator\.get\_orbit
-==============================================
+libgs\_ops.propagator.Propagator.get\_orbit
+===========================================
 
 .. currentmodule:: libgs_ops.propagator
 

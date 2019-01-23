@@ -1,5 +1,5 @@
-libgs\_ops\.scheduling\.Action\.clear
-=====================================
+libgs\_ops.scheduling.Action.clear
+==================================
 
 .. currentmodule:: libgs_ops.scheduling
 

@@ -1,5 +1,5 @@
-libgs\_ops\.propagator\.mpl\_plot\_pass
-=======================================
+libgs\_ops.propagator.mpl\_plot\_pass
+=====================================
 
 .. currentmodule:: libgs_ops.propagator
 

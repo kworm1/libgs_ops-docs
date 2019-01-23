@@ -1,7 +1,7 @@
 
 
-libgs\_ops\.propagator\.SpaceTrackAPI
-=====================================
+libgs\_ops.propagator.SpaceTrackAPI
+===================================
 
 .. currentmodule:: libgs_ops.propagator
 
@@ -33,6 +33,13 @@ libgs\_ops\.propagator\.SpaceTrackAPI
    
 
    
+   
+   .. rubric:: Attributes
+   
+   .. autosummary::
+      :toctree: .
+   
+      ~SpaceTrackAPI.ST_URL
    
    
 

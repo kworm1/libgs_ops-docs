@@ -1,7 +1,7 @@
 
 
-libgs\_ops\.scheduling\.Action
-==============================
+libgs\_ops.scheduling.Action
+============================
 
 .. currentmodule:: libgs_ops.scheduling
 

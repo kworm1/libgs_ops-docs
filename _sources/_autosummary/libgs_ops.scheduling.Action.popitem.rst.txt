@@ -1,5 +1,5 @@
-libgs\_ops\.scheduling\.Action\.popitem
-=======================================
+libgs\_ops.scheduling.Action.popitem
+====================================
 
 .. currentmodule:: libgs_ops.scheduling
 
