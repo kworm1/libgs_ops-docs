@@ -18,6 +18,62 @@ libgs\_ops.scheduling.Action
    
       
       
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      ~Action.to_dict
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+   
+   
+
+   
+   
+   
+
+
+   
+   
+
+   .. rubric:: Inherited from base class
+
+   .. autosummary::
+      :toctree: .
+   
+      
+      
       ~Action.clear
       
       
@@ -57,7 +113,6 @@ libgs\_ops.scheduling.Action
       ~Action.setdefault
       
       
-      ~Action.to_dict
       
       
       ~Action.update
@@ -73,11 +128,9 @@ libgs\_ops.scheduling.Action
       
       
       ~Action.viewvalues
-      
+         
    
    
 
-   
-   
    
 

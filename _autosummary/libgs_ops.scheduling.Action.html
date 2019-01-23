@@ -28,7 +28,7 @@
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="libgs_ops.scheduling.Action.clear" href="libgs_ops.scheduling.Action.clear.html" />
+    <link rel="next" title="libgs_ops.scheduling.Action.to_dict" href="libgs_ops.scheduling.Action.to_dict.html" />
     <link rel="prev" title="libgs_ops.scheduling" href="libgs_ops.scheduling.html" /> 
 
   
@@ -84,6 +84,7 @@
 <li class="toctree-l2"><a class="reference internal" href="libgs_ops.scheduling.html#usage">Usage</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="libgs_ops.scheduling.html#module-reference">Module Reference</a><ul class="current">
 <li class="toctree-l3 current"><a class="current reference internal" href="#">libgs_ops.scheduling.Action</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="libgs_ops.scheduling.Action.to_dict.html">libgs_ops.scheduling.Action.to_dict</a></li>
 <li class="toctree-l4"><a class="reference internal" href="libgs_ops.scheduling.Action.clear.html">libgs_ops.scheduling.Action.clear</a></li>
 <li class="toctree-l4"><a class="reference internal" href="libgs_ops.scheduling.Action.copy.html">libgs_ops.scheduling.Action.copy</a></li>
 <li class="toctree-l4"><a class="reference internal" href="libgs_ops.scheduling.Action.fromkeys.html">libgs_ops.scheduling.Action.fromkeys</a></li>
@@ -97,7 +98,6 @@
 <li class="toctree-l4"><a class="reference internal" href="libgs_ops.scheduling.Action.pop.html">libgs_ops.scheduling.Action.pop</a></li>
 <li class="toctree-l4"><a class="reference internal" href="libgs_ops.scheduling.Action.popitem.html">libgs_ops.scheduling.Action.popitem</a></li>
 <li class="toctree-l4"><a class="reference internal" href="libgs_ops.scheduling.Action.setdefault.html">libgs_ops.scheduling.Action.setdefault</a></li>
-<li class="toctree-l4"><a class="reference internal" href="libgs_ops.scheduling.Action.to_dict.html">libgs_ops.scheduling.Action.to_dict</a></li>
 <li class="toctree-l4"><a class="reference internal" href="libgs_ops.scheduling.Action.update.html">libgs_ops.scheduling.Action.update</a></li>
 <li class="toctree-l4"><a class="reference internal" href="libgs_ops.scheduling.Action.values.html">libgs_ops.scheduling.Action.values</a></li>
 <li class="toctree-l4"><a class="reference internal" href="libgs_ops.scheduling.Action.viewitems.html">libgs_ops.scheduling.Action.viewitems</a></li>
@@ -217,6 +217,18 @@ information on this topic.</p>
 <col width="90%" />
 </colgroup>
 <tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="libgs_ops.scheduling.Action.to_dict.html#libgs_ops.scheduling.Action.to_dict" title="libgs_ops.scheduling.Action.to_dict"><code class="xref py py-obj docutils literal notranslate"><span class="pre">to_dict</span></code></a>()</td>
+<td>Convert the action to python dictionary format</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Inherited from base class</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
 <tr class="row-odd"><td><a class="reference internal" href="libgs_ops.scheduling.Action.clear.html#libgs_ops.scheduling.Action.clear" title="libgs_ops.scheduling.Action.clear"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clear</span></code></a>()</td>
 <td></td>
 </tr>
@@ -256,22 +268,19 @@ information on this topic.</p>
 <tr class="row-odd"><td><a class="reference internal" href="libgs_ops.scheduling.Action.setdefault.html#libgs_ops.scheduling.Action.setdefault" title="libgs_ops.scheduling.Action.setdefault"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setdefault</span></code></a>(k[,d])</td>
 <td></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="libgs_ops.scheduling.Action.to_dict.html#libgs_ops.scheduling.Action.to_dict" title="libgs_ops.scheduling.Action.to_dict"><code class="xref py py-obj docutils literal notranslate"><span class="pre">to_dict</span></code></a>()</td>
-<td>Convert the action to python dictionary format</td>
-</tr>
-<tr class="row-odd"><td><a class="reference internal" href="libgs_ops.scheduling.Action.update.html#libgs_ops.scheduling.Action.update" title="libgs_ops.scheduling.Action.update"><code class="xref py py-obj docutils literal notranslate"><span class="pre">update</span></code></a>([E,&nbsp;]**F)</td>
+<tr class="row-even"><td><a class="reference internal" href="libgs_ops.scheduling.Action.update.html#libgs_ops.scheduling.Action.update" title="libgs_ops.scheduling.Action.update"><code class="xref py py-obj docutils literal notranslate"><span class="pre">update</span></code></a>([E,&nbsp;]**F)</td>
 <td>If E present and has a .keys() method, does:     for k in E: D[k] = E[k] If E present and lacks .keys() method, does:     for (k, v) in E: D[k] = v In either case, this is followed by: for k in F: D[k] = F[k]</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="libgs_ops.scheduling.Action.values.html#libgs_ops.scheduling.Action.values" title="libgs_ops.scheduling.Action.values"><code class="xref py py-obj docutils literal notranslate"><span class="pre">values</span></code></a>()</td>
+<tr class="row-odd"><td><a class="reference internal" href="libgs_ops.scheduling.Action.values.html#libgs_ops.scheduling.Action.values" title="libgs_ops.scheduling.Action.values"><code class="xref py py-obj docutils literal notranslate"><span class="pre">values</span></code></a>()</td>
 <td></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="libgs_ops.scheduling.Action.viewitems.html#libgs_ops.scheduling.Action.viewitems" title="libgs_ops.scheduling.Action.viewitems"><code class="xref py py-obj docutils literal notranslate"><span class="pre">viewitems</span></code></a>()</td>
+<tr class="row-even"><td><a class="reference internal" href="libgs_ops.scheduling.Action.viewitems.html#libgs_ops.scheduling.Action.viewitems" title="libgs_ops.scheduling.Action.viewitems"><code class="xref py py-obj docutils literal notranslate"><span class="pre">viewitems</span></code></a>()</td>
 <td></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="libgs_ops.scheduling.Action.viewkeys.html#libgs_ops.scheduling.Action.viewkeys" title="libgs_ops.scheduling.Action.viewkeys"><code class="xref py py-obj docutils literal notranslate"><span class="pre">viewkeys</span></code></a>()</td>
+<tr class="row-odd"><td><a class="reference internal" href="libgs_ops.scheduling.Action.viewkeys.html#libgs_ops.scheduling.Action.viewkeys" title="libgs_ops.scheduling.Action.viewkeys"><code class="xref py py-obj docutils literal notranslate"><span class="pre">viewkeys</span></code></a>()</td>
 <td></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="libgs_ops.scheduling.Action.viewvalues.html#libgs_ops.scheduling.Action.viewvalues" title="libgs_ops.scheduling.Action.viewvalues"><code class="xref py py-obj docutils literal notranslate"><span class="pre">viewvalues</span></code></a>()</td>
+<tr class="row-even"><td><a class="reference internal" href="libgs_ops.scheduling.Action.viewvalues.html#libgs_ops.scheduling.Action.viewvalues" title="libgs_ops.scheduling.Action.viewvalues"><code class="xref py py-obj docutils literal notranslate"><span class="pre">viewvalues</span></code></a>()</td>
 <td></td>
 </tr>
 </tbody>
@@ -288,7 +297,7 @@ information on this topic.</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="libgs_ops.scheduling.Action.clear.html" class="btn btn-neutral float-right" title="libgs_ops.scheduling.Action.clear" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="libgs_ops.scheduling.Action.to_dict.html" class="btn btn-neutral float-right" title="libgs_ops.scheduling.Action.to_dict" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="libgs_ops.scheduling.html" class="btn btn-neutral" title="libgs_ops.scheduling" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>

@@ -18,6 +18,62 @@ libgs\_ops.scheduling.Communication
    
       
       
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      ~Communication.to_dict
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+   
+   
+
+   
+   
+   
+
+
+   
+   
+
+   .. rubric:: Inherited from base class
+
+   .. autosummary::
+      :toctree: .
+   
+      
+      
       ~Communication.clear
       
       
@@ -57,7 +113,6 @@ libgs\_ops.scheduling.Communication
       ~Communication.setdefault
       
       
-      ~Communication.to_dict
       
       
       ~Communication.update
@@ -73,11 +128,9 @@ libgs\_ops.scheduling.Communication
       
       
       ~Communication.viewvalues
-      
+         
    
    
 
-   
-   
    
 
