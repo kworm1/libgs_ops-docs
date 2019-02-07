@@ -185,11 +185,16 @@
 
 <div class="viewcode-block" id="RPCClient"><a class="viewcode-back" href="../../_autosummary/libgs_ops.rpc.RPCClient.html#libgs_ops.rpc.RPCClient">[docs]</a><span class="k">class</span> <span class="nc">RPCClient</span><span class="p">(</span><span class="n">ServerProxy</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    An improvement on ye olde ServerProxy that</span>
+<span class="sd">    An improvement on ye olde :class:`~xmlrpclib.ServerProxy`.</span>
+<span class="sd">    </span>
+<span class="sd">    It is fully compatible with :class:`~xmlrpclib.ServerProxy` (i.e. it implements all the same methods and functionality),</span>
+<span class="sd">    and additionally it:</span>
+
 <span class="sd">      * Times out if the connection has gone belly up</span>
 <span class="sd">      * Allows kwargs to be passed along with arguments, by adding the kwargs as a single dictionary argument</span>
 <span class="sd">        at the end of the list of parameters. If no kwargs are specified it will not be added, and therefore it</span>
-<span class="sd">        is fully backwards compatible with normal SimpleXMLRPCServer.</span>
+<span class="sd">        is fully backwards compatible with normal :class:`~SimpleXMLRPCServer.SimpleXMLRPCServer`.</span>
+<span class="sd">      * Properly implements ``__dir__`` and ``__getattr__`` to query for remote methods and interface with them as attributes</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># This flag is added by the client to an argument dictionary to be treated as kwargs</span>
@@ -209,6 +214,26 @@
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">uri</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">60</span><span class="p">,</span> <span class="n">transport</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
                  <span class="n">allow_none</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">use_datetime</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            .. note::</span>
+<span class="sd">                The RPCClient constructor accepts the same arguments as :class:`~xmlrpclib.ServerProxy` except you cannot set</span>
+<span class="sd">                the transport. The reason is that RPCClient uses its own custom transport to implement the timeout.</span>
+
+<span class="sd">            Args:</span>
+<span class="sd">                uri (str):          URI of XMLRPC Server (e.g. https:///my.server)</span>
+<span class="sd">                timeout (int):      Timeout in seconds to apply to queries to server</span>
+<span class="sd">                transport:          Not available (must be None)    </span>
+<span class="sd">                encoding:           Encoding to use</span>
+<span class="sd">                verbose:            Debugging flag</span>
+<span class="sd">                allow_none:         If true, None will be transmitted.</span>
+<span class="sd">                use_datetime:       If true, :class:`datetime.datetime` will be transmitted.</span>
+
+<span class="sd">            For further description of encoding, verbose, allow_none and use_datetime, see :class:`~xmlrpclib.ServerProxy`.</span>
+
+<span class="sd">            Available methods are those that have been registered on the remote XMLRPC server.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="k">if</span> <span class="n">transport</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;transport parameter is not allowed. This implementation uses a timeout transport&quot;</span><span class="p">)</span>

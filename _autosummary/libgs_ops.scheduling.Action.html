@@ -195,10 +195,12 @@ to the protocol class for whatever reason.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>args</strong> – A list of arguments to pass to the <code class="xref py py-class docutils literal notranslate"><span class="pre">libgs.protocols.protocolbase.ProtocolBase.do_action</span></code> function as positional arguments</li>
-<li><strong>kwargs</strong> – A dictionary to pass to the <code class="xref py py-class docutils literal notranslate"><span class="pre">libgs.protocols.protocolbase.ProtocolBase.do_action</span></code> function as kwargs.</li>
-<li><strong>desc</strong> – The description of the action</li>
-<li><strong>retries</strong> – The number of times to retry the action in case of failure.</li>
+<li><strong>args</strong> (<em>list</em><em> or </em><em>tuple</em>) – A list of arguments to pass to the protocol’s
+<a class="reference external" href="https://kworm1.github.io/libgs-docs/_autosummary/libgs.protocols.protocolbase.ProtocolBase.do_action.html#libgs.protocols.protocolbase.ProtocolBase.do_action" title="(in libgs)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">do_action()</span></code></a> method as positional arguments</li>
+<li><strong>kwargs</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/stdtypes.html#dict" title="(in Python v2.7)"><em>dict</em></a>) – A dictionary to pass to the protocol’s
+<a class="reference external" href="https://kworm1.github.io/libgs-docs/_autosummary/libgs.protocols.protocolbase.ProtocolBase.do_action.html#libgs.protocols.protocolbase.ProtocolBase.do_action" title="(in libgs)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">do_action()</span></code></a> method as kwargs.</li>
+<li><strong>desc</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a><em>(</em><em>optional</em><em>)</em>) – The description of the action</li>
+<li><strong>retries</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a><em>(</em><em>optional</em><em>)</em>) – The number of times to retry the action in case of failure.</li>
 </ul>
 </td>
 </tr>

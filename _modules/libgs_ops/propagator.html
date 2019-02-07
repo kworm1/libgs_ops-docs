@@ -363,6 +363,7 @@
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">from</span> <span class="nn">lxml</span> <span class="k">import</span> <span class="n">html</span>
 <span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">from</span> <span class="nn">functools</span> <span class="k">import</span> <span class="n">wraps</span>
 
 
 <span class="k">def</span> <span class="nf">_print</span><span class="p">(</span> <span class="o">*</span><span class="n">arg</span><span class="p">,</span> <span class="o">**</span><span class="n">kwarg</span><span class="p">):</span>
@@ -383,6 +384,7 @@
 
 
 <div class="viewcode-block" id="Error"><a class="viewcode-back" href="../../_autosummary/libgs_ops.propagator.Error.html#libgs_ops.propagator.Error">[docs]</a><span class="k">class</span> <span class="nc">Error</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; A generic exception &quot;&quot;&quot;</span>
     <span class="k">pass</span></div>
 
 <span class="k">try</span><span class="p">:</span>
@@ -402,6 +404,7 @@
 <span class="c1"># Decorator to more easily tag matplotlib functions</span>
 <span class="k">def</span> <span class="nf">_mpl</span><span class="p">(</span><span class="n">func</span><span class="p">):</span>
 
+    <span class="nd">@wraps</span><span class="p">(</span><span class="n">func</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">wrapper</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">_HAS_MATPLOTLIB</span><span class="p">:</span>
             <span class="k">raise</span> <span class="n">Error</span><span class="p">(</span><span class="s2">&quot;matplotib.pyplot not available, before using this funciton you need to install it : pip install matplotlib&quot;</span><span class="p">)</span>
@@ -493,15 +496,21 @@
 
 <div class="viewcode-block" id="SpaceTrackAPI"><a class="viewcode-back" href="../../_autosummary/libgs_ops.propagator.SpaceTrackAPI.html#libgs_ops.propagator.SpaceTrackAPI">[docs]</a><span class="k">class</span> <span class="nc">SpaceTrackAPI</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Class to interface with space-track.org</span>
+<span class="sd">        Class to interface with `space-track.org &lt;https://www.space-track.org&gt;`_.</span>
+
+<span class="sd">        This class connects to the space-track.org public API, and therefore requires a username and password. </span>
+<span class="sd">        To obtain such credentials you can register for free on the space-track website.</span>
+
+<span class="sd">        This class allows the execution of arbitrary API queries, but provides a simplified method to download TLEs in</span>
+<span class="sd">        the format used by :class:`.Propagator`.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">ST_URL</span><span class="o">=</span><span class="s1">&#39;https://www.space-track.org&#39;</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">uname</span><span class="p">,</span> <span class="n">pwd</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        :param uname:</span>
-<span class="sd">        :param pwd:</span>
+<span class="sd">        :param uname: space-track.org user name</span>
+<span class="sd">        :param pwd: space-track.org password</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">r</span><span class="o">=</span><span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ST_URL</span><span class="o">+</span><span class="s2">&quot;/ajaxauth/login&quot;</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;identity&#39;</span><span class="p">:</span><span class="n">uname</span><span class="p">,</span> <span class="s1">&#39;password&#39;</span><span class="p">:</span><span class="n">pwd</span><span class="p">})</span>
 
@@ -516,7 +525,7 @@
 <span class="sd">            Perform a raw query to spacetrack API. Can return anything the API</span>
 <span class="sd">            can.</span>
 
-<span class="sd">            See `spacetrack &lt;https://www.space-track.org/documentation#/api&gt;`</span>
+<span class="sd">            See `spacetrack &lt;https://www.space-track.org/documentation#/api&gt;`_</span>
 <span class="sd">            for the URI syntax.</span>
 
 <span class="sd">            Args:</span>
@@ -657,7 +666,22 @@
 
 <div class="viewcode-block" id="SpaceTrackAPI.get_tle_sets"><a class="viewcode-back" href="../../_autosummary/libgs_ops.propagator.SpaceTrackAPI.get_tle_sets.html#libgs_ops.propagator.SpaceTrackAPI.get_tle_sets">[docs]</a>    <span class="k">def</span> <span class="nf">get_tle_sets</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">            A shortcut to some predefined sets of satellites</span>
+<span class="sd">            A shortcut to some predefined sets of satellites. </span>
+<span class="sd">            </span>
+<span class="sd">            Avaliable sets are:</span>
+
+<span class="sd">            ============== ============================================================</span>
+<span class="sd">            &#39;amateur_all&#39;  space-track.org curated list of amateur radio satellites</span>
+<span class="sd">            &#39;leo_all&#39;      All satellites in LEO (period &lt; 128 )</span>
+<span class="sd">            &#39;geo_all&#39;      All satellites in GEO (period between 1430 and 1450)</span>
+<span class="sd">            ============== ============================================================</span>
+
+<span class="sd">            Args:</span>
+<span class="sd">                name (str): The set to get (see above)</span>
+
+<span class="sd">            Returns:</span>
+<span class="sd">                Concatenated string of TLEs</span>
+
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="k">if</span> <span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;amateur_all&quot;</span><span class="p">:</span>
@@ -682,18 +706,19 @@
 <div class="viewcode-block" id="SpaceTrackAPI.get_tles"><a class="viewcode-back" href="../../_autosummary/libgs_ops.propagator.SpaceTrackAPI.get_tles.html#libgs_ops.propagator.SpaceTrackAPI.get_tles">[docs]</a>    <span class="k">def</span> <span class="nf">get_tles</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nids</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">            Query space-track for a series of norad IDs, and return</span>
-<span class="sd">            the NIDs and TLEs in a dict</span>
+<span class="sd">            the NIDs and TLEs in a dict.</span>
+
+<span class="sd">            .. note:: </span>
+<span class="sd">                In some cases space-track can not find a TLE. **No error**</span>
+<span class="sd">                will be raised by this function and it is up to the caller</span>
+<span class="sd">                to check whether the returned NIDs match the passed ones.</span>
 
 <span class="sd">            Args:</span>
 <span class="sd">                nids (list(int)): List of norad ids to query for</span>
 
+<span class="sd">            Returns:</span>
+<span class="sd">                Python dictionary of NIDS/TLES</span>
 
-<span class="sd">            Returns::</span>
-<span class="sd">                Dictionary of TLEs</span>
-
-<span class="sd">            .. note:: In some cases space-track can not find a TLE. No error</span>
-<span class="sd">                will be raised by this function and it is up to the caller</span>
-<span class="sd">                to check whether the returned NIDs match the passed ones.</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">idstr</span><span class="o">=</span><span class="s2">&quot;,&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">nids</span><span class="p">)</span>
@@ -718,14 +743,20 @@
 
 <span class="sd">        The Database can be loaded from a file, or input directly.</span>
 
-<span class="sd">        This class can serve as a drop-in replacement for the SpaceTrackAPI class</span>
-<span class="sd">        in the propagator as it implements the get_tles method.</span>
+<span class="sd">        This class can serve as a drop-in replacement for :class:`.SpaceTrackAPI`</span>
+<span class="sd">        when creating a :class:`.Propagator` as it implements the ``get_tles`` method.</span>
 
-<span class="sd">        .. todo::</span>
-<span class="sd">            implement saving in binary format that is faster.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fname</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">tles</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        .. note::</span>
+<span class="sd">            Only one of the arguments (fname or tles) must be specified, and not both.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            fname (str): The filename to load TLEs from</span>
+<span class="sd">            tles (dict or str): Manual specificaiton of TLES</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="p">(</span><span class="n">fname</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">tles</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">):</span>
             <span class="k">raise</span> <span class="n">Error</span><span class="p">(</span><span class="s2">&quot;only enter fname OR tles&quot;</span><span class="p">)</span>
 
@@ -756,6 +787,14 @@
 
 
 <div class="viewcode-block" id="TLEDb.save_tles"><a class="viewcode-back" href="../../_autosummary/libgs_ops.propagator.TLEDb.save_tles.html#libgs_ops.propagator.TLEDb.save_tles">[docs]</a>    <span class="k">def</span> <span class="nf">save_tles</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fname</span><span class="p">,</span> <span class="n">fformat</span><span class="o">=</span><span class="s1">&#39;txt&#39;</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Save the database to file.</span>
+
+<span class="sd">            Args:</span>
+<span class="sd">                fname (str): Filename to save to</span>
+<span class="sd">                fformat (str): Currently has to be &#39;txt&#39;</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="k">if</span> <span class="n">fformat</span> <span class="o">==</span> <span class="s1">&#39;txt&#39;</span><span class="p">:</span>
             <span class="n">fp</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">fname</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span>
@@ -763,8 +802,10 @@
             <span class="n">fp</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">tlestr</span><span class="p">)</span>
             <span class="n">fp</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
 
-        <span class="k">elif</span> <span class="nb">format</span> <span class="o">==</span> <span class="s1">&#39;pickle&#39;</span><span class="p">:</span>
-            <span class="k">pass</span></div>
+        <span class="k">elif</span> <span class="n">fformat</span> <span class="o">==</span> <span class="s1">&#39;pickle&#39;</span><span class="p">:</span>
+            <span class="k">pass</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s1">&#39;Invalid file format </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">fformat</span><span class="p">))</span></div>
 
 
 
@@ -798,11 +839,20 @@
 
 <div class="viewcode-block" id="TLEDb.get_tles"><a class="viewcode-back" href="../../_autosummary/libgs_ops.propagator.TLEDb.get_tles.html#libgs_ops.propagator.TLEDb.get_tles">[docs]</a>    <span class="k">def</span> <span class="nf">get_tles</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nids</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Query database for a series of norad IDs, and return</span>
+<span class="sd">            the NIDs and TLEs in a dict.</span>
+
+<span class="sd">            .. note:: </span>
+<span class="sd">                If the NID is not in the database, **no error**</span>
+<span class="sd">                will be raised by this function and it is up to the caller</span>
+<span class="sd">                to check whether the returned NIDs match the passed ones.</span>
+
 <span class="sd">            Args:</span>
 <span class="sd">                nids (list(int)): List of Norad IDs</span>
 
-<span class="sd">            Return:</span>
-<span class="sd">                TLEs</span>
+<span class="sd">            Returns:   </span>
+<span class="sd">                Python dictionary of NIDS/TLES</span>
+
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="n">tles</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
@@ -817,32 +867,14 @@
 
 <span class="sd">    Class to compute pointing angles for a satellite based on its Norad ID</span>
 
-<span class="sd">    Args:</span>
-<span class="sd">        api                             : API for TLE updates</span>
-<span class="sd">        tles (str)                      : TLEstring</span>
-<span class="sd">        gs_lat (:obj:`float`, optional) : latitude of ground station</span>
-<span class="sd">        gs_lon (float, optional)        : longitude of ground station</span>
-<span class="sd">        gs_elev (float, optional)       : elevation of ground station</span>
-<span class="sd">        tle_timeout (float, optional)   : Time in days before re-requesting new TLEs</span>
-<span class="sd">        nids (list(int), optional)      : List of NORAD IDs to track.</span>
-<span class="sd">            If a satellite is requested that is not in this list it will be</span>
-<span class="sd">            added and a full refresh of the TLEs from space-track initiated.</span>
+<span class="sd">    You can connect to a local Db using the TLEDb class, to spacetrack</span>
+<span class="sd">    using the SpaceTrackAPI class, or simply just specify the TLEs</span>
+<span class="sd">    directly as a string. The latter will use the manually input tles and never query space-track.</span>
 
-<span class="sd">    .. warning::</span>
-<span class="sd">        You can connect to a local Db using the TLEDb class, to spacetrack</span>
-<span class="sd">        using the SpaceTrackAPI class, or simply just specify the TLEs</span>
-<span class="sd">        directly as a string. The latter will use the manually input tles and never query space-track.</span>
+<span class="sd">    For a reference on TLEs see `Wikipedia &lt;https://en.wikipedia.org/wiki/Two-line_element_set&gt;`_</span>
 
 <span class="sd">    .. note::</span>
-<span class="sd">        For a reference on TLEs see `Wikipedia &lt;https://en.wikipedia.org/wiki/Two-line_element_set&gt;`</span>
-
-<span class="sd">    .. note::</span>
-<span class="sd">        This class relies heavily on `py-ephem &lt;http://rhodesmill.org/pyephem/&gt;`</span>
-
-<span class="sd">    .. todo::</span>
-<span class="sd">        Get rid of the manual entry of TLE string. Itś depricated</span>
-<span class="sd">        with the TLEDb class.</span>
-
+<span class="sd">        This class relies heavily on `py-ephem &lt;http://rhodesmill.org/pyephem/&gt;`_</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
 
@@ -859,6 +891,18 @@
             <span class="n">tle_timeout</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
             <span class="n">nids</span><span class="o">=</span><span class="p">[]</span>
             <span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Args:</span>
+<span class="sd">            api                             : API for TLE updates</span>
+<span class="sd">            tles (str)                      : TLEstring</span>
+<span class="sd">            gs_lat (float, optional)        : latitude of ground station</span>
+<span class="sd">            gs_lon (float, optional)        : longitude of ground station</span>
+<span class="sd">            gs_elev (float, optional)       : elevation of ground station</span>
+<span class="sd">            tle_timeout (float, optional)   : Time in days before re-requesting new TLEs</span>
+<span class="sd">            nids (list(int), optional)      : List of NORAD IDs to track.</span>
+<span class="sd">                If a satellite is requested that is not in this list it will be</span>
+<span class="sd">                added and a full refresh of the TLEs from space-track initiated.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="k">if</span> <span class="n">api</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">tles</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">raise</span> <span class="n">Error</span><span class="p">(</span><span class="s1">&#39;You have to specify either uname/pwd or tls&#39;</span><span class="p">)</span>

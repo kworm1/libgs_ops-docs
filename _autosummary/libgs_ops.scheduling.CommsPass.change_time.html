@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>libgs_ops.scheduling.CommsPass.overlaps &mdash; libgs_ops  documentation</title>
+  <title>libgs_ops.scheduling.CommsPass.change_time &mdash; libgs_ops  documentation</title>
   
 
   
@@ -28,8 +28,8 @@
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="libgs_ops.scheduling.CommsPass.plot" href="libgs_ops.scheduling.CommsPass.plot.html" />
-    <link rel="prev" title="libgs_ops.scheduling.CommsPass.from_json" href="libgs_ops.scheduling.CommsPass.from_json.html" /> 
+    <link rel="next" title="libgs_ops.scheduling.CommsPass.copy" href="libgs_ops.scheduling.CommsPass.copy.html" />
+    <link rel="prev" title="libgs_ops.scheduling.CommsPass.add_communication" href="libgs_ops.scheduling.CommsPass.add_communication.html" /> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
@@ -86,11 +86,11 @@
 <li class="toctree-l3"><a class="reference internal" href="libgs_ops.scheduling.Action.html">libgs_ops.scheduling.Action</a></li>
 <li class="toctree-l3 current"><a class="reference internal" href="libgs_ops.scheduling.CommsPass.html">libgs_ops.scheduling.CommsPass</a><ul class="current">
 <li class="toctree-l4"><a class="reference internal" href="libgs_ops.scheduling.CommsPass.add_communication.html">libgs_ops.scheduling.CommsPass.add_communication</a></li>
-<li class="toctree-l4"><a class="reference internal" href="libgs_ops.scheduling.CommsPass.change_time.html">libgs_ops.scheduling.CommsPass.change_time</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">libgs_ops.scheduling.CommsPass.change_time</a></li>
 <li class="toctree-l4"><a class="reference internal" href="libgs_ops.scheduling.CommsPass.copy.html">libgs_ops.scheduling.CommsPass.copy</a></li>
 <li class="toctree-l4"><a class="reference internal" href="libgs_ops.scheduling.CommsPass.from_dict.html">libgs_ops.scheduling.CommsPass.from_dict</a></li>
 <li class="toctree-l4"><a class="reference internal" href="libgs_ops.scheduling.CommsPass.from_json.html">libgs_ops.scheduling.CommsPass.from_json</a></li>
-<li class="toctree-l4 current"><a class="current reference internal" href="#">libgs_ops.scheduling.CommsPass.overlaps</a></li>
+<li class="toctree-l4"><a class="reference internal" href="libgs_ops.scheduling.CommsPass.overlaps.html">libgs_ops.scheduling.CommsPass.overlaps</a></li>
 <li class="toctree-l4"><a class="reference internal" href="libgs_ops.scheduling.CommsPass.plot.html">libgs_ops.scheduling.CommsPass.plot</a></li>
 <li class="toctree-l4"><a class="reference internal" href="libgs_ops.scheduling.CommsPass.to_dict.html">libgs_ops.scheduling.CommsPass.to_dict</a></li>
 <li class="toctree-l4"><a class="reference internal" href="libgs_ops.scheduling.CommsPass.to_json.html">libgs_ops.scheduling.CommsPass.to_json</a></li>
@@ -155,13 +155,13 @@
         
           <li><a href="libgs_ops.scheduling.CommsPass.html">libgs_ops.scheduling.CommsPass</a> &raquo;</li>
         
-      <li>libgs_ops.scheduling.CommsPass.overlaps</li>
+      <li>libgs_ops.scheduling.CommsPass.change_time</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="../_sources/_autosummary/libgs_ops.scheduling.CommsPass.overlaps.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/_autosummary/libgs_ops.scheduling.CommsPass.change_time.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -174,23 +174,24 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="libgs-ops-scheduling-commspass-overlaps">
-<h1>libgs_ops.scheduling.CommsPass.overlaps<a class="headerlink" href="#libgs-ops-scheduling-commspass-overlaps" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="libgs-ops-scheduling-commspass-change-time">
+<h1>libgs_ops.scheduling.CommsPass.change_time<a class="headerlink" href="#libgs-ops-scheduling-commspass-change-time" title="Permalink to this headline">¶</a></h1>
 <dl class="method">
-<dt id="libgs_ops.scheduling.CommsPass.overlaps">
-<code class="descclassname">CommsPass.</code><code class="descname">overlaps</code><span class="sig-paren">(</span><em>other</em>, <em>buffertime=0.0</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/libgs_ops/scheduling.html#CommsPass.overlaps"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#libgs_ops.scheduling.CommsPass.overlaps" title="Permalink to this definition">¶</a></dt>
-<dd><p>Check if current pass overlaps with another pass.</p>
-<p>By overlap is meant that the other pass begins within a
-defined buffertime of the current pass finishing.</p>
+<dt id="libgs_ops.scheduling.CommsPass.change_time">
+<code class="descclassname">CommsPass.</code><code class="descname">change_time</code><span class="sig-paren">(</span><em>tstamp</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/libgs_ops/scheduling.html#CommsPass.change_time"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#libgs_ops.scheduling.CommsPass.change_time" title="Permalink to this definition">¶</a></dt>
+<dd><p>Modify the pass data start time.</p>
+<p>If you run this the pass will not correspond to a real satellite pass anymore, but it is an extremely useful function when
+testing an upcoming pass in a dry-run.</p>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">cp</span><span class="o">.</span><span class="n">change_time</span><span class="p">(</span><span class="s1">&#39;2019-11-01 12:32:42&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Will modify the commspass pass data so that it starts at <code class="docutils literal notranslate"><span class="pre">2019-11-01</span> <span class="pre">12:32:42</span></code>. Everything else stays the same.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>other</strong> (<a class="reference internal" href="libgs_ops.scheduling.CommsPass.html#libgs_ops.scheduling.CommsPass" title="libgs_ops.scheduling.CommsPass"><code class="xref py py-class docutils literal notranslate"><span class="pre">CommsPass</span></code></a>) – The pass to compare with</li>
-<li><strong>buffertime</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#float" title="(in Python v2.7)"><em>float</em></a>) – The time in seconds to allow as a minimum between passes</li>
-</ul>
-</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>tstamp</strong> – New timestamp (in any format supported by <code class="xref py py-class docutils literal notranslate"><span class="pre">ephem.Date</span></code>, for example ISO string, or a python <a class="reference external" href="https://docs.python.org/2.7/library/datetime.html#datetime.datetime" title="(in Python v2.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">datetime.datetime</span></code></a>)</td>
 </tr>
 </tbody>
 </table>
@@ -206,10 +207,10 @@ defined buffertime of the current pass finishing.</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="libgs_ops.scheduling.CommsPass.plot.html" class="btn btn-neutral float-right" title="libgs_ops.scheduling.CommsPass.plot" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="libgs_ops.scheduling.CommsPass.copy.html" class="btn btn-neutral float-right" title="libgs_ops.scheduling.CommsPass.copy" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="libgs_ops.scheduling.CommsPass.from_json.html" class="btn btn-neutral" title="libgs_ops.scheduling.CommsPass.from_json" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="libgs_ops.scheduling.CommsPass.add_communication.html" class="btn btn-neutral" title="libgs_ops.scheduling.CommsPass.add_communication" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

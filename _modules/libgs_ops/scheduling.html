@@ -391,8 +391,10 @@
 
 
 <div class="viewcode-block" id="Error"><a class="viewcode-back" href="../../_autosummary/libgs_ops.scheduling.Error.html#libgs_ops.scheduling.Error">[docs]</a><span class="k">class</span> <span class="nc">Error</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Generic Exception &quot;&quot;&quot;</span>
     <span class="k">pass</span></div>
 
+<span class="c1">#: Default buffertime</span>
 <span class="n">SCHEDULE_BUFFERTIME</span> <span class="o">=</span> <span class="mi">180</span>
 
 
@@ -410,10 +412,12 @@
         <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            args:    A list of arguments to pass to the :class:`libgs.protocols.protocolbase.ProtocolBase.do_action` function as positional arguments</span>
-<span class="sd">            kwargs:  A dictionary to pass to the :class:`libgs.protocols.protocolbase.ProtocolBase.do_action` function as kwargs.</span>
-<span class="sd">            desc:    The description of the action</span>
-<span class="sd">            retries: The number of times to retry the action in case of failure.</span>
+<span class="sd">            args (list or tuple):       A list of arguments to pass to the protocol&#39;s </span>
+<span class="sd">                :meth:`~libgs.protocols.protocolbase.ProtocolBase.do_action` method as positional arguments</span>
+<span class="sd">            kwargs (dict):              A dictionary to pass to the protocol&#39;s </span>
+<span class="sd">                :meth:`~libgs.protocols.protocolbase.ProtocolBase.do_action` method as kwargs.</span>
+<span class="sd">            desc (str(optional)):       The description of the action</span>
+<span class="sd">            retries (int(optional)):    The number of times to retry the action in case of failure.</span>
 
 <span class="sd">        .. note::</span>
 
@@ -471,6 +475,14 @@
 <span class="sd">    It is just a convenience class that wraps and populates a dictionary</span>
 <span class="sd">    properly for use by the other classes in this module.</span>
 
+<span class="sd">    It can be constructed with either a HEX string or a bytearray and will automatically compute the other. After construction</span>
+<span class="sd">    it will be a dictionary with the following fields:</span>
+
+<span class="sd">      * hexstr: Hex representation of byte stream</span>
+<span class="sd">      * barray: :class:`bytearray` represenation of bytestream</span>
+<span class="sd">      * retries: Number of retries</span>
+<span class="sd">      * wait:    Whether to wait for reply</span>
+
 
 <span class="sd">    &quot;&quot;&quot;</span>
 
@@ -478,12 +490,9 @@
         <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            cmd (string or bytearray): Command string (fully encoded) to send</span>
-<span class="sd">            to satellite.</span>
-<span class="sd">            retries (int): Number of times the command should be retried in</span>
-<span class="sd">            case of failure</span>
-<span class="sd">            wait (bool): Whether the ground station should wait for a reply</span>
-<span class="sd">            from the satellite or not.</span>
+<span class="sd">            cmd (basestring or bytearray): Command string (fully encoded) to send to satellite.</span>
+<span class="sd">            retries (int): Number of times the command should be retried in case of failure</span>
+<span class="sd">            wait (bool): Whether the ground station should wait for a reply from the satellite or not.</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
 
@@ -529,9 +538,10 @@
 
 <div class="viewcode-block" id="Communication.to_dict"><a class="viewcode-back" href="../../_autosummary/libgs_ops.scheduling.Communication.to_dict.html#libgs_ops.scheduling.Communication.to_dict">[docs]</a>    <span class="k">def</span> <span class="nf">to_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Convert the class to a python dictionary format</span>
+<span class="sd">        Convert the class to a serialisable python dictionary format (gets rid of the bytearray entry).</span>
+
 <span class="sd">        Returns:</span>
-<span class="sd">            A dictionary</span>
+<span class="sd">            A serialisable dictionary</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># Turn to serialisable dict... we get rid of bytearray entry.</span>
@@ -543,7 +553,12 @@
 
 <div class="viewcode-block" id="CommsPass"><a class="viewcode-back" href="../../_autosummary/libgs_ops.scheduling.CommsPass.html#libgs_ops.scheduling.CommsPass">[docs]</a><span class="k">class</span> <span class="nc">CommsPass</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Class to hold a communications pass</span>
+<span class="sd">    Class to hold a communications pass.</span>
+
+<span class="sd">    A CommsPass is defined as a pass data (az, el, range_rate) schedule with associated set of :class:`communications &lt;.Communication&gt;` </span>
+<span class="sd">    and :class:`actions &lt;.Action&gt;`.</span>
+
+<span class="sd">    Arbitrary metadata (must be picklable) can also be added to the object.</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
 
@@ -551,15 +566,15 @@
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pass_data</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">nid</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">horizon</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">comms</span><span class="o">=</span><span class="p">[],</span> <span class="n">listen</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Args;</span>
-<span class="sd">            pass_data (): Pandas DataFrame with at least az, el, range_rate columns</span>
-<span class="sd">            nid (int)   : Norad ID to associate with pass. Can be left empty if pass_data has a .nid field.</span>
-<span class="sd">            horizon (float): The lowest acceptable elevation for the pass. Pass_data will be cropped to the horizon</span>
-<span class="sd">            comms (list, optional) : List of communications (can be added with add_communications instead)</span>
-<span class="sd">            listen (bool, optional): Whether it is a listen pass or not</span>
-<span class="sd">            tle (str, optional)    : The TLE used for computing pass_data</span>
+<span class="sd">        Args:</span>
+<span class="sd">            pass_data (:class:`~pandas.DataFrame`): Dataframe with at least az, el, range_rate columns</span>
+<span class="sd">            nid (int)               : Norad ID to associate with pass. Can be left empty if pass_data has a .nid field.</span>
+<span class="sd">            horizon (float)         : The lowest acceptable elevation for the pass. Pass_data will be cropped to the horizon</span>
+<span class="sd">            comms (list, optional)  : List of communications (can be added with add_communications instead)</span>
+<span class="sd">            listen (bool, optional) : Whether it is a listen pass or not</span>
+<span class="sd">            tle (str, optional)     : The TLE used for computing pass_data</span>
 <span class="sd">            protocol (str, optional): The protocol to use during the pass</span>
-<span class="sd">            **kwargs: Any other key=value pair to pass to scheduler to be logged</span>
+<span class="sd">            **kwargs                : Any other key=value pair to pass to scheduler to be logged (added to the metadata)</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># NOTE: Internally, picklable arguments (i.e. everything except pass_data and comms) are</span>
@@ -641,14 +656,27 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">metadata</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">kwargs</span><span class="p">)</span>
 
 
-
-
-
+    <span class="c1"># This private method is included for backwards compatability only.</span>
     <span class="k">def</span> <span class="nf">_change_time</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tstamp</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Debugging function: Adjusts the timestamp as required</span>
-<span class="sd">        If you run this it will not correspond to a real satellite anymore</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">change_time</span><span class="p">(</span><span class="n">tstamp</span><span class="p">)</span>
 
+
+<div class="viewcode-block" id="CommsPass.change_time"><a class="viewcode-back" href="../../_autosummary/libgs_ops.scheduling.CommsPass.change_time.html#libgs_ops.scheduling.CommsPass.change_time">[docs]</a>    <span class="k">def</span> <span class="nf">change_time</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tstamp</span><span class="p">):</span>
+
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Modify the pass data start time.</span>
+
+<span class="sd">        If you run this the pass will not correspond to a real satellite pass anymore, but it is an extremely useful function when</span>
+<span class="sd">        testing an upcoming pass in a dry-run.</span>
+
+<span class="sd">        Example:</span>
+
+<span class="sd">        &gt;&gt;&gt; cp.change_time(&#39;2019-11-01 12:32:42&#39;)</span>
+
+<span class="sd">        Will modify the commspass pass data so that it starts at ``2019-11-01 12:32:42``. Everything else stays the same.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            tstamp: New timestamp (in any format supported by :class:`ephem.Date`, for example ISO string, or a python :class:`datetime.datetime`)</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">curt</span> <span class="o">=</span>  <span class="bp">self</span><span class="o">.</span><span class="n">pass_data</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
         <span class="n">newt</span> <span class="o">=</span> <span class="n">ephem</span><span class="o">.</span><span class="n">Date</span><span class="p">(</span><span class="n">tstamp</span><span class="p">)</span>
@@ -668,7 +696,7 @@
                 <span class="n">el</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pass_data</span><span class="o">.</span><span class="n">el</span><span class="o">.</span><span class="n">tolist</span><span class="p">(),</span>
                 <span class="n">range_rate</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pass_data</span><span class="o">.</span><span class="n">range_rate</span><span class="o">.</span><span class="n">tolist</span><span class="p">()))</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">pass_data</span> <span class="o">=</span> <span class="n">new_pass_data</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pass_data</span> <span class="o">=</span> <span class="n">new_pass_data</span></div>
 
 
 
@@ -741,8 +769,8 @@
 <span class="sd">        defined buffertime of the current pass finishing.</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            other (CommsPass): The pass to compare with</span>
-<span class="sd">            buffertime (float): The time in seconds to allow as a minimum between passes</span>
+<span class="sd">            other (:class:`.CommsPass`): The pass to compare with</span>
+<span class="sd">            buffertime (float):         The time in seconds to allow as a minimum between passes</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">rt0</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pass_data</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">tstamp_str</span><span class="p">)</span>
@@ -764,6 +792,9 @@
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">metadata</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Dictionary of metdata associated with the Communication Pass</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_metadata</span>
 
 
@@ -806,17 +837,18 @@
 
 <div class="viewcode-block" id="CommsPass.add_communication"><a class="viewcode-back" href="../../_autosummary/libgs_ops.scheduling.CommsPass.add_communication.html#libgs_ops.scheduling.CommsPass.add_communication">[docs]</a>    <span class="k">def</span> <span class="nf">add_communication</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">comm</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">            Add a communication to the pass. The communication can be supplied</span>
-<span class="sd">            either as a string of HEX-pairs, as a bytearray, or as a Communications</span>
-<span class="sd">            object.</span>
+<span class="sd">            Add a communication to the pass. </span>
+<span class="sd">            </span>
+<span class="sd">            The communication can be supplied either as a string of HEX-pairs, </span>
+<span class="sd">            as a bytearray, or as a Communications object.</span>
 
 <span class="sd">            If a HEX string or a bytearray is supplied, it will be converted to a</span>
 <span class="sd">            Communication object internally</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            comm:       The communication to add (either a hex string AB-CD-01-..., or a Communication object or an Action</span>
-<span class="sd">                        object</span>
-<span class="sd">            **kwargs:   Extra arguments passed to :class:`Communication` constructor in case comm is a hex string.</span>
+<span class="sd">            comm:       The communication to add (either a hex string ``&quot;AB-CD-01-...&quot;``,  a :class:`.Communication` object or </span>
+<span class="sd">                        an :class:`Action` object</span>
+<span class="sd">            **kwargs:   Extra arguments passed to :class:`.Communication` constructor in case comm is a hex string.</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            None</span>
@@ -850,15 +882,16 @@
 
 <div class="viewcode-block" id="CommsPass.plot"><a class="viewcode-back" href="../../_autosummary/libgs_ops.scheduling.CommsPass.plot.html#libgs_ops.scheduling.CommsPass.plot">[docs]</a>    <span class="k">def</span> <span class="nf">plot</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Visualise the pass</span>
-<span class="sd">        NOT IMPLEMENTED</span>
+<span class="sd">        Visualise the pass. </span>
+<span class="sd">        </span>
+<span class="sd">        **Not currently implemented**</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">raise</span> <span class="n">Error</span><span class="p">(</span><span class="s2">&quot;Not implemented&quot;</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="CommsPass.to_dict"><a class="viewcode-back" href="../../_autosummary/libgs_ops.scheduling.CommsPass.to_dict.html#libgs_ops.scheduling.CommsPass.to_dict">[docs]</a>    <span class="k">def</span> <span class="nf">to_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Convert class to a python dictionary</span>
+<span class="sd">        Convert class to a python dictionary.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="n">d</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span>
@@ -870,7 +903,7 @@
 
 <div class="viewcode-block" id="CommsPass.copy"><a class="viewcode-back" href="../../_autosummary/libgs_ops.scheduling.CommsPass.copy.html#libgs_ops.scheduling.CommsPass.copy">[docs]</a>    <span class="k">def</span> <span class="nf">copy</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Create a copy of the class instance</span>
+<span class="sd">        Create a copy of the class instance.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span><span class="p">(</span><span class="n">CommsPass</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()))</span></div>
 
@@ -880,10 +913,11 @@
 <span class="sd">        Classmethod to create CommsPass object from a python dict.</span>
 
 <span class="sd">        Usage:</span>
-<span class="sd">            &gt;&gt;&gt; cp = CommsPass.from_dict(dict_repr)</span>
 
-<span class="sd">        Arg:</span>
-<span class="sd">            d (dict): dictionary</span>
+<span class="sd">        &gt;&gt;&gt; cp = CommsPass.from_dict(dict_repr)</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            d (dict): dictionary representation of CommsPass</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
 
@@ -919,7 +953,7 @@
 
 <div class="viewcode-block" id="CommsPass.to_json"><a class="viewcode-back" href="../../_autosummary/libgs_ops.scheduling.CommsPass.to_json.html#libgs_ops.scheduling.CommsPass.to_json">[docs]</a>    <span class="k">def</span> <span class="nf">to_json</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Convert the class to JSON representation</span>
+<span class="sd">        Convert the class to JSON representation.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">to_dict</span><span class="p">(),</span> <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">sort_keys</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></div>
 
@@ -929,9 +963,10 @@
 <span class="sd">        Classmethod to Create CommsPass from a json string or from a json file.</span>
 
 <span class="sd">        Usage:</span>
-<span class="sd">            &gt;&gt;&gt; cp = CommsPass.from_dict(json_repr or json_file)</span>
 
-<span class="sd">        Arg:</span>
+<span class="sd">        &gt;&gt;&gt; cp = CommsPass.from_dict(json_repr or json_file)</span>
+
+<span class="sd">        Args:</span>
 <span class="sd">            json (fname or string): json string or file to load</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
@@ -955,9 +990,8 @@
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">passes</span><span class="o">=</span><span class="p">[],</span> <span class="n">buffertime</span> <span class="o">=</span> <span class="n">SCHEDULE_BUFFERTIME</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">            Args:</span>
-<span class="sd">                passes (list(CommsPass)): List of CommsPass objects</span>
-<span class="sd">                buffertime (int, optional) : number of seconds to allow, as a minimum</span>
-<span class="sd">                    between two passes</span>
+<span class="sd">                passes (list(CommsPass))    : List of :class:`.CommsPass` objects</span>
+<span class="sd">                buffertime (int, optional)  : number of seconds to allow, as a minimum between two passes</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="c1">#</span>
@@ -1015,7 +1049,7 @@
 
 <div class="viewcode-block" id="Schedule.copy"><a class="viewcode-back" href="../../_autosummary/libgs_ops.scheduling.Schedule.copy.html#libgs_ops.scheduling.Schedule.copy">[docs]</a>    <span class="k">def</span> <span class="nf">copy</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Create a copy of the Schedule instance</span>
+<span class="sd">        Create a copy of the Schedule instance.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span><span class="p">(</span><span class="n">Schedule</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()))</span></div>
 
@@ -1025,7 +1059,7 @@
 <span class="sd">        Add a pass to the schedule</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            tpass: The CommsPass instance to add</span>
+<span class="sd">            tpass: The :class:`.CommsPass` instance to add.</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
 
@@ -1040,10 +1074,10 @@
 
 <div class="viewcode-block" id="Schedule.remove_pass"><a class="viewcode-back" href="../../_autosummary/libgs_ops.scheduling.Schedule.remove_pass.html#libgs_ops.scheduling.Schedule.remove_pass">[docs]</a>    <span class="k">def</span> <span class="nf">remove_pass</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tpass</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Remove a CommsPass instance from the schedule</span>
+<span class="sd">        Remove a :class:`.CommsPass` instance from the schedule</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            tpass: The instance to remove</span>
+<span class="sd">            tpass (:class:`.CommsPass`): The instance to remove</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">passes</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">tpass</span><span class="p">)</span></div>
@@ -1053,7 +1087,7 @@
 <span class="sd">        Pop the n&#39;th pass from the schedule</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            index: The index (or list of indexes) to pop</span>
+<span class="sd">            index (int): The index (or list of indexes) to pop</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">passes</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">index</span><span class="p">)</span></div>
@@ -1086,10 +1120,10 @@
 <div class="viewcode-block" id="Schedule.from_dict"><a class="viewcode-back" href="../../_autosummary/libgs_ops.scheduling.Schedule.from_dict.html#libgs_ops.scheduling.Schedule.from_dict">[docs]</a>    <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">from_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">d</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Classmethod to Create Schedule object from a python dict</span>
+<span class="sd">        Classmethod to Create Schedule object from a python dictionary representation of the schedule</span>
 
-<span class="sd">        Arg:</span>
-<span class="sd">            d (dict): dictionary</span>
+<span class="sd">        Args:</span>
+<span class="sd">            d (dict): dictionary representation of schedule</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">passes</span> <span class="o">=</span> <span class="p">[</span><span class="n">CommsPass</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">d</span><span class="p">[</span><span class="s1">&#39;passes&#39;</span><span class="p">]]</span>
@@ -1102,7 +1136,7 @@
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Classmethod to create Schedule from a json string or from a json file.</span>
 
-<span class="sd">        Arg:</span>
+<span class="sd">        Args:</span>
 <span class="sd">            json (fname or string): json string or file to load</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 

@@ -170,13 +170,21 @@
 <dl class="method">
 <dt id="libgs_ops.propagator.TLEDb.get_tles">
 <code class="descclassname">TLEDb.</code><code class="descname">get_tles</code><span class="sig-paren">(</span><em>nids</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/libgs_ops/propagator.html#TLEDb.get_tles"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#libgs_ops.propagator.TLEDb.get_tles" title="Permalink to this definition">¶</a></dt>
-<dd><table class="docutils field-list" frame="void" rules="none">
+<dd><p>Query database for a series of norad IDs, and return
+the NIDs and TLEs in a dict.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">If the NID is not in the database, <strong>no error</strong>
+will be raised by this function and it is up to the caller
+to check whether the returned NIDs match the passed ones.</p>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>nids</strong> (<em>list</em><em>(</em><a class="reference external" href="https://docs.python.org/2.7/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a><em>)</em>) – List of Norad IDs</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">TLEs</td>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Python dictionary of NIDS/TLES</td>
 </tr>
 </tbody>
 </table>

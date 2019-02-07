@@ -170,12 +170,24 @@
 <em class="property">class </em><code class="descclassname">libgs_ops.propagator.</code><code class="descname">TLEDb</code><span class="sig-paren">(</span><em>fname=None</em>, <em>tles=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/libgs_ops/propagator.html#TLEDb"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#libgs_ops.propagator.TLEDb" title="Permalink to this definition">¶</a></dt>
 <dd><p>Database of TLEs.</p>
 <p>The Database can be loaded from a file, or input directly.</p>
-<p>This class can serve as a drop-in replacement for the SpaceTrackAPI class
-in the propagator as it implements the get_tles method.</p>
-<div class="admonition-todo admonition" id="index-0">
-<p class="first admonition-title">Todo</p>
-<p class="last">implement saving in binary format that is faster.</p>
+<p>This class can serve as a drop-in replacement for <a class="reference internal" href="libgs_ops.propagator.SpaceTrackAPI.html#libgs_ops.propagator.SpaceTrackAPI" title="libgs_ops.propagator.SpaceTrackAPI"><code class="xref py py-class docutils literal notranslate"><span class="pre">SpaceTrackAPI</span></code></a>
+when creating a <a class="reference internal" href="libgs_ops.propagator.Propagator.html#libgs_ops.propagator.Propagator" title="libgs_ops.propagator.Propagator"><code class="xref py py-class docutils literal notranslate"><span class="pre">Propagator</span></code></a> as it implements the <code class="docutils literal notranslate"><span class="pre">get_tles</span></code> method.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Only one of the arguments (fname or tles) must be specified, and not both.</p>
 </div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>fname</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) – The filename to load TLEs from</li>
+<li><strong>tles</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/stdtypes.html#dict" title="(in Python v2.7)"><em>dict</em></a><em> or </em><a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) – Manual specificaiton of TLES</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
 <p class="rubric">Methods</p>
 <table border="1" class="longtable docutils">
 <colgroup>
@@ -184,18 +196,10 @@ in the propagator as it implements the get_tles method.</p>
 </colgroup>
 <tbody valign="top">
 <tr class="row-odd"><td><a class="reference internal" href="libgs_ops.propagator.TLEDb.get_tles.html#libgs_ops.propagator.TLEDb.get_tles" title="libgs_ops.propagator.TLEDb.get_tles"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_tles</span></code></a>(nids)</td>
-<td><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">param nids:</th><td class="field-body">List of Norad IDs</td>
-</tr>
-</tbody>
-</table>
-</td>
+<td>Query database for a series of norad IDs, and return the NIDs and TLEs in a dict.</td>
 </tr>
 <tr class="row-even"><td><a class="reference internal" href="libgs_ops.propagator.TLEDb.save_tles.html#libgs_ops.propagator.TLEDb.save_tles" title="libgs_ops.propagator.TLEDb.save_tles"><code class="xref py py-obj docutils literal notranslate"><span class="pre">save_tles</span></code></a>(fname[,&nbsp;fformat])</td>
-<td></td>
+<td>Save the database to file.</td>
 </tr>
 </tbody>
 </table>

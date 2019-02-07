@@ -171,14 +171,18 @@
 <dl class="class">
 <dt id="libgs_ops.propagator.SpaceTrackAPI">
 <em class="property">class </em><code class="descclassname">libgs_ops.propagator.</code><code class="descname">SpaceTrackAPI</code><span class="sig-paren">(</span><em>uname</em>, <em>pwd</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/libgs_ops/propagator.html#SpaceTrackAPI"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#libgs_ops.propagator.SpaceTrackAPI" title="Permalink to this definition">¶</a></dt>
-<dd><p>Class to interface with space-track.org</p>
+<dd><p>Class to interface with <a class="reference external" href="https://www.space-track.org">space-track.org</a>.</p>
+<p>This class connects to the space-track.org public API, and therefore requires a username and password.
+To obtain such credentials you can register for free on the space-track website.</p>
+<p>This class allows the execution of arbitrary API queries, but provides a simplified method to download TLEs in
+the format used by <a class="reference internal" href="libgs_ops.propagator.Propagator.html#libgs_ops.propagator.Propagator" title="libgs_ops.propagator.Propagator"><code class="xref py py-class docutils literal notranslate"><span class="pre">Propagator</span></code></a>.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>uname</strong> – </li>
-<li><strong>pwd</strong> – </li>
+<li><strong>uname</strong> – space-track.org user name</li>
+<li><strong>pwd</strong> – space-track.org password</li>
 </ul>
 </td>
 </tr>
@@ -192,10 +196,10 @@
 </colgroup>
 <tbody valign="top">
 <tr class="row-odd"><td><a class="reference internal" href="libgs_ops.propagator.SpaceTrackAPI.get_tle_sets.html#libgs_ops.propagator.SpaceTrackAPI.get_tle_sets" title="libgs_ops.propagator.SpaceTrackAPI.get_tle_sets"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_tle_sets</span></code></a>(name)</td>
-<td>A shortcut to some predefined sets of satellites</td>
+<td>A shortcut to some predefined sets of satellites.</td>
 </tr>
 <tr class="row-even"><td><a class="reference internal" href="libgs_ops.propagator.SpaceTrackAPI.get_tles.html#libgs_ops.propagator.SpaceTrackAPI.get_tles" title="libgs_ops.propagator.SpaceTrackAPI.get_tles"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_tles</span></code></a>(nids)</td>
-<td>Query space-track for a series of norad IDs, and return the NIDs and TLEs in a dict</td>
+<td>Query space-track for a series of norad IDs, and return the NIDs and TLEs in a dict.</td>
 </tr>
 <tr class="row-odd"><td><a class="reference internal" href="libgs_ops.propagator.SpaceTrackAPI.query_raw.html#libgs_ops.propagator.SpaceTrackAPI.query_raw" title="libgs_ops.propagator.SpaceTrackAPI.query_raw"><code class="xref py py-obj docutils literal notranslate"><span class="pre">query_raw</span></code></a>(uri)</td>
 <td>Perform a raw query to spacetrack API.</td>

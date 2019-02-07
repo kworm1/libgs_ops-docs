@@ -190,17 +190,24 @@
 satellite.</p>
 <p>It is just a convenience class that wraps and populates a dictionary
 properly for use by the other classes in this module.</p>
+<p>It can be constructed with either a HEX string or a bytearray and will automatically compute the other. After construction
+it will be a dictionary with the following fields:</p>
+<blockquote>
+<div><ul class="simple">
+<li>hexstr: Hex representation of byte stream</li>
+<li>barray: <a class="reference external" href="https://docs.python.org/2.7/library/functions.html#bytearray" title="(in Python v2.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bytearray</span></code></a> represenation of bytestream</li>
+<li>retries: Number of retries</li>
+<li>wait:    Whether to wait for reply</li>
+</ul>
+</div></blockquote>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>cmd</strong> (<em>string</em><em> or </em><a class="reference external" href="https://docs.python.org/2.7/library/functions.html#bytearray" title="(in Python v2.7)"><em>bytearray</em></a>) – Command string (fully encoded) to send</li>
-<li><strong>satellite.</strong> (<em>to</em>) – </li>
-<li><strong>retries</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) – Number of times the command should be retried in</li>
-<li><strong>of failure</strong> (<em>case</em>) – </li>
-<li><strong>wait</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#bool" title="(in Python v2.7)"><em>bool</em></a>) – Whether the ground station should wait for a reply</li>
-<li><strong>the satellite</strong><strong> or </strong><strong>not.</strong> (<em>from</em>) – </li>
+<li><strong>cmd</strong> (<em>basestring</em><em> or </em><a class="reference external" href="https://docs.python.org/2.7/library/functions.html#bytearray" title="(in Python v2.7)"><em>bytearray</em></a>) – Command string (fully encoded) to send to satellite.</li>
+<li><strong>retries</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) – Number of times the command should be retried in case of failure</li>
+<li><strong>wait</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#bool" title="(in Python v2.7)"><em>bool</em></a>) – Whether the ground station should wait for a reply from the satellite or not.</li>
 </ul>
 </td>
 </tr>
@@ -214,7 +221,7 @@ properly for use by the other classes in this module.</p>
 </colgroup>
 <tbody valign="top">
 <tr class="row-odd"><td><a class="reference internal" href="libgs_ops.scheduling.Communication.to_dict.html#libgs_ops.scheduling.Communication.to_dict" title="libgs_ops.scheduling.Communication.to_dict"><code class="xref py py-obj docutils literal notranslate"><span class="pre">to_dict</span></code></a>()</td>
-<td>Convert the class to a python dictionary format :returns: A dictionary</td>
+<td>Convert the class to a serialisable python dictionary format (gets rid of the bytearray entry).</td>
 </tr>
 </tbody>
 </table>

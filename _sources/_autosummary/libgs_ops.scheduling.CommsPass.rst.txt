@@ -21,6 +21,9 @@ libgs\_ops.scheduling.CommsPass
       ~CommsPass.add_communication
       
       
+      ~CommsPass.change_time
+      
+      
       ~CommsPass.copy
       
       
@@ -64,6 +67,8 @@ libgs\_ops.scheduling.CommsPass
    .. autosummary::
       :toctree: .
    
+      
+      
       
       
       

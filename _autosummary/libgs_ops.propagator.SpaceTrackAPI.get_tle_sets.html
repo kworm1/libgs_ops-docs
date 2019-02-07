@@ -173,7 +173,35 @@
 <dl class="method">
 <dt id="libgs_ops.propagator.SpaceTrackAPI.get_tle_sets">
 <code class="descclassname">SpaceTrackAPI.</code><code class="descname">get_tle_sets</code><span class="sig-paren">(</span><em>name</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/libgs_ops/propagator.html#SpaceTrackAPI.get_tle_sets"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#libgs_ops.propagator.SpaceTrackAPI.get_tle_sets" title="Permalink to this definition">¶</a></dt>
-<dd><p>A shortcut to some predefined sets of satellites</p>
+<dd><p>A shortcut to some predefined sets of satellites.</p>
+<p>Avaliable sets are:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="19%" />
+<col width="81%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>‘amateur_all’</td>
+<td>space-track.org curated list of amateur radio satellites</td>
+</tr>
+<tr class="row-even"><td>‘leo_all’</td>
+<td>All satellites in LEO (period &lt; 128 )</td>
+</tr>
+<tr class="row-odd"><td>‘geo_all’</td>
+<td>All satellites in GEO (period between 1430 and 1450)</td>
+</tr>
+</tbody>
+</table>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>name</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) – The set to get (see above)</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Concatenated string of TLEs</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 </div>
