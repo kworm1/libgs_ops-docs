@@ -157,21 +157,21 @@
 <dl class="class">
 <dt id="libgs_ops.rpc.RPCClient">
 <em class="property">class </em><code class="descclassname">libgs_ops.rpc.</code><code class="descname">RPCClient</code><span class="sig-paren">(</span><em>uri</em>, <em>timeout=60</em>, <em>transport=None</em>, <em>encoding=None</em>, <em>verbose=0</em>, <em>allow_none=0</em>, <em>use_datetime=0</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/libgs_ops/rpc.html#RPCClient"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#libgs_ops.rpc.RPCClient" title="Permalink to this definition">¶</a></dt>
-<dd><p>An improvement on ye olde <a class="reference external" href="https://docs.python.org/2.7/library/xmlrpclib.html#xmlrpclib.ServerProxy" title="(in Python v2.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ServerProxy</span></code></a>.</p>
-<p>It is fully compatible with <a class="reference external" href="https://docs.python.org/2.7/library/xmlrpclib.html#xmlrpclib.ServerProxy" title="(in Python v2.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ServerProxy</span></code></a> (i.e. it implements all the same methods and functionality),
+<dd><p>An improvement on ye olde <a class="reference external" href="https://docs.python.org/2.7/library/xmlrpclib.html#xmlrpclib.ServerProxy" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">ServerProxy</span></code></a>.</p>
+<p>It is fully compatible with <a class="reference external" href="https://docs.python.org/2.7/library/xmlrpclib.html#xmlrpclib.ServerProxy" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">ServerProxy</span></code></a> (i.e. it implements all the same methods and functionality),
 and additionally it:</p>
 <blockquote>
 <div><ul class="simple">
 <li>Times out if the connection has gone belly up</li>
 <li>Allows kwargs to be passed along with arguments, by adding the kwargs as a single dictionary argument
 at the end of the list of parameters. If no kwargs are specified it will not be added, and therefore it
-is fully backwards compatible with normal <a class="reference external" href="https://docs.python.org/2.7/library/simplexmlrpcserver.html#SimpleXMLRPCServer.SimpleXMLRPCServer" title="(in Python v2.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">SimpleXMLRPCServer</span></code></a>.</li>
-<li>Properly implements <code class="docutils literal notranslate"><span class="pre">__dir__</span></code> and <code class="docutils literal notranslate"><span class="pre">__getattr__</span></code> to query for remote methods and interface with them as attributes</li>
+is fully backwards compatible with normal <a class="reference external" href="https://docs.python.org/2.7/library/simplexmlrpcserver.html#SimpleXMLRPCServer.SimpleXMLRPCServer" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">SimpleXMLRPCServer</span></code></a>.</li>
+<li>Properly implements <code class="docutils literal"><span class="pre">__dir__</span></code> and <code class="docutils literal"><span class="pre">__getattr__</span></code> to query for remote methods and interface with them as attributes</li>
 </ul>
 </div></blockquote>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">The RPCClient constructor accepts the same arguments as <a class="reference external" href="https://docs.python.org/2.7/library/xmlrpclib.html#xmlrpclib.ServerProxy" title="(in Python v2.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ServerProxy</span></code></a> except you cannot set
+<p class="last">The RPCClient constructor accepts the same arguments as <a class="reference external" href="https://docs.python.org/2.7/library/xmlrpclib.html#xmlrpclib.ServerProxy" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">ServerProxy</span></code></a> except you cannot set
 the transport. The reason is that RPCClient uses its own custom transport to implement the timeout.</p>
 </div>
 <table class="docutils field-list" frame="void" rules="none">
@@ -185,13 +185,13 @@ the transport. The reason is that RPCClient uses its own custom transport to imp
 <li><strong>encoding</strong> – Encoding to use</li>
 <li><strong>verbose</strong> – Debugging flag</li>
 <li><strong>allow_none</strong> – If true, None will be transmitted.</li>
-<li><strong>use_datetime</strong> – If true, <a class="reference external" href="https://docs.python.org/2.7/library/datetime.html#datetime.datetime" title="(in Python v2.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">datetime.datetime</span></code></a> will be transmitted.</li>
+<li><strong>use_datetime</strong> – If true, <a class="reference external" href="https://docs.python.org/2.7/library/datetime.html#datetime.datetime" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">datetime.datetime</span></code></a> will be transmitted.</li>
 </ul>
 </td>
 </tr>
 </tbody>
 </table>
-<p>For further description of encoding, verbose, allow_none and use_datetime, see <a class="reference external" href="https://docs.python.org/2.7/library/xmlrpclib.html#xmlrpclib.ServerProxy" title="(in Python v2.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ServerProxy</span></code></a>.</p>
+<p>For further description of encoding, verbose, allow_none and use_datetime, see <a class="reference external" href="https://docs.python.org/2.7/library/xmlrpclib.html#xmlrpclib.ServerProxy" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">ServerProxy</span></code></a>.</p>
 <p>Available methods are those that have been registered on the remote XMLRPC server.</p>
 <p class="rubric">Methods</p>
 <table border="1" class="longtable docutils">
@@ -254,11 +254,20 @@ the transport. The reason is that RPCClient uses its own custom transport to imp
 
     
     
-      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+      <script type="text/javascript">
+          var DOCUMENTATION_OPTIONS = {
+              URL_ROOT:'../',
+              VERSION:'',
+              LANGUAGE:'None',
+              COLLAPSE_INDEX:false,
+              FILE_SUFFIX:'.html',
+              HAS_SOURCE:  true,
+              SOURCELINK_SUFFIX: '.txt'
+          };
+      </script>
         <script type="text/javascript" src="../_static/jquery.js"></script>
         <script type="text/javascript" src="../_static/underscore.js"></script>
         <script type="text/javascript" src="../_static/doctools.js"></script>
-        <script type="text/javascript" src="../_static/language_data.js"></script>
     
 
   

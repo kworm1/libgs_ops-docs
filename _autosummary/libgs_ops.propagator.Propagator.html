@@ -216,46 +216,46 @@ added and a full refresh of the TLEs from space-track initiated.</li>
 <col width="90%" />
 </colgroup>
 <tbody valign="top">
-<tr class="row-odd"><td><a class="reference internal" href="libgs_ops.propagator.Propagator.compute_pass.html#libgs_ops.propagator.Propagator.compute_pass" title="libgs_ops.propagator.Propagator.compute_pass"><code class="xref py py-obj docutils literal notranslate"><span class="pre">compute_pass</span></code></a>(nid[,&nbsp;key_els,&nbsp;when,&nbsp;dt])</td>
-<td>Perform a detailed calculation of the pass and return the trajectory in a dataframe</td>
+<tr class="row-odd"><td><a class="reference internal" href="libgs_ops.propagator.Propagator.compute_pass.html#libgs_ops.propagator.Propagator.compute_pass" title="libgs_ops.propagator.Propagator.compute_pass"><code class="xref py py-obj docutils literal"><span class="pre">compute_pass</span></code></a>(nid[,&nbsp;key_els,&nbsp;when,&nbsp;dt])</td>
+<td>Perform a detailed calculation of the pass and</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="libgs_ops.propagator.Propagator.get_all.html#libgs_ops.propagator.Propagator.get_all" title="libgs_ops.propagator.Propagator.get_all"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_all</span></code></a>(nid[,&nbsp;gs_lat,&nbsp;gs_lon,&nbsp;gs_elev,&nbsp;when])</td>
-<td>Just a wrapper around pyephem _compute function, which allows the extraction of a  bunch of different parameters through other functions that use this one (such as get_angles, get_range, etc…)</td>
+<tr class="row-even"><td><a class="reference internal" href="libgs_ops.propagator.Propagator.get_all.html#libgs_ops.propagator.Propagator.get_all" title="libgs_ops.propagator.Propagator.get_all"><code class="xref py py-obj docutils literal"><span class="pre">get_all</span></code></a>(nid[,&nbsp;gs_lat,&nbsp;gs_lon,&nbsp;gs_elev,&nbsp;when])</td>
+<td>Just a wrapper around pyephem _compute function, which allows the extraction</td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="libgs_ops.propagator.Propagator.get_angles.html#libgs_ops.propagator.Propagator.get_angles" title="libgs_ops.propagator.Propagator.get_angles"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_angles</span></code></a>(nid[,&nbsp;gs_lat,&nbsp;gs_lon,&nbsp;gs_elev,&nbsp;when])</td>
+<tr class="row-odd"><td><a class="reference internal" href="libgs_ops.propagator.Propagator.get_angles.html#libgs_ops.propagator.Propagator.get_angles" title="libgs_ops.propagator.Propagator.get_angles"><code class="xref py py-obj docutils literal"><span class="pre">get_angles</span></code></a>(nid[,&nbsp;gs_lat,&nbsp;gs_lon,&nbsp;gs_elev,&nbsp;when])</td>
 <td></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="libgs_ops.propagator.Propagator.get_angles_old.html#libgs_ops.propagator.Propagator.get_angles_old" title="libgs_ops.propagator.Propagator.get_angles_old"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_angles_old</span></code></a>(nid[,&nbsp;gs_lat,&nbsp;gs_lon,&nbsp;…])</td>
+<tr class="row-even"><td><a class="reference internal" href="libgs_ops.propagator.Propagator.get_angles_old.html#libgs_ops.propagator.Propagator.get_angles_old" title="libgs_ops.propagator.Propagator.get_angles_old"><code class="xref py py-obj docutils literal"><span class="pre">get_angles_old</span></code></a>(nid[,&nbsp;gs_lat,&nbsp;gs_lon,&nbsp;…])</td>
 <td>If the user prefers to calculate the angles at a specific time he should set when=YYYY/MM/DD HH:mm:ss.</td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="libgs_ops.propagator.Propagator.get_doppler.html#libgs_ops.propagator.Propagator.get_doppler" title="libgs_ops.propagator.Propagator.get_doppler"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_doppler</span></code></a>(nid,&nbsp;freq[,&nbsp;gs_lat,&nbsp;gs_lon,&nbsp;…])</td>
+<tr class="row-odd"><td><a class="reference internal" href="libgs_ops.propagator.Propagator.get_doppler.html#libgs_ops.propagator.Propagator.get_doppler" title="libgs_ops.propagator.Propagator.get_doppler"><code class="xref py py-obj docutils literal"><span class="pre">get_doppler</span></code></a>(nid,&nbsp;freq[,&nbsp;gs_lat,&nbsp;gs_lon,&nbsp;…])</td>
 <td></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="libgs_ops.propagator.Propagator.get_eclipsed.html#libgs_ops.propagator.Propagator.get_eclipsed" title="libgs_ops.propagator.Propagator.get_eclipsed"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_eclipsed</span></code></a>(nid[,&nbsp;gs_lat,&nbsp;gs_lon,&nbsp;gs_elev,&nbsp;…])</td>
+<tr class="row-even"><td><a class="reference internal" href="libgs_ops.propagator.Propagator.get_eclipsed.html#libgs_ops.propagator.Propagator.get_eclipsed" title="libgs_ops.propagator.Propagator.get_eclipsed"><code class="xref py py-obj docutils literal"><span class="pre">get_eclipsed</span></code></a>(nid[,&nbsp;gs_lat,&nbsp;gs_lon,&nbsp;gs_elev,&nbsp;…])</td>
 <td></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="libgs_ops.propagator.Propagator.get_ground_coord.html#libgs_ops.propagator.Propagator.get_ground_coord" title="libgs_ops.propagator.Propagator.get_ground_coord"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_ground_coord</span></code></a>(nid[,&nbsp;when])</td>
-<td>Return the ground track lat/long coord without needing the ground station coordinates</td>
+<tr class="row-odd"><td><a class="reference internal" href="libgs_ops.propagator.Propagator.get_ground_coord.html#libgs_ops.propagator.Propagator.get_ground_coord" title="libgs_ops.propagator.Propagator.get_ground_coord"><code class="xref py py-obj docutils literal"><span class="pre">get_ground_coord</span></code></a>(nid[,&nbsp;when])</td>
+<td>Return the ground track lat/long coord without needing the ground station</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="libgs_ops.propagator.Propagator.get_orbit.html#libgs_ops.propagator.Propagator.get_orbit" title="libgs_ops.propagator.Propagator.get_orbit"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_orbit</span></code></a>(nid[,&nbsp;when])</td>
+<tr class="row-even"><td><a class="reference internal" href="libgs_ops.propagator.Propagator.get_orbit.html#libgs_ops.propagator.Propagator.get_orbit" title="libgs_ops.propagator.Propagator.get_orbit"><code class="xref py py-obj docutils literal"><span class="pre">get_orbit</span></code></a>(nid[,&nbsp;when])</td>
 <td>Return the orbital elements</td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="libgs_ops.propagator.Propagator.get_passes.html#libgs_ops.propagator.Propagator.get_passes" title="libgs_ops.propagator.Propagator.get_passes"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_passes</span></code></a>([nid,&nbsp;N,&nbsp;when,&nbsp;horizon])</td>
+<tr class="row-odd"><td><a class="reference internal" href="libgs_ops.propagator.Propagator.get_passes.html#libgs_ops.propagator.Propagator.get_passes" title="libgs_ops.propagator.Propagator.get_passes"><code class="xref py py-obj docutils literal"><span class="pre">get_passes</span></code></a>([nid,&nbsp;N,&nbsp;when,&nbsp;horizon])</td>
 <td>Compute the next passes</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="libgs_ops.propagator.Propagator.get_range.html#libgs_ops.propagator.Propagator.get_range" title="libgs_ops.propagator.Propagator.get_range"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_range</span></code></a>(nid[,&nbsp;gs_lat,&nbsp;gs_lon,&nbsp;gs_elev,&nbsp;when])</td>
+<tr class="row-even"><td><a class="reference internal" href="libgs_ops.propagator.Propagator.get_range.html#libgs_ops.propagator.Propagator.get_range" title="libgs_ops.propagator.Propagator.get_range"><code class="xref py py-obj docutils literal"><span class="pre">get_range</span></code></a>(nid[,&nbsp;gs_lat,&nbsp;gs_lon,&nbsp;gs_elev,&nbsp;when])</td>
 <td></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="libgs_ops.propagator.Propagator.get_range_rate.html#libgs_ops.propagator.Propagator.get_range_rate" title="libgs_ops.propagator.Propagator.get_range_rate"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_range_rate</span></code></a>(nid[,&nbsp;gs_lat,&nbsp;gs_lon,&nbsp;…])</td>
+<tr class="row-odd"><td><a class="reference internal" href="libgs_ops.propagator.Propagator.get_range_rate.html#libgs_ops.propagator.Propagator.get_range_rate" title="libgs_ops.propagator.Propagator.get_range_rate"><code class="xref py py-obj docutils literal"><span class="pre">get_range_rate</span></code></a>(nid[,&nbsp;gs_lat,&nbsp;gs_lon,&nbsp;…])</td>
 <td></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="libgs_ops.propagator.Propagator.get_tle.html#libgs_ops.propagator.Propagator.get_tle" title="libgs_ops.propagator.Propagator.get_tle"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_tle</span></code></a>(nid)</td>
-<td>Return TLEs from a NORAD ID by quering Space-Track if data is older than the specified timeout from memory otherwise</td>
+<tr class="row-even"><td><a class="reference internal" href="libgs_ops.propagator.Propagator.get_tle.html#libgs_ops.propagator.Propagator.get_tle" title="libgs_ops.propagator.Propagator.get_tle"><code class="xref py py-obj docutils literal"><span class="pre">get_tle</span></code></a>(nid)</td>
+<td>Return TLEs from a NORAD ID by</td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="libgs_ops.propagator.Propagator.get_visible_satellites.html#libgs_ops.propagator.Propagator.get_visible_satellites" title="libgs_ops.propagator.Propagator.get_visible_satellites"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_visible_satellites</span></code></a>([tz,&nbsp;future_only,&nbsp;…])</td>
+<tr class="row-odd"><td><a class="reference internal" href="libgs_ops.propagator.Propagator.get_visible_satellites.html#libgs_ops.propagator.Propagator.get_visible_satellites" title="libgs_ops.propagator.Propagator.get_visible_satellites"><code class="xref py py-obj docutils literal"><span class="pre">get_visible_satellites</span></code></a>([tz,&nbsp;future_only,&nbsp;…])</td>
 <td>Get a list of current and upcoming radio amateur satellite passes.</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="libgs_ops.propagator.Propagator.print_info.html#libgs_ops.propagator.Propagator.print_info" title="libgs_ops.propagator.Propagator.print_info"><code class="xref py py-obj docutils literal notranslate"><span class="pre">print_info</span></code></a>(nid[,&nbsp;when])</td>
+<tr class="row-even"><td><a class="reference internal" href="libgs_ops.propagator.Propagator.print_info.html#libgs_ops.propagator.Propagator.print_info" title="libgs_ops.propagator.Propagator.print_info"><code class="xref py py-obj docutils literal"><span class="pre">print_info</span></code></a>(nid[,&nbsp;when])</td>
 <td>Print all info about a specific space item</td>
 </tr>
 </tbody>
@@ -267,8 +267,8 @@ added and a full refresh of the TLEs from space-track initiated.</li>
 <col width="90%" />
 </colgroup>
 <tbody valign="top">
-<tr class="row-odd"><td><a class="reference internal" href="libgs_ops.propagator.Propagator.ST_URL.html#libgs_ops.propagator.Propagator.ST_URL" title="libgs_ops.propagator.Propagator.ST_URL"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ST_URL</span></code></a></td>
-<td>Where to find space-track</td>
+<tr class="row-odd"><td><a class="reference internal" href="libgs_ops.propagator.Propagator.ST_URL.html#libgs_ops.propagator.Propagator.ST_URL" title="libgs_ops.propagator.Propagator.ST_URL"><code class="xref py py-obj docutils literal"><span class="pre">ST_URL</span></code></a></td>
+<td></td>
 </tr>
 </tbody>
 </table>
@@ -326,11 +326,20 @@ added and a full refresh of the TLEs from space-track initiated.</li>
 
     
     
-      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+      <script type="text/javascript">
+          var DOCUMENTATION_OPTIONS = {
+              URL_ROOT:'../',
+              VERSION:'',
+              LANGUAGE:'None',
+              COLLAPSE_INDEX:false,
+              FILE_SUFFIX:'.html',
+              HAS_SOURCE:  true,
+              SOURCELINK_SUFFIX: '.txt'
+          };
+      </script>
         <script type="text/javascript" src="../_static/jquery.js"></script>
         <script type="text/javascript" src="../_static/underscore.js"></script>
         <script type="text/javascript" src="../_static/doctools.js"></script>
-        <script type="text/javascript" src="../_static/language_data.js"></script>
     
 
   

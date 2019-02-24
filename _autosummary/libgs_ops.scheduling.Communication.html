@@ -195,7 +195,7 @@ it will be a dictionary with the following fields:</p>
 <blockquote>
 <div><ul class="simple">
 <li>hexstr: Hex representation of byte stream</li>
-<li>barray: <a class="reference external" href="https://docs.python.org/2.7/library/functions.html#bytearray" title="(in Python v2.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bytearray</span></code></a> represenation of bytestream</li>
+<li>barray: <a class="reference external" href="https://docs.python.org/2.7/library/functions.html#bytearray" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">bytearray</span></code></a> represenation of bytestream</li>
 <li>retries: Number of retries</li>
 <li>wait:    Whether to wait for reply</li>
 </ul>
@@ -205,7 +205,7 @@ it will be a dictionary with the following fields:</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>cmd</strong> (<em>basestring</em><em> or </em><a class="reference external" href="https://docs.python.org/2.7/library/functions.html#bytearray" title="(in Python v2.7)"><em>bytearray</em></a>) – Command string (fully encoded) to send to satellite.</li>
+<li><strong>cmd</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#basestring" title="(in Python v2.7)"><em>basestring</em></a><em> or </em><a class="reference external" href="https://docs.python.org/2.7/library/functions.html#bytearray" title="(in Python v2.7)"><em>bytearray</em></a>) – Command string (fully encoded) to send to satellite.</li>
 <li><strong>retries</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) – Number of times the command should be retried in case of failure</li>
 <li><strong>wait</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#bool" title="(in Python v2.7)"><em>bool</em></a>) – Whether the ground station should wait for a reply from the satellite or not.</li>
 </ul>
@@ -220,7 +220,7 @@ it will be a dictionary with the following fields:</p>
 <col width="90%" />
 </colgroup>
 <tbody valign="top">
-<tr class="row-odd"><td><a class="reference internal" href="libgs_ops.scheduling.Communication.to_dict.html#libgs_ops.scheduling.Communication.to_dict" title="libgs_ops.scheduling.Communication.to_dict"><code class="xref py py-obj docutils literal notranslate"><span class="pre">to_dict</span></code></a>()</td>
+<tr class="row-odd"><td><a class="reference internal" href="libgs_ops.scheduling.Communication.to_dict.html#libgs_ops.scheduling.Communication.to_dict" title="libgs_ops.scheduling.Communication.to_dict"><code class="xref py py-obj docutils literal"><span class="pre">to_dict</span></code></a>()</td>
 <td>Convert the class to a serialisable python dictionary format (gets rid of the bytearray entry).</td>
 </tr>
 </tbody>
@@ -232,58 +232,58 @@ it will be a dictionary with the following fields:</p>
 <col width="90%" />
 </colgroup>
 <tbody valign="top">
-<tr class="row-odd"><td><a class="reference internal" href="libgs_ops.scheduling.Communication.clear.html#libgs_ops.scheduling.Communication.clear" title="libgs_ops.scheduling.Communication.clear"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clear</span></code></a>()</td>
+<tr class="row-odd"><td><a class="reference internal" href="libgs_ops.scheduling.Communication.clear.html#libgs_ops.scheduling.Communication.clear" title="libgs_ops.scheduling.Communication.clear"><code class="xref py py-obj docutils literal"><span class="pre">clear</span></code></a>(()&nbsp;-&gt;&nbsp;None.&nbsp;&nbsp;Remove&nbsp;all&nbsp;items&nbsp;from&nbsp;D.)</td>
 <td></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="libgs_ops.scheduling.Communication.copy.html#libgs_ops.scheduling.Communication.copy" title="libgs_ops.scheduling.Communication.copy"><code class="xref py py-obj docutils literal notranslate"><span class="pre">copy</span></code></a>()</td>
+<tr class="row-even"><td><a class="reference internal" href="libgs_ops.scheduling.Communication.copy.html#libgs_ops.scheduling.Communication.copy" title="libgs_ops.scheduling.Communication.copy"><code class="xref py py-obj docutils literal"><span class="pre">copy</span></code></a>(()&nbsp;-&gt;&nbsp;a&nbsp;shallow&nbsp;copy&nbsp;of&nbsp;D)</td>
 <td></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="libgs_ops.scheduling.Communication.fromkeys.html#libgs_ops.scheduling.Communication.fromkeys" title="libgs_ops.scheduling.Communication.fromkeys"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fromkeys</span></code></a>(S[,v])</td>
+<tr class="row-odd"><td><a class="reference internal" href="libgs_ops.scheduling.Communication.fromkeys.html#libgs_ops.scheduling.Communication.fromkeys" title="libgs_ops.scheduling.Communication.fromkeys"><code class="xref py py-obj docutils literal"><span class="pre">fromkeys</span></code></a>(…)</td>
 <td>v defaults to None.</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="libgs_ops.scheduling.Communication.get.html#libgs_ops.scheduling.Communication.get" title="libgs_ops.scheduling.Communication.get"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get</span></code></a>(k[,d])</td>
+<tr class="row-even"><td><a class="reference internal" href="libgs_ops.scheduling.Communication.get.html#libgs_ops.scheduling.Communication.get" title="libgs_ops.scheduling.Communication.get"><code class="xref py py-obj docutils literal"><span class="pre">get</span></code></a>((k[,d])&nbsp;-&gt;&nbsp;D[k]&nbsp;if&nbsp;k&nbsp;in&nbsp;D,&nbsp;…)</td>
 <td></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="libgs_ops.scheduling.Communication.has_key.html#libgs_ops.scheduling.Communication.has_key" title="libgs_ops.scheduling.Communication.has_key"><code class="xref py py-obj docutils literal notranslate"><span class="pre">has_key</span></code></a>(k)</td>
+<tr class="row-odd"><td><a class="reference internal" href="libgs_ops.scheduling.Communication.has_key.html#libgs_ops.scheduling.Communication.has_key" title="libgs_ops.scheduling.Communication.has_key"><code class="xref py py-obj docutils literal"><span class="pre">has_key</span></code></a>((k)&nbsp;-&gt;&nbsp;True&nbsp;if&nbsp;D&nbsp;has&nbsp;a&nbsp;key&nbsp;k,&nbsp;else&nbsp;False)</td>
 <td></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="libgs_ops.scheduling.Communication.items.html#libgs_ops.scheduling.Communication.items" title="libgs_ops.scheduling.Communication.items"><code class="xref py py-obj docutils literal notranslate"><span class="pre">items</span></code></a>()</td>
+<tr class="row-even"><td><a class="reference internal" href="libgs_ops.scheduling.Communication.items.html#libgs_ops.scheduling.Communication.items" title="libgs_ops.scheduling.Communication.items"><code class="xref py py-obj docutils literal"><span class="pre">items</span></code></a>(()&nbsp;-&gt;&nbsp;list&nbsp;of&nbsp;D’s&nbsp;(key,&nbsp;value)&nbsp;pairs,&nbsp;…)</td>
 <td></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="libgs_ops.scheduling.Communication.iteritems.html#libgs_ops.scheduling.Communication.iteritems" title="libgs_ops.scheduling.Communication.iteritems"><code class="xref py py-obj docutils literal notranslate"><span class="pre">iteritems</span></code></a>()</td>
+<tr class="row-odd"><td><a class="reference internal" href="libgs_ops.scheduling.Communication.iteritems.html#libgs_ops.scheduling.Communication.iteritems" title="libgs_ops.scheduling.Communication.iteritems"><code class="xref py py-obj docutils literal"><span class="pre">iteritems</span></code></a>(()&nbsp;-&gt;&nbsp;an&nbsp;iterator&nbsp;over&nbsp;the&nbsp;(key,&nbsp;…)</td>
 <td></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="libgs_ops.scheduling.Communication.iterkeys.html#libgs_ops.scheduling.Communication.iterkeys" title="libgs_ops.scheduling.Communication.iterkeys"><code class="xref py py-obj docutils literal notranslate"><span class="pre">iterkeys</span></code></a>()</td>
+<tr class="row-even"><td><a class="reference internal" href="libgs_ops.scheduling.Communication.iterkeys.html#libgs_ops.scheduling.Communication.iterkeys" title="libgs_ops.scheduling.Communication.iterkeys"><code class="xref py py-obj docutils literal"><span class="pre">iterkeys</span></code></a>(()&nbsp;-&gt;&nbsp;an&nbsp;iterator&nbsp;over&nbsp;the&nbsp;keys&nbsp;of&nbsp;D)</td>
 <td></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="libgs_ops.scheduling.Communication.itervalues.html#libgs_ops.scheduling.Communication.itervalues" title="libgs_ops.scheduling.Communication.itervalues"><code class="xref py py-obj docutils literal notranslate"><span class="pre">itervalues</span></code></a>()</td>
+<tr class="row-odd"><td><a class="reference internal" href="libgs_ops.scheduling.Communication.itervalues.html#libgs_ops.scheduling.Communication.itervalues" title="libgs_ops.scheduling.Communication.itervalues"><code class="xref py py-obj docutils literal"><span class="pre">itervalues</span></code></a>(…)</td>
 <td></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="libgs_ops.scheduling.Communication.keys.html#libgs_ops.scheduling.Communication.keys" title="libgs_ops.scheduling.Communication.keys"><code class="xref py py-obj docutils literal notranslate"><span class="pre">keys</span></code></a>()</td>
+<tr class="row-even"><td><a class="reference internal" href="libgs_ops.scheduling.Communication.keys.html#libgs_ops.scheduling.Communication.keys" title="libgs_ops.scheduling.Communication.keys"><code class="xref py py-obj docutils literal"><span class="pre">keys</span></code></a>(()&nbsp;-&gt;&nbsp;list&nbsp;of&nbsp;D’s&nbsp;keys)</td>
 <td></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="libgs_ops.scheduling.Communication.pop.html#libgs_ops.scheduling.Communication.pop" title="libgs_ops.scheduling.Communication.pop"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pop</span></code></a>(k[,d])</td>
+<tr class="row-odd"><td><a class="reference internal" href="libgs_ops.scheduling.Communication.pop.html#libgs_ops.scheduling.Communication.pop" title="libgs_ops.scheduling.Communication.pop"><code class="xref py py-obj docutils literal"><span class="pre">pop</span></code></a>((k[,d])&nbsp;-&gt;&nbsp;v,&nbsp;…)</td>
 <td>If key is not found, d is returned if given, otherwise KeyError is raised</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="libgs_ops.scheduling.Communication.popitem.html#libgs_ops.scheduling.Communication.popitem" title="libgs_ops.scheduling.Communication.popitem"><code class="xref py py-obj docutils literal notranslate"><span class="pre">popitem</span></code></a>()</td>
+<tr class="row-even"><td><a class="reference internal" href="libgs_ops.scheduling.Communication.popitem.html#libgs_ops.scheduling.Communication.popitem" title="libgs_ops.scheduling.Communication.popitem"><code class="xref py py-obj docutils literal"><span class="pre">popitem</span></code></a>(()&nbsp;-&gt;&nbsp;(k,&nbsp;v),&nbsp;…)</td>
 <td>2-tuple; but raise KeyError if D is empty.</td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="libgs_ops.scheduling.Communication.setdefault.html#libgs_ops.scheduling.Communication.setdefault" title="libgs_ops.scheduling.Communication.setdefault"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setdefault</span></code></a>(k[,d])</td>
+<tr class="row-odd"><td><a class="reference internal" href="libgs_ops.scheduling.Communication.setdefault.html#libgs_ops.scheduling.Communication.setdefault" title="libgs_ops.scheduling.Communication.setdefault"><code class="xref py py-obj docutils literal"><span class="pre">setdefault</span></code></a>((k[,d])&nbsp;-&gt;&nbsp;D.get(k,d),&nbsp;…)</td>
 <td></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="libgs_ops.scheduling.Communication.update.html#libgs_ops.scheduling.Communication.update" title="libgs_ops.scheduling.Communication.update"><code class="xref py py-obj docutils literal notranslate"><span class="pre">update</span></code></a>([E,&nbsp;]**F)</td>
-<td>If E present and has a .keys() method, does:     for k in E: D[k] = E[k] If E present and lacks .keys() method, does:     for (k, v) in E: D[k] = v In either case, this is followed by: for k in F: D[k] = F[k]</td>
+<tr class="row-even"><td><a class="reference internal" href="libgs_ops.scheduling.Communication.update.html#libgs_ops.scheduling.Communication.update" title="libgs_ops.scheduling.Communication.update"><code class="xref py py-obj docutils literal"><span class="pre">update</span></code></a>(([E,&nbsp;…)</td>
+<td>If E present and has a .keys() method, does:     for k in E: D[k] = E[k]</td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="libgs_ops.scheduling.Communication.values.html#libgs_ops.scheduling.Communication.values" title="libgs_ops.scheduling.Communication.values"><code class="xref py py-obj docutils literal notranslate"><span class="pre">values</span></code></a>()</td>
+<tr class="row-odd"><td><a class="reference internal" href="libgs_ops.scheduling.Communication.values.html#libgs_ops.scheduling.Communication.values" title="libgs_ops.scheduling.Communication.values"><code class="xref py py-obj docutils literal"><span class="pre">values</span></code></a>(()&nbsp;-&gt;&nbsp;list&nbsp;of&nbsp;D’s&nbsp;values)</td>
 <td></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="libgs_ops.scheduling.Communication.viewitems.html#libgs_ops.scheduling.Communication.viewitems" title="libgs_ops.scheduling.Communication.viewitems"><code class="xref py py-obj docutils literal notranslate"><span class="pre">viewitems</span></code></a>()</td>
+<tr class="row-even"><td><a class="reference internal" href="libgs_ops.scheduling.Communication.viewitems.html#libgs_ops.scheduling.Communication.viewitems" title="libgs_ops.scheduling.Communication.viewitems"><code class="xref py py-obj docutils literal"><span class="pre">viewitems</span></code></a>(…)</td>
 <td></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="libgs_ops.scheduling.Communication.viewkeys.html#libgs_ops.scheduling.Communication.viewkeys" title="libgs_ops.scheduling.Communication.viewkeys"><code class="xref py py-obj docutils literal notranslate"><span class="pre">viewkeys</span></code></a>()</td>
+<tr class="row-odd"><td><a class="reference internal" href="libgs_ops.scheduling.Communication.viewkeys.html#libgs_ops.scheduling.Communication.viewkeys" title="libgs_ops.scheduling.Communication.viewkeys"><code class="xref py py-obj docutils literal"><span class="pre">viewkeys</span></code></a>(…)</td>
 <td></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="libgs_ops.scheduling.Communication.viewvalues.html#libgs_ops.scheduling.Communication.viewvalues" title="libgs_ops.scheduling.Communication.viewvalues"><code class="xref py py-obj docutils literal notranslate"><span class="pre">viewvalues</span></code></a>()</td>
+<tr class="row-even"><td><a class="reference internal" href="libgs_ops.scheduling.Communication.viewvalues.html#libgs_ops.scheduling.Communication.viewvalues" title="libgs_ops.scheduling.Communication.viewvalues"><code class="xref py py-obj docutils literal"><span class="pre">viewvalues</span></code></a>(…)</td>
 <td></td>
 </tr>
 </tbody>
@@ -333,11 +333,20 @@ it will be a dictionary with the following fields:</p>
 
     
     
-      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+      <script type="text/javascript">
+          var DOCUMENTATION_OPTIONS = {
+              URL_ROOT:'../',
+              VERSION:'',
+              LANGUAGE:'None',
+              COLLAPSE_INDEX:false,
+              FILE_SUFFIX:'.html',
+              HAS_SOURCE:  true,
+              SOURCELINK_SUFFIX: '.txt'
+          };
+      </script>
         <script type="text/javascript" src="../_static/jquery.js"></script>
         <script type="text/javascript" src="../_static/underscore.js"></script>
         <script type="text/javascript" src="../_static/doctools.js"></script>
-        <script type="text/javascript" src="../_static/language_data.js"></script>
     
 
   

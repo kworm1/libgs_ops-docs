@@ -178,15 +178,15 @@
 <dt id="libgs_ops.scheduling.CommsPass">
 <em class="property">class </em><code class="descclassname">libgs_ops.scheduling.</code><code class="descname">CommsPass</code><span class="sig-paren">(</span><em>pass_data</em>, <em>desc=None</em>, <em>nid=None</em>, <em>horizon=0</em>, <em>comms=[]</em>, <em>listen=False</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/libgs_ops/scheduling.html#CommsPass"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#libgs_ops.scheduling.CommsPass" title="Permalink to this definition">¶</a></dt>
 <dd><p>Class to hold a communications pass.</p>
-<p>A CommsPass is defined as a pass data (az, el, range_rate) schedule with associated set of <a class="reference internal" href="libgs_ops.scheduling.Communication.html#libgs_ops.scheduling.Communication" title="libgs_ops.scheduling.Communication"><code class="xref py py-class docutils literal notranslate"><span class="pre">communications</span></code></a>
-and <a class="reference internal" href="libgs_ops.scheduling.Action.html#libgs_ops.scheduling.Action" title="libgs_ops.scheduling.Action"><code class="xref py py-class docutils literal notranslate"><span class="pre">actions</span></code></a>.</p>
+<p>A CommsPass is defined as a pass data (az, el, range_rate) schedule with associated set of <a class="reference internal" href="libgs_ops.scheduling.Communication.html#libgs_ops.scheduling.Communication" title="libgs_ops.scheduling.Communication"><code class="xref py py-class docutils literal"><span class="pre">communications</span></code></a>
+and <a class="reference internal" href="libgs_ops.scheduling.Action.html#libgs_ops.scheduling.Action" title="libgs_ops.scheduling.Action"><code class="xref py py-class docutils literal"><span class="pre">actions</span></code></a>.</p>
 <p>Arbitrary metadata (must be picklable) can also be added to the object.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>pass_data</strong> (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v0.24.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataFrame</span></code></a>) – Dataframe with at least az, el, range_rate columns</li>
+<li><strong>pass_data</strong> (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v0.24.1)"><code class="xref py py-class docutils literal"><span class="pre">DataFrame</span></code></a>) – Dataframe with at least az, el, range_rate columns</li>
 <li><strong>nid</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) – Norad ID to associate with pass. Can be left empty if pass_data has a .nid field.</li>
 <li><strong>horizon</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#float" title="(in Python v2.7)"><em>float</em></a>) – The lowest acceptable elevation for the pass. Pass_data will be cropped to the horizon</li>
 <li><strong>comms</strong> (<em>list</em><em>, </em><em>optional</em>) – List of communications (can be added with add_communications instead)</li>
@@ -206,31 +206,31 @@ and <a class="reference internal" href="libgs_ops.scheduling.Action.html#libgs_o
 <col width="90%" />
 </colgroup>
 <tbody valign="top">
-<tr class="row-odd"><td><a class="reference internal" href="libgs_ops.scheduling.CommsPass.add_communication.html#libgs_ops.scheduling.CommsPass.add_communication" title="libgs_ops.scheduling.CommsPass.add_communication"><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_communication</span></code></a>(comm,&nbsp;**kwargs)</td>
+<tr class="row-odd"><td><a class="reference internal" href="libgs_ops.scheduling.CommsPass.add_communication.html#libgs_ops.scheduling.CommsPass.add_communication" title="libgs_ops.scheduling.CommsPass.add_communication"><code class="xref py py-obj docutils literal"><span class="pre">add_communication</span></code></a>(comm,&nbsp;**kwargs)</td>
 <td>Add a communication to the pass.</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="libgs_ops.scheduling.CommsPass.change_time.html#libgs_ops.scheduling.CommsPass.change_time" title="libgs_ops.scheduling.CommsPass.change_time"><code class="xref py py-obj docutils literal notranslate"><span class="pre">change_time</span></code></a>(tstamp)</td>
+<tr class="row-even"><td><a class="reference internal" href="libgs_ops.scheduling.CommsPass.change_time.html#libgs_ops.scheduling.CommsPass.change_time" title="libgs_ops.scheduling.CommsPass.change_time"><code class="xref py py-obj docutils literal"><span class="pre">change_time</span></code></a>(tstamp)</td>
 <td>Modify the pass data start time.</td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="libgs_ops.scheduling.CommsPass.copy.html#libgs_ops.scheduling.CommsPass.copy" title="libgs_ops.scheduling.CommsPass.copy"><code class="xref py py-obj docutils literal notranslate"><span class="pre">copy</span></code></a>()</td>
+<tr class="row-odd"><td><a class="reference internal" href="libgs_ops.scheduling.CommsPass.copy.html#libgs_ops.scheduling.CommsPass.copy" title="libgs_ops.scheduling.CommsPass.copy"><code class="xref py py-obj docutils literal"><span class="pre">copy</span></code></a>()</td>
 <td>Create a copy of the class instance.</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="libgs_ops.scheduling.CommsPass.from_dict.html#libgs_ops.scheduling.CommsPass.from_dict" title="libgs_ops.scheduling.CommsPass.from_dict"><code class="xref py py-obj docutils literal notranslate"><span class="pre">from_dict</span></code></a>(d)</td>
+<tr class="row-even"><td><a class="reference internal" href="libgs_ops.scheduling.CommsPass.from_dict.html#libgs_ops.scheduling.CommsPass.from_dict" title="libgs_ops.scheduling.CommsPass.from_dict"><code class="xref py py-obj docutils literal"><span class="pre">from_dict</span></code></a>(d)</td>
 <td>Classmethod to create CommsPass object from a python dict.</td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="libgs_ops.scheduling.CommsPass.from_json.html#libgs_ops.scheduling.CommsPass.from_json" title="libgs_ops.scheduling.CommsPass.from_json"><code class="xref py py-obj docutils literal notranslate"><span class="pre">from_json</span></code></a>(data)</td>
+<tr class="row-odd"><td><a class="reference internal" href="libgs_ops.scheduling.CommsPass.from_json.html#libgs_ops.scheduling.CommsPass.from_json" title="libgs_ops.scheduling.CommsPass.from_json"><code class="xref py py-obj docutils literal"><span class="pre">from_json</span></code></a>(data)</td>
 <td>Classmethod to Create CommsPass from a json string or from a json file.</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="libgs_ops.scheduling.CommsPass.overlaps.html#libgs_ops.scheduling.CommsPass.overlaps" title="libgs_ops.scheduling.CommsPass.overlaps"><code class="xref py py-obj docutils literal notranslate"><span class="pre">overlaps</span></code></a>(other[,&nbsp;buffertime])</td>
+<tr class="row-even"><td><a class="reference internal" href="libgs_ops.scheduling.CommsPass.overlaps.html#libgs_ops.scheduling.CommsPass.overlaps" title="libgs_ops.scheduling.CommsPass.overlaps"><code class="xref py py-obj docutils literal"><span class="pre">overlaps</span></code></a>(other[,&nbsp;buffertime])</td>
 <td>Check if current pass overlaps with another pass.</td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="libgs_ops.scheduling.CommsPass.plot.html#libgs_ops.scheduling.CommsPass.plot" title="libgs_ops.scheduling.CommsPass.plot"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plot</span></code></a>()</td>
+<tr class="row-odd"><td><a class="reference internal" href="libgs_ops.scheduling.CommsPass.plot.html#libgs_ops.scheduling.CommsPass.plot" title="libgs_ops.scheduling.CommsPass.plot"><code class="xref py py-obj docutils literal"><span class="pre">plot</span></code></a>()</td>
 <td>Visualise the pass.</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="libgs_ops.scheduling.CommsPass.to_dict.html#libgs_ops.scheduling.CommsPass.to_dict" title="libgs_ops.scheduling.CommsPass.to_dict"><code class="xref py py-obj docutils literal notranslate"><span class="pre">to_dict</span></code></a>()</td>
+<tr class="row-even"><td><a class="reference internal" href="libgs_ops.scheduling.CommsPass.to_dict.html#libgs_ops.scheduling.CommsPass.to_dict" title="libgs_ops.scheduling.CommsPass.to_dict"><code class="xref py py-obj docutils literal"><span class="pre">to_dict</span></code></a>()</td>
 <td>Convert class to a python dictionary.</td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="libgs_ops.scheduling.CommsPass.to_json.html#libgs_ops.scheduling.CommsPass.to_json" title="libgs_ops.scheduling.CommsPass.to_json"><code class="xref py py-obj docutils literal notranslate"><span class="pre">to_json</span></code></a>()</td>
+<tr class="row-odd"><td><a class="reference internal" href="libgs_ops.scheduling.CommsPass.to_json.html#libgs_ops.scheduling.CommsPass.to_json" title="libgs_ops.scheduling.CommsPass.to_json"><code class="xref py py-obj docutils literal"><span class="pre">to_json</span></code></a>()</td>
 <td>Convert the class to JSON representation.</td>
 </tr>
 </tbody>
@@ -242,7 +242,7 @@ and <a class="reference internal" href="libgs_ops.scheduling.Action.html#libgs_o
 <col width="90%" />
 </colgroup>
 <tbody valign="top">
-<tr class="row-odd"><td><a class="reference internal" href="libgs_ops.scheduling.CommsPass.metadata.html#libgs_ops.scheduling.CommsPass.metadata" title="libgs_ops.scheduling.CommsPass.metadata"><code class="xref py py-obj docutils literal notranslate"><span class="pre">metadata</span></code></a></td>
+<tr class="row-odd"><td><a class="reference internal" href="libgs_ops.scheduling.CommsPass.metadata.html#libgs_ops.scheduling.CommsPass.metadata" title="libgs_ops.scheduling.CommsPass.metadata"><code class="xref py py-obj docutils literal"><span class="pre">metadata</span></code></a></td>
 <td>Dictionary of metdata associated with the Communication Pass</td>
 </tr>
 </tbody>
@@ -301,11 +301,20 @@ and <a class="reference internal" href="libgs_ops.scheduling.Action.html#libgs_o
 
     
     
-      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+      <script type="text/javascript">
+          var DOCUMENTATION_OPTIONS = {
+              URL_ROOT:'../',
+              VERSION:'',
+              LANGUAGE:'None',
+              COLLAPSE_INDEX:false,
+              FILE_SUFFIX:'.html',
+              HAS_SOURCE:  true,
+              SOURCELINK_SUFFIX: '.txt'
+          };
+      </script>
         <script type="text/javascript" src="../_static/jquery.js"></script>
         <script type="text/javascript" src="../_static/underscore.js"></script>
         <script type="text/javascript" src="../_static/doctools.js"></script>
-        <script type="text/javascript" src="../_static/language_data.js"></script>
     
 
   

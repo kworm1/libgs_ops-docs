@@ -329,43 +329,43 @@ definition. For the latest model definition see <a class="reference external" hr
 </tr>
 <tr class="row-even"><td>–</td>
 <td>Inclusive Range
-(ex. <code class="docutils literal notranslate"><span class="pre">1--100</span></code> returns 1 and 100 and everything in between).
+(ex. <code class="docutils literal"><span class="pre">1--100</span></code> returns 1 and 100 and everything in between).
 Date ranges are expressed as
-<code class="docutils literal notranslate"><span class="pre">YYYY-MM-DD%20HH:MM:SS--YYYY-MM-DD%20HH:MM:SS</span></code> or
-<code class="docutils literal notranslate"><span class="pre">YYYY-MM-DD--YYYY-MM-DD</span></code></td>
+<code class="docutils literal"><span class="pre">YYYY-MM-DD%20HH:MM:SS--YYYY-MM-DD%20HH:MM:SS</span></code> or
+<code class="docutils literal"><span class="pre">YYYY-MM-DD--YYYY-MM-DD</span></code></td>
 </tr>
 <tr class="row-odd"><td>null-val</td>
 <td>Value for ‘NULL’, can only be used with Not Equal (&lt;&gt;) or by itself.</td>
 </tr>
 <tr class="row-even"><td>~~</td>
-<td>“Like” or Wildcard search. You may put the <code class="docutils literal notranslate"><span class="pre">~~</span></code> before or
+<td>“Like” or Wildcard search. You may put the <code class="docutils literal"><span class="pre">~~</span></code> before or
 after the text; wildcard is evaluated regardless of
-location of <code class="docutils literal notranslate"><span class="pre">~~</span></code> in the URL. For example, <code class="docutils literal notranslate"><span class="pre">~~OB</span></code> will return
+location of <code class="docutils literal"><span class="pre">~~</span></code> in the URL. For example, <code class="docutils literal"><span class="pre">~~OB</span></code> will return
 ‘OBJECT 1’, ‘GLOBALSTAR’, ‘PROBA 1’, etc.</td>
 </tr>
 <tr class="row-odd"><td>^</td>
 <td>Wildcard after value with a minimum of two characters.
 (alternate is %5E) The wildcard is evaluated after the
 text regardless of location of ^ in the URL. For example,
-<code class="docutils literal notranslate"><span class="pre">^OB</span></code> will return ‘OBJECT 1’, ‘OBJECT 2’, etc. but not ‘GLOBALSTAR’</td>
+<code class="docutils literal"><span class="pre">^OB</span></code> will return ‘OBJECT 1’, ‘OBJECT 2’, etc. but not ‘GLOBALSTAR’</td>
 </tr>
 <tr class="row-even"><td>now</td>
 <td>Variable that contains the current system date and time.
 Add or subtract days (or fractions thereof) after ‘now’
-to modify the date/time, e.g. <code class="docutils literal notranslate"><span class="pre">now-7</span></code>, <code class="docutils literal notranslate"><span class="pre">now+14</span></code>, <code class="docutils literal notranslate"><span class="pre">now-6.5</span></code>,
-<code class="docutils literal notranslate"><span class="pre">now+2.3</span></code>. Use &lt;,&gt;,and – to get a range of dates;
-e.g. <code class="docutils literal notranslate"><span class="pre">&gt;now-7</span></code>, <code class="docutils literal notranslate"><span class="pre">now-14--now</span></code></td>
+to modify the date/time, e.g. <code class="docutils literal"><span class="pre">now-7</span></code>, <code class="docutils literal"><span class="pre">now+14</span></code>, <code class="docutils literal"><span class="pre">now-6.5</span></code>,
+<code class="docutils literal"><span class="pre">now+2.3</span></code>. Use &lt;,&gt;,and – to get a range of dates;
+e.g. <code class="docutils literal"><span class="pre">&gt;now-7</span></code>, <code class="docutils literal"><span class="pre">now-14--now</span></code></td>
 </tr>
 </tbody>
 </table>
 <p>You can also specify to order results by a specific field by using
 they</p>
 <p>Examples:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">query_tle</span><span class="p">({</span><span class="s1">&#39;PERIOD&#39;</span><span class="p">:</span> <span class="s1">&#39;&lt;128&#39;</span><span class="p">})</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">query_tle</span><span class="p">({</span><span class="s1">&#39;PERIOD&#39;</span><span class="p">:</span> <span class="s1">&#39;&lt;128&#39;</span><span class="p">})</span>
 <span class="go">Satellites currently in Low Earth Orbit (LEO = &lt;2000KM altitude).</span>
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">query_tle</span><span class="p">({</span><span class="s1">&#39;PERIOD&#39;</span><span class="p">:</span><span class="s1">&#39;1430--1450&#39;</span><span class="p">,</span> <span class="s1">&#39;orderby&#39;</span><span class="p">:</span><span class="s1">&#39;NORAD_CAT_ID&#39;</span><span class="p">})</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">query_tle</span><span class="p">({</span><span class="s1">&#39;PERIOD&#39;</span><span class="p">:</span><span class="s1">&#39;1430--1450&#39;</span><span class="p">,</span> <span class="s1">&#39;orderby&#39;</span><span class="p">:</span><span class="s1">&#39;NORAD_CAT_ID&#39;</span><span class="p">})</span>
 <span class="go">Satellites in geosynchronous orbit 1430 &lt;= period &lt;= 1450 minutes.</span>
 <span class="go">Sort results by Norad ID.</span>
 </pre></div>
@@ -415,11 +415,20 @@ they</p>
 
     
     
-      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+      <script type="text/javascript">
+          var DOCUMENTATION_OPTIONS = {
+              URL_ROOT:'../',
+              VERSION:'',
+              LANGUAGE:'None',
+              COLLAPSE_INDEX:false,
+              FILE_SUFFIX:'.html',
+              HAS_SOURCE:  true,
+              SOURCELINK_SUFFIX: '.txt'
+          };
+      </script>
         <script type="text/javascript" src="../_static/jquery.js"></script>
         <script type="text/javascript" src="../_static/underscore.js"></script>
         <script type="text/javascript" src="../_static/doctools.js"></script>
-        <script type="text/javascript" src="../_static/language_data.js"></script>
     
 
   

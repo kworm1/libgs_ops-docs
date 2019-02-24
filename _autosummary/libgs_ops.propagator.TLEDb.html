@@ -170,8 +170,8 @@
 <em class="property">class </em><code class="descclassname">libgs_ops.propagator.</code><code class="descname">TLEDb</code><span class="sig-paren">(</span><em>fname=None</em>, <em>tles=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/libgs_ops/propagator.html#TLEDb"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#libgs_ops.propagator.TLEDb" title="Permalink to this definition">¶</a></dt>
 <dd><p>Database of TLEs.</p>
 <p>The Database can be loaded from a file, or input directly.</p>
-<p>This class can serve as a drop-in replacement for <a class="reference internal" href="libgs_ops.propagator.SpaceTrackAPI.html#libgs_ops.propagator.SpaceTrackAPI" title="libgs_ops.propagator.SpaceTrackAPI"><code class="xref py py-class docutils literal notranslate"><span class="pre">SpaceTrackAPI</span></code></a>
-when creating a <a class="reference internal" href="libgs_ops.propagator.Propagator.html#libgs_ops.propagator.Propagator" title="libgs_ops.propagator.Propagator"><code class="xref py py-class docutils literal notranslate"><span class="pre">Propagator</span></code></a> as it implements the <code class="docutils literal notranslate"><span class="pre">get_tles</span></code> method.</p>
+<p>This class can serve as a drop-in replacement for <a class="reference internal" href="libgs_ops.propagator.SpaceTrackAPI.html#libgs_ops.propagator.SpaceTrackAPI" title="libgs_ops.propagator.SpaceTrackAPI"><code class="xref py py-class docutils literal"><span class="pre">SpaceTrackAPI</span></code></a>
+when creating a <a class="reference internal" href="libgs_ops.propagator.Propagator.html#libgs_ops.propagator.Propagator" title="libgs_ops.propagator.Propagator"><code class="xref py py-class docutils literal"><span class="pre">Propagator</span></code></a> as it implements the <code class="docutils literal"><span class="pre">get_tles</span></code> method.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">Only one of the arguments (fname or tles) must be specified, and not both.</p>
@@ -195,10 +195,10 @@ when creating a <a class="reference internal" href="libgs_ops.propagator.Propaga
 <col width="90%" />
 </colgroup>
 <tbody valign="top">
-<tr class="row-odd"><td><a class="reference internal" href="libgs_ops.propagator.TLEDb.get_tles.html#libgs_ops.propagator.TLEDb.get_tles" title="libgs_ops.propagator.TLEDb.get_tles"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_tles</span></code></a>(nids)</td>
+<tr class="row-odd"><td><a class="reference internal" href="libgs_ops.propagator.TLEDb.get_tles.html#libgs_ops.propagator.TLEDb.get_tles" title="libgs_ops.propagator.TLEDb.get_tles"><code class="xref py py-obj docutils literal"><span class="pre">get_tles</span></code></a>(nids)</td>
 <td>Query database for a series of norad IDs, and return the NIDs and TLEs in a dict.</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="libgs_ops.propagator.TLEDb.save_tles.html#libgs_ops.propagator.TLEDb.save_tles" title="libgs_ops.propagator.TLEDb.save_tles"><code class="xref py py-obj docutils literal notranslate"><span class="pre">save_tles</span></code></a>(fname[,&nbsp;fformat])</td>
+<tr class="row-even"><td><a class="reference internal" href="libgs_ops.propagator.TLEDb.save_tles.html#libgs_ops.propagator.TLEDb.save_tles" title="libgs_ops.propagator.TLEDb.save_tles"><code class="xref py py-obj docutils literal"><span class="pre">save_tles</span></code></a>(fname[,&nbsp;fformat])</td>
 <td>Save the database to file.</td>
 </tr>
 </tbody>
@@ -257,11 +257,20 @@ when creating a <a class="reference internal" href="libgs_ops.propagator.Propaga
 
     
     
-      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+      <script type="text/javascript">
+          var DOCUMENTATION_OPTIONS = {
+              URL_ROOT:'../',
+              VERSION:'',
+              LANGUAGE:'None',
+              COLLAPSE_INDEX:false,
+              FILE_SUFFIX:'.html',
+              HAS_SOURCE:  true,
+              SOURCELINK_SUFFIX: '.txt'
+          };
+      </script>
         <script type="text/javascript" src="../_static/jquery.js"></script>
         <script type="text/javascript" src="../_static/underscore.js"></script>
         <script type="text/javascript" src="../_static/doctools.js"></script>
-        <script type="text/javascript" src="../_static/language_data.js"></script>
     
 
   
